@@ -24,14 +24,15 @@ enemy_att(wolf, 800).
 enemy_att(wolf, 600).
 
 /* Current HP */
-current_hp([10]).
+/* current_hp([10]). */
 
 /* Rules */
-enemy(Name, Level, Type, HP, DP, AP) :-
+enemy(Name, Type, Level, MaxHP, HP, DP, AP) :-
     enemy_type(Type),
     enemy_hp(Type, Base_hp),
     enemy_def(Type, Base_def),
     enemy_att(Type, Base_att),
+    MaxHP is Base_hp * Level,
     HP is Base_hp * Level,
     DP is Base_def * Level,
     AP is Base_att * Level,
