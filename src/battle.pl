@@ -25,7 +25,7 @@ foundEnemy :-
     random(11, 13, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -40,7 +40,7 @@ foundEnemy :-
     random(21, 23, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -55,7 +55,7 @@ foundEnemy :-
     random(31, 33, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -70,7 +70,7 @@ foundEnemy :-
     random(41, 43, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -85,7 +85,7 @@ foundEnemy :-
     random(51, 53, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -100,7 +100,7 @@ foundEnemy :-
     random(61, 63, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -115,7 +115,7 @@ foundEnemy :-
     random(71, 73, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -130,7 +130,7 @@ foundEnemy :-
     random(81, 83, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -145,7 +145,7 @@ foundEnemy :-
     random(91, 93, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -160,7 +160,7 @@ foundEnemy :-
     random(101, 103, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
     MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP))
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 10, P),
@@ -176,6 +176,8 @@ foundBoss :-
     CharLevel == 3,
     ID is 34,
     enemy(ID, Name, Level, Type, HP, DP, AP),
+    MaxHP is HP,
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 6, P),
@@ -189,6 +191,8 @@ foundBoss :-
     CharLevel == 5,
     ID is 54,
     enemy(ID, Name, Level, Type, HP, DP, AP),
+    MaxHP is HP,
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 6, P),
@@ -202,6 +206,8 @@ foundBoss :-
     CharLevel == 7,
     ID is 74,
     enemy(ID, Name, Level, Type, HP, DP, AP),
+    MaxHP is HP,
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 6, P),
@@ -215,6 +221,8 @@ foundBoss :-
     CharLevel == 9,
     ID is 94,
     enemy(ID, Name, Level, Type, HP, DP, AP),
+    MaxHP is HP,
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 6, P),
@@ -228,6 +236,8 @@ foundBoss :-
     CharLevel == 10,
     ID is 104,
     enemy(ID, Name, Level, Type, HP, DP, AP),
+    MaxHP is HP,
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     asserta(isCharAlive(1)),
     random(1, 6, P),
@@ -237,7 +247,7 @@ foundBoss :-
 
 /* **** Commentary **** */
 attComment :-
-    enemy(_, EnemyName, _, _, EnemyHP, EnemyDP, EnemyAP),
+    enemyInFight(_, EnemyName, _, _, _, EnemyHP, _, _),
     EnemyHP > 0,
     write('Enemy health '), write(EnemyName), write(' : '), write(EnemyHP), nl,
     write('Enemy turn!'), nl,
@@ -246,30 +256,31 @@ attComment :-
     enemyTurn, !.
 
 attComment :-
-    enemy(ID, EnemyName, _, _, EnemyHP, EnemyDP, EnemyAP),
+    enemyInFight(_, _, _, _, EnemyHP, _, _),
     EnemyHP =< 0,
     retract(isEnemyAlive(1)),
     asserta(isEnemyAlive(0)),
     write('You win '), nl,
     write('...'), nl,
-    sleep(1),
+    sleep(1), !.
     /* lanjut ke ? */
 
 enemyAttComment :-
-    character(CharName, _, _, CharHP, CharDP, CharAP),
+    character(CharName, _, _, CharHP, _, _),
     CharHP > 0,
     write('Char health '), write(CharName), write(' : '), write(CharHP), nl,
     sleep(1),
     charTurn, !.
 
 enemyAttComment :-
-    character(CharName, _, _, CharHP, CharDP, CharAP),
+    character(_, _, _, CharHP, _, _),
     CharHP =< 0,
     retract(isCharAlive(1)),
     asserta(isCharAlive(0)),
     write('You dead'), nl.
     sleep(1),
-    / * ke fail state */
+    /* ke fail state */
+    !.
 
 /* **** Attack **** */
 charTurn :-
@@ -281,7 +292,7 @@ attack :-
     character(_, CharName, _, _, _, _, CharAttack, _, _),
     enemy(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
     retract(enemy(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP)),
-    CharAtt is (Attack),
+    CharAtt is (CharAttack),
     NewEnemyHP is (EnemyHP-CharAtt),
     asserta(enemyInFight(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, NewEnemyHP,EnemyDP,EnemyAP)),
     write(CharName), write(' attacks and deals '), write(CharAtt), write(' damage.'), nl,
@@ -309,7 +320,7 @@ specialAttack :-
     character(_, CharName, _, _, _, _, CharAttack, _, _),
     enemy(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
     retract(enemy(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP)),
-    CharAtt is (Attack * 2), 
+    CharAtt is (CharAttack * 2), 
     NewEnemyHP is (EnemyHP-CharAtt),
     asserta(enemyInFight(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, NewEnemyHP,EnemyDP,EnemyAP)),
     write(CharName), write(' uses special attack and deals '), write(CharAtt), write(' damage.'), nl,
@@ -320,7 +331,7 @@ specialAttack :-
 /* ** Enemy Turn ** */
 enemyTurn :-
     enemyInFight(_, EnemyName, _, _, _, _, _, EnemyAP),
-    character(_, _, _, _, CharHP, CharDP, CharAP),
+    character(_, _, _, _, CharHP, CharDP, _),
     retract(character(_, _, _, _, CharHP, CharDP, _)),
     EnemyDmg is (EnemyAP),
     NewCharHP is (CharHP-EnemyDmg),
@@ -358,7 +369,8 @@ usePot :-
     character(CharName, _, _, _, CharHP, _, _),
     retract(character(CharName, _, _, CharMaxHP, CharHP, _, _)),
     potion(PotType, PotionHeal),
-    CharHP + PotionHeal =< CharMaxHP
+    PotType == 'Healing',
+    CharHP + PotionHeal =< CharMaxHP,
     NewCharHP is CharHP + PotionHeal,
     asserta(character(CharName, _, _, _, NewCharHP, _, _)),
     write(CharName), write(' just used a potion, heals '), write(PotionHeal),
@@ -370,8 +382,9 @@ usePot :-
     character(CharName, _, _, _, CharHP, _, _),
     retract(character(CharName, _, _, CharMaxHP, CharHP, _, _)),
     potion(PotType, PotionHeal),
-    CharHP + PotionHeal >= CharMaxHP
-    NewCharHP is CharMaxHP
+    PotType == 'Healing',
+    CharHP + PotionHeal >= CharMaxHP,
+    NewCharHP is CharMaxHP,
     asserta(character(CharName, _, _, _, NewCharHP, _, _)),
     write(CharName), write(' just used a potion, heals '), write(CharMaxHP - PotionHeal),
     enemyTurn,

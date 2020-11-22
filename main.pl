@@ -28,26 +28,29 @@ title :-
     write('#            d : move toward east one step            #'), nl,
     write('# 4. quit   : To quit the game and                    #'), nl,
     write('#             realize you have assignments to do      #'), nl,
-    write('#######################################################'), nl,
+    write('#######################################################'), nl.
     
 
 start :-
     /* command utama untuk start new */
     \+ init(_),
-    asserta(init(1)).
     title,
+    asserta(init(1)),
+    !.
     
 start :-
     init(_),
-    write('The game has started').
+    write('The game has started'),
+    !.
 
 quit :-
     \+ init(_),
-    write('The game is not started').
+    write('The game is not started'),
+    !.
 
 quit :-
     write('Now go! Realize your pitiful life!'), nl,
     write('Do not forget you have a lot of assignments to be done any time soon!'),
     /* semua data diretract */
     retract(init(_)),
-    
+    !.   
