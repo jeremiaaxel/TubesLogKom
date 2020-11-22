@@ -1,5 +1,5 @@
 dynamic(inventory/1).
-dynamic(currHP/1)
+dynamic(currHP/1).
 
 /* Job: swordsman, archer, sorcerer */
 job(characterX,swordsman).
