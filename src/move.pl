@@ -1,40 +1,229 @@
 /* Exploration Mechanism */
+
 /* Facts */
-place(boss).
-place(quest).
-place(store).
-place(field).
-place(fence).
-location(x).
-location(y).
-w(place,locationX,locationY).
-a(place,locationX,locationY).
-s(place,locationX,locationY).
-d(place,locationX,locationY).
+/*inisialisasi fakta map(1,1,fence) sampai map(16,19,fence)...(?)*/
+map(1,3,store).
+map(15,18,dungeon).
+map(7,4,quest).
+map(8,8,quest).
+map(12,14,quest).
+
 
 /* Rules */
-w :- w(place,locationX,locationY),\+place(fence).
 /*pemain berpindah 1 tile ke atas*/
+w :- begin(true),
+    fighting(false),
+    map(x,y,_place),
+    z is y+1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    \+foundEnemy,
+    \+foundBoss,
+    \+foundQuest,
+    write('You move north.'),!.
 
-a :- a(place,locationX,locationY),\+place(fence).
+/* Jika ada musuh*/
+w :- begin(true),
+    fighting(false),
+    map(x,y,_place),
+    z is y+1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    foundEnemy,!.
+
+/* Jika berada di tile bos*/
+w :- begin(true),
+    fighting(false),
+    map(x,y,_place),
+    z is y+1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    foundBoss,!.
+
+/* Jika menemukan quest */
+w :- begin(true),
+    fighting(false),
+    map(x,y,_place),
+    z is y+1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    foundQuest,!.
+
+/* Jika nabrak pagar */
+w :- begin(true),
+    fighting(false),
+    map(x,y,_place),
+    z is y+1,
+    map(x,z,fence),
+    write('You hit a fence. I began to lose faith in you, mortal.').
+
+/* Jika game belum mulai */
+w :- begin(false),
+    write("You can't move before you start the game."),!.
+
+/* Jika lagi melawan musuh */
+w :- fighting(true),run.
+
+/*----------------------------------*/
+
 /*pemain berpindah 1 tile ke kiri*/
+a :- begin(true),
+    map(x,y,_place),
+    z is x-1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    \+foundEnemy,
+    \+foundBoss,
+    \+foundQuest,
+    write('You move west.'),!.
 
-s :- s(place,locationX,locationY),\+place(fence).
+/* Jika ketemu musuh*/
+a :- begin(true),
+    map(x,y,_place),
+    z is x-1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    foundEnemy,!.
+
+/* Jika berada di tile bos */
+a :- begin(true),
+    map(x,y,_place),
+    z is x-1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    foundBoss,!.
+
+/* Jika menemukan quest */
+a :- begin(true),
+    map(x,y,_place),
+    z is x-1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    foundQuest,!.
+
+/* jika menabrak pagar */
+a :- begin(true),
+    map(x,y,_place),
+    z is x-1,
+    map(z,y,fence),
+    write('You hit a fence. I began to lose faith in you, mortal.').
+
+/* Jika game belum dimulai */
+a :- begin(false),
+    write("You can't move before you start the game."),!.
+
+/* Jika sedang melawan musuh */
+a :- fighting(true), run.
+
+/*----------------------------------*/
+
+
 /*pemain berpindah 1 tile ke bawah*/
+s :- begin(true),
+    map(x,y,_place),
+    z is y-1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    \+foundEnemy,
+    \+foundBoss,
+    \+foundQuest,
+    write('You move south.'),!.
 
-d :- d(place,locationX,locationY),\+place(fence).
+/* Jika ketemu musuh */
+s :- begin(true),
+    map(x,y,_place),
+    z is y-1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    foundEnemy,!.
+
+/* Jika ketemu bos */
+s :- begin(true),
+    map(x,y,_place),
+    z is y-1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    foundBoss,!.
+
+/* Jika menemukan quest */
+s :- begin(true),
+    map(x,y,_place),
+    z is y-1,
+    \+map(x,z,fence),
+    map(x,z,_place),
+    foundQuest,!.
+
+/* Jika menabrak pagar */
+s :- begin(true),
+    map(x,y,_place),
+    z is y-1,
+    map(x,z,fence),
+    write('You hit a fence. I began to lose faith in you, mortal.').
+
+/* Jika game belum dimulai */
+s :- begin(false),
+    write("You can't move before you start the game."),!.
+
+/* Jika sedang melawan musuh */
+s :- fighting(true), run.
+
+/*----------------------------------*/
+
+
 /*pemain berpindah 1 tile ke kanan*/
+d :- begin(true),
+    map(x,y,_place),
+    z is x+1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    \+foundEnemy,
+    \+foundBoss,
+    \+foundQuest,
+    write('You move east.'),!.
 
-fence :- place(fence),write('You hit a fence. I began to lose trust in you, mortal.'),!.
-/*pemain mengenai pagar*/
+/* Jika ketemu musuh */
+d :- begin(true),
+    map(x,y,_place),
+    z is x+1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    foundEnemy,!.
 
-/*lokasi unik*/
-bossLoc :- place(boss).
-/*pemain berada di tile boss*/
+/* Jika berada di tile bos */
+d :- begin(true),
+    map(x,y,_place),
+    z is x+1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    foundBoss,!.
 
-questLoc :- place(quest).
-/*pemain berada di tile quest*/
+/* Jika menemukan quest */
+d :- begin(true),
+    map(x,y,_place),
+    z is x+1,
+    \+map(z,y,fence),
+    map(z,y,_place),
+    foundQuest,!.
 
-storeLoc :- place(store).
-/*pemain berada di tile store*/
+/* Jika menabrak pagar */
+d :- begin(true),
+    map(x,y,_place),
+    z is x+1,
+    map(z,y,fence),
+    write('You hit a fence. I began to lose faith in you, mortal.').
 
+/* Jika game belum dimulai */
+d :- begin(false),
+    write("You can't move before you start the game."),!.
+
+/* Jika sedang melawan musuh */
+d :- fighting(true),run.
+
+/*pemain melihat status pemain*/
+status :- write('Your status: '),nl,
+    write('Job: '),write(job),nl,
+    write('Level: '),write(level),nl,
+    write('Health: '),write(health),nl,
+    write('Attack: '),write(attack),nl,
+    write('Defense: '),write(defense),nl,
+    write('Gold: '),write(gold).
