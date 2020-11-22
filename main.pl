@@ -1,4 +1,5 @@
 :- dynamic(init/1).
+:- dynamic(player/1).
 
 :- include('src/battle.pl').
 :- include('src/character.pl').
@@ -11,25 +12,32 @@
 :- include('src/quest.pl').
 :- include('src/store.pl').
 
+help :-
+    write('Commands:'), nl,
+    write('1. start  : To start to waste your useless life'), nl,
+    write('2. map    : To show map'), nl,
+    write('3. status : To show your status of course'), nl,
+    write('4. moving commands:'), nl,
+    write('           w : move toward north one step'), nl,
+    write('           a : move toward west one step'), nl,
+    write('           s : move toward south one step'), nl,
+    write('           d : move toward east one step'), nl,
+    write('5. help   : show all commands and legends'), nl,
+    write('6. quit   : To quit the game because'), nl,
+    write('            you realise you have assignments to do'), nl, nl,
+    write('Legends:'), nl,
+    write('   - P = Player'), nl,
+    write('   - # = Wall'), nl,
+    write('   - S = Store'), nl,
+    write('   - D = (Boss) Dungeon'), nl,
+    write('   - Q = Quest'), nl.
+
 title :-
     /* welcome msg */
     write('Welcome to Indomaret. Happy shopping.'), nl,
     write('Fresh bread please, fresh fruit please.'), nl,
-    write('#######################################################'), nl,
-    write('#               Untitled                              #'), nl,
-    write('# Commands                                            #'), nl,
-    write('# 1. start  : To start to waste your useless life     #'), nl,
-    write('# 2. map    : To show map                             #'), nl,
-    write('# 3. status : To show your status of course           #'), nl,
-    write('# 4. Move commands :                                  #'), nl,
-    write('#            w : move toward north one step           #'), nl,
-    write('#            a : move toward west one step            #'), nl,
-    write('#            s : move toward south one step           #'), nl,
-    write('#            d : move toward east one step            #'), nl,
-    write('# 4. quit   : To quit the game and                    #'), nl,
-    write('#             realize you have assignments to do      #'), nl,
-    write('#######################################################'), nl.
-    
+    write('untitled'), nl, nl,
+    help.
 
 start :-
     /* command utama untuk start new */

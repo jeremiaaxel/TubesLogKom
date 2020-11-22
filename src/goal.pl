@@ -13,4 +13,5 @@ goal :- winFinal(boss),
         write('You are a hero of Wangardium.').
 
 /* Pemain kalah melawan bos */
-goal :- hp(characterX,0),!,write('You lose, pathetic mortal.').
+goal :- hp(characterX,0),!,
+        lose.
