@@ -1,4 +1,6 @@
 :- dynamic(init/1).
+:- dynamic(player/1).
+:- dynamic(sure/1).
 
 :- include('src/battle.pl').
 :- include('src/character.pl').
@@ -35,26 +37,65 @@ help :-
 title :-
     /* welcome msg */
     sleep(0.5),
-    write('Welcome to Indomaret. Happy shopping.'), nl,
-    write('Fresh bread please, fresh fruit please.'), nl,
-    sleep(0.5),
-    write('untitled'), nl, nl,
+    write('     W   E   L   C   O   M   E      T   O     '),nl,
+    /* cls :- write('\e[2J').
+    fungsi buat clear screen
+    buat animasi uwu
+    tapi nanti yeyeyeyye*/
+    sleep(0.2),
+    write('  W  I  L  L  Y    A  D  V  E  N  T  U  R  E  '), nl, nl,
     sleep(0.5),
     help.
+
 
 start :-
     /* command utama untuk start new */
     \+ init(_),
     title,
+    /* input username dan konfirmasi */
+    repeat,
+    write('Insert username :'), nl,
+    read(Username),
+    write(Username), write(' is your username, are you sure? (y/n)'),
+    read(Sure),
+    sure(Sure),
+    end_condition(Sure),
+    retract(sure(_)),
+    /* input job dan pemeriksaan */
+    repeat,
+    write('Choose your job :'), nl,
+    write('1. Swordsman'), nl,
+    write('2. Archer'), nl,
+    write('3. Sorcerer'), nl,
+    read(Job),
+    jobExist(Job),
+    end_condition(Job),
+    defaultStat(Job,MaxHP,DP,AP),
+    asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP)),
+    insertDefault(Job),
+    random(10,20,Len),
+    random(10,20,Width),
+    initMap(Len,Width),
     asserta(init(1)),
     !.
-    
+
+/* Konfirmasi username */
+sure(Sure) :- Sure =:= 'y', !.
+
+/* Check ada ga jobnya */
+jobExist(Job) :- 
+    character(_, Job, _, _, _, _, _),
+    !.
+
+jobExist(Job) :- 
+    write('Jobless. Job is not exist.').
+
+/* start command */
+start :-
+start :-
 start :-
     init(_),
     write('The game has started'),
-    random(10,20,Len),
-    random(10,20,Witdh),
-    initMap(Len,Width),
     !.
 
 quit :-
@@ -64,13 +105,24 @@ quit :-
 
 quit :-
     write('Now go! Realize your pitiful life!'), nl,
-    write('Do not forget you have a lot of assignments to be done any time soon!'),
+    write('Do not forget you have a lot of assignments to be done any time soon!'),nl,
+    sleep(0.5),
+    write('Made by Kelompok 07 Kelas 04 - wollowongko'),nl,
+    write('insert nim'),
+    /* semua data diretract */
+    /* semua data diretract */
+    /* semua data diretract */
+    /* semua data diretract */
+    /* semua data diretract */
     /* semua data diretract */
     retract(init(_)),
     retract(len(_)),
     retract(width(_)),
     retract(wall(_)),
-    retract(posX(_)),
-    retract(posY(_)),
+    retract(posPlayer(_)),
     retract(dungeon(_,_)),
+    retract(quest1(_,_)),
+    retract(quest2(_,_)),
+    retract(quest3(_,_)),
+    retract(store(_,_)),
     !.   

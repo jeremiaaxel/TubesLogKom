@@ -1,14 +1,5 @@
 /* Exploration Mechanism */
 
-/* Facts */
-/*inisialisasi fakta map(1,1,fence) sampai map(16,19,fence)...(?)*/
-map(1,3,store).
-map(15,18,dungeon).
-map(7,4,quest).
-map(8,8,quest).
-map(12,14,quest).
-
-
 /* Rules */
 /*pemain berpindah 1 tile ke atas*/
 w :- begin(true),
