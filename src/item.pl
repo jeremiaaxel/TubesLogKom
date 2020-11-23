@@ -1,5 +1,4 @@
 /* Items */
-:- include('character.pl').
 
 /* Facts */
 :- dynamic(weapon/1).
@@ -29,19 +28,27 @@ checkItem([N,Type,Z],Y) :-
 checkItem([N,_,_],Y) :- 
     Y is N.
 
+/* Insert awal pembuatan character */
 insertDefault(Job) :-
     Job=swordsman,!,
     insert([1,'Wood','Sword'],yes),
-    insert([1,'Leather','Armor'],yes).
+    insert([1,'Leather','Armor'],yes),
+    insert('Health',no).
 insertDefault(Job) :-
     Job=archer,!,
     insert([1,'Short','Bow'],yes),
-    insert([1,'Leather','Armor'],yes).
+    insert([1,'Leather','Armor'],yes),
+    insert('Health',no).
 insertDefault(Job) :-
     Job=sorcerer,!,
     insert([1,'Fireball','Spellscroll'],yes),
-    insert([1,'Leather','Armor'],yes).
+    insert([1,'Leather','Armor'],yes),
+    insert('Health',no).
 
+/* Insert item pada inventory dan equip jika dibutuhkan */
+insert(Item,_) :-
+    Item='Health',!,
+    assertz(potion('Health',1,10)).
 insert(Item,Equip) :- 
     back(Item,Type),
     (Type='Sword'; Type='Bow'; Type='Spellscroll'),!,

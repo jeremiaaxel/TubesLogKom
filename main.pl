@@ -23,8 +23,14 @@ help :-
     write('           a : move toward west one step'), nl,
     write('           s : move toward south one step'), nl,
     write('           d : move toward east one step'), nl,
-    write('5. help   : show all commands and legends'), nl,
-    write('6. quit   : To quit the game because'), nl,
+    write('5. shop   : To open shop menu'), nl,
+    write('6. battle commands:'), nl,
+    write('           attack        : attack enemy'), nl,
+    write('           specialAttack : attack enemy using special power'), nl,
+    write('           usePotion     : use a health potion to regain HP'), nl,
+    write('           run           : run from a battle'), nl,
+    write('7. help   : show all commands and legends'), nl,
+    write('8. quit   : To quit the game because'), nl,
     write('            you realise you have assignments to do'), nl, nl,
     sleep(0.5),
     write('Legends:'), nl,
@@ -58,8 +64,7 @@ start :-
     read(Username),
     write(Username), write(' is your username, are you sure? (y/n)'),
     read(Sure),
-    sure(Sure),
-    end_condition(Sure),
+    sure(Sure),!,
     retract(sure(_)),
     /* input job dan pemeriksaan */
     repeat,
@@ -68,8 +73,7 @@ start :-
     write('2. Archer'), nl,
     write('3. Sorcerer'), nl,
     read(Job),
-    jobExist(Job),
-    end_condition(Job),
+    jobExist(Job),!,
     defaultStat(Job,MaxHP,DP,AP),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP)),
     insertDefault(Job),
@@ -84,7 +88,7 @@ sure(Sure) :- Sure =:= 'y', !.
 
 /* Check ada ga jobnya */
 jobExist(Job) :- 
-    character(_, Job, _, _, _, _, _),
+    Job=swordsman;Job=archer;Job=sorcerer,
     !.
 
 jobExist(Job) :- 
