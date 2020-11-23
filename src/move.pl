@@ -37,17 +37,26 @@ w :- begin(true),
     map(X,Y,Place),
     Z is Y+1,
     \+map(X,Z,fence),
-    map(X,Z,Place),
+    map(X,Z,dungeon),
     foundBoss,!.
 
 /* Jika menemukan quest */
+W :- begin(true),
+    fighting(false),
+    map(X,Y,Place),
+    Z is Y+1,
+    \+map(X,Z,fence),
+    map(X,Z,quest),
+    foundQuest,!.
+
+/* Jika berada di tile store */
 w :- begin(true),
     fighting(false),
     map(X,Y,Place),
     Z is Y+1,
     \+map(X,Z,fence),
-    map(X,Z,Place),
-    foundQuest,!.
+    map(X,Z,store),
+    write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika nabrak pagar */
 w :- begin(true),
@@ -90,7 +99,7 @@ a :- begin(true),
     map(X,Y,Place),
     Z is X-1,
     \+map(Z,Y,fence),
-    map(Z,Y,Place),
+    map(Z,Y,dungeon),
     foundBoss,!.
 
 /* Jika menemukan quest */
@@ -98,8 +107,16 @@ a :- begin(true),
     map(X,Y,Place),
     Z is X-1,
     \+map(Z,Y,fence),
-    map(Z,Y,Place),
+    map(Z,Y,quest),
     foundQuest,!.
+
+/* Jika berada di tile store */
+a :- begin(true),
+    map(X,Y,Place),
+    Z is X-1,
+    \+map(Z,Y,fence),
+    map(Z,Y,store),
+    write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* jika menabrak pagar */
 a :- begin(true),
@@ -134,7 +151,7 @@ s :- begin(true),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
-    map(X,Z,_place),
+    map(X,Z,Place),
     foundEnemy,!.
 
 /* Jika ketemu bos */
@@ -142,7 +159,7 @@ s :- begin(true),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
-    map(X,Z,Place),
+    map(X,Z,dungeon),
     foundBoss,!.
 
 /* Jika menemukan quest */
@@ -150,8 +167,16 @@ s :- begin(true),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
-    map(X,Z,Place),
+    map(X,Z,quest),
     foundQuest,!.
+
+/* Jika berada di tile store */
+s :- begin(true),
+    map(X,Y,Place),
+    Z is Y-1,
+    \+map(X,Z,fence),
+    map(X,Z,store),
+    write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika menabrak pagar */
 s :- begin(true),
@@ -194,7 +219,7 @@ d :- begin(true),
     map(X,Y,Place),
     Z is X+1,
     \+map(Z,Y,fence),
-    map(Z,Y,Place),
+    map(Z,Y,dungeon),
     foundBoss,!.
 
 /* Jika menemukan quest */
@@ -202,8 +227,16 @@ d :- begin(true),
     map(X,Y,Place),
     Z is X+1,
     \+map(Z,Y,fence),
-    map(Z,Y,Place),
+    map(Z,Y,quest),
     foundQuest,!.
+
+/* Jika berada di tile store */
+d :- begin(true),
+    map(X,Y,Place),
+    Z is X+1,
+    \+map(Z,Y,fence),
+    map(Z,Y,store),
+    write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika menabrak pagar */
 d :- begin(true),
