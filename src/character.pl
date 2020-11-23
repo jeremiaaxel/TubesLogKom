@@ -27,10 +27,10 @@ character(_, sorcerer, _, 2500, 2500, 1000, 450).*/
 /* Rules */
 defaultStat(Job,MaxHP,DP,AP) :-
     Job = swordsman,!,
-    MaxHP 3000, DP = 2000, AP = 300.
+    MaxHP = 3000, DP = 2000, AP = 300.
 defaultStat(Job,MaxHP,DP,AP) :-
     Job = archer,!,
-    MaxHP 3000, DP = 1500, AP = 400.
+    MaxHP = 3000, DP = 1500, AP = 400.
 defaultStat(Job,MaxHP,DP,AP) :-
     Job = sorcerer,!,
-    MaxHP 2500, DP = 1000, AP = 450.
+    MaxHP = 2500, DP = 1000, AP = 450.

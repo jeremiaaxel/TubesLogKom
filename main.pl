@@ -92,8 +92,6 @@ jobExist(Job) :-
 
 /* start command */
 start :-
-start :-
-start :-
     init(_),
     write('The game has started'),
     !.
@@ -109,11 +107,6 @@ quit :-
     sleep(0.5),
     write('Made by Kelompok 07 Kelas 04 - wollowongko'),nl,
     write('insert nim'),
-    /* semua data diretract */
-    /* semua data diretract */
-    /* semua data diretract */
-    /* semua data diretract */
-    /* semua data diretract */
     /* semua data diretract */
     retract(init(_)),
     retract(len(_)),
