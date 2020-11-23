@@ -26,7 +26,7 @@ gacha :- /* Untuk random item yang didapatkan player */
     minusGold(100),
     randomItem([Type,X]),
     write('You got...\n'),sleep(0.5),
-    printlist([1|[Type,X]]),print('\n'),
+    printlist([1|[Type,X]]),nl,
     checkItem([1|[Type,X]],N),
     write('Do you want to equip the item ?'),
     read(Op),

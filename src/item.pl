@@ -1,4 +1,6 @@
 /* Items */
+:- include('character.pl').
+
 /* Facts */
 :- dynamic(weapon/1).
 :- dynamic(armor/1).
@@ -76,19 +78,47 @@ equipItem(accessory([N,Type,X])) :-
 inventory :- 
     weapon(Item),
     printlist(Item),
-    (equip(weapon(Item)),print(' (Equipped)\n');print('\n')),
+    (equip(weapon(Item)),print(' (Equipped)\n');nl),
     fail.
 inventory :- 
     armor(Item),
     printlist(Item),
-    (equip(armor(Item)),print(' (Equipped)\n');print('\n')),
+    (equip(armor(Item)),print(' (Equipped)\n');nl),
     fail.
 inventory :- 
     accessory(Item),
     printlist(Item),
-    (equip(accessory(Item)),print(' (Equipped)\n');print('\n')),
+    (equip(accessory(Item)),print(' (Equipped)\n');nl),
     fail.
-inventory :- potion(Type,N),printlist([N,Type,'potion']),print('\n'),fail.
+inventory :- 
+    potion(Type,N),
+    printlist([N,Type,'potion']),
+    nl,
+    fail.
+
+/*
+choosePotion :-
+    potion(N,Type),!,
+    print('Which potion you want to use:\n'),
+    printlist([N,Type,'potion']).
+choosePotion :-
+    print('You have run out of potion!'),
+    fail.*/
+
+heal. /* Nambah status health player */ 
+
+usePotion :- 
+    /*choosePotion,
+    read(Type),
+    Type=health,*/
+    potion(N,'Health'),!,
+    retract(potion(N,'Health')),
+    N1 is N-1,
+    assertz(potion(N1,'Health')).
+    /*heal.*/ 
+
+usePotion :-
+    print('You have run out of healing potion!'),fail.
 
 /* Print List */
 printlist([Head|[]]) :- !,print(Head).
