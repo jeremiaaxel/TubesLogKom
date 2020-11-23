@@ -20,7 +20,7 @@ isCharAlive(1).
 /* Bertemu dengan musuh yang levelnya sama dengan character */
 /* 1 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 1,
     random(1, 3, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -35,7 +35,7 @@ foundEnemy :-
 
 /* 2 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 2,
     random(1, 6, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -50,7 +50,7 @@ foundEnemy :-
 
 /* 3 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 3,
     random(4, 9, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -65,7 +65,7 @@ foundEnemy :-
 
 /* 4 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 4,
     random(7, 12, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -80,7 +80,7 @@ foundEnemy :-
 
 /* 5 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 5,
     random(10, 15, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -95,7 +95,7 @@ foundEnemy :-
 
 /* 6 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 6,
     random(13, 18, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -110,7 +110,7 @@ foundEnemy :-
 
 /* 7 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 7,
     random(16, 21, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -125,7 +125,7 @@ foundEnemy :-
 
 /* 8 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 8,
     random(19, 24, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -140,7 +140,7 @@ foundEnemy :-
 
 /* 9 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 9,
     random(22, 27, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -155,7 +155,7 @@ foundEnemy :-
 
 /* 10 */
 foundEnemy :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 10,
     random(25, 30, ID),
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -172,7 +172,7 @@ foundEnemy :-
 /* Bertemu boss yang sesuai level character */
 /* 3 */
 foundBoss :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 3,
     ID is 101,
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -187,7 +187,7 @@ foundBoss :-
 
 /* 5 */
 foundBoss :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 5,
     ID is 102,
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -202,7 +202,7 @@ foundBoss :-
 
 /* 7 */
 foundBoss :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 7,
     ID is 103,
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -217,7 +217,7 @@ foundBoss :-
 
 /* 9 */
 foundBoss :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 9,
     ID is 104,
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -232,7 +232,7 @@ foundBoss :-
 
 /* 10 */
 foundBoss :-
-    character(_, _, CharLevel, _, _, _, _),
+    character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 10,
     ID is 105,
     enemy(ID, Name, Level, Type, HP, DP, AP),
@@ -267,11 +267,11 @@ attComment :-
     /* lanjut ke ? */
 
 expUp :-
-    character(_, _, Exp),
+    character(_, _, Level, _, _, _, _, Exp),
     enemyInFight(_, _, Level, _, _, _, _, _),
     Exp2 is Exp + Level*10,
-    retract(character(_, )),
-    asserta(character(_, Exp2)),
+    retract(character(_, _, Level, _, _, _, _, Exp)),
+    asserta(character(_, _, Level, _, _, _, _, Exp2)),
     isLevelUp,
     !.
 
@@ -281,17 +281,17 @@ isLevelUp :-
     Exp2 is 0,
     Level2 is Level + 1,
     retract(character(_, _, _, _, _, _, _, _)),
-    asserta(character(_, _, Level2, _, _, _, _, Exp2))
+    asserta(character(_, _, Level2, _, _, _, _, Exp2)).
 
 enemyAttComment :-
-    character(CharName, _, _, CharHP, _, _),
+    character(CharName, _, _, CharHP, _, _, _, _),
     CharHP > 0,
     write('Char health '), write(CharName), write(' : '), write(CharHP), nl,
     sleep(1),
     charTurn, !.
 
 enemyAttComment :-
-    character(_, _, _, CharHP, _, _),
+    character(_, _, _, CharHP, _, _, _, _),
     CharHP =< 0,
     retract(isCharAlive(1)),
     asserta(isCharAlive(0)),
@@ -307,7 +307,7 @@ charTurn :-
     attack.
 
 attack :-
-    character(_, CharName, _, _, _, _, CharAttack, _, _),
+    character(_, CharName, _, _, _, _, CharAttack, _),
     enemy(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
     retract(enemy(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP)),
     CharAtt is (CharAttack*(100/100+EnemyDP)),
@@ -341,7 +341,7 @@ specialAttack :-
     X >= 3,
     retract(turns(_)),
     asserta(turns(0)),
-    character(_, CharName, _, _, _, _, CharAttack, _, _),
+    character(_, CharName, _, _, _, _, CharAttack, _),
     enemy(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
     retract(enemy(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP)),
     CharAtt is (CharAttack * 2 * (100/100+EnemyDP)), 
@@ -358,11 +358,11 @@ specialAttack :-
 /* ** Enemy Turn ** */
 enemyTurn :-
     enemyInFight(_, EnemyName, _, _, _, _, _, EnemyAP),
-    character(_, _, _, _, CharHP, CharDP, _),
-    retract(character(_, _, _, _, CharHP, CharDP, _)),
+    character(_, _, _, _, CharHP, CharDP, _, _),
+    retract(character(_, _, _, _, CharHP, CharDP, _, _)),
     EnemyDmg is (EnemyAP*(100/100+CharDP)),
     NewCharHP is (CharHP-EnemyDmg),
-    asserta(character(_, _, _, _, _, NewCharHP, CharDP, _)),
+    asserta(character(_, _, _, _, NewCharHP, CharDP, _, _)),
     write(EnemyName), write(' attacks and deals '), write(EnemyDmg), write(' damage.'), nl,
     enemyAttackComment, !.
 
@@ -393,8 +393,8 @@ run :-
 /* **** Use Potion **** */
 /* Use potion normal */
 usePotion :-
-    character(CharName, _, _, _, CharHP, _, _),
-    retract(character(CharName, _, _, CharMaxHP, CharHP, _, _)),
+    character(CharName, _, _, _, CharHP, _, _, _),
+    retract(character(CharName, _, _, CharMaxHP, CharHP, _, _, _)),
     usePot,
     CharHP + Heal < CharMaxHP,
     NewCharHP is CharHP + Heal,
@@ -404,8 +404,8 @@ usePotion :-
 
 /* Use potion lebih dari MaxHP */
 usePotion :-
-    character(CharName, _, _, _, CharHP, _, _),
-    retract(character(CharName, _, _, CharMaxHP, CharHP, _, _)),
+    character(CharName, _, _, _, CharHP, _, _, _),
+    retract(character(CharName, _, _, CharMaxHP, CharHP, _, _, _)),
     usePot,
     CharHP + Heal >= CharMaxHP,
     NewCharHP is CharMaxHP,
