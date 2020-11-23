@@ -2,8 +2,8 @@
 
 /* Rules */
 /*pemain berpindah 1 tile ke atas*/
-w :- begin(true),
-    fighting(false),
+w :- begin(1),
+    fighting(0),
     map(X,Y,Place),
     Z is Y+1,
     \+map(X,Z,fence),
@@ -14,8 +14,8 @@ w :- begin(true),
     write('You move north.'),!.
 
 /* Jika ada musuh*/
-w :- begin(true),
-    fighting(false),
+w :- begin(1),
+    fighting(0),
     map(X,Y,Place),
     Z is Y+1,
     \+map(X,Z,fence),
@@ -23,8 +23,8 @@ w :- begin(true),
     foundEnemy,!.
 
 /* Jika berada di tile bos*/
-w :- begin(true),
-    fighting(false),
+w :- begin(1),
+    fighting(0),
     map(X,Y,Place),
     Z is Y+1,
     \+map(X,Z,fence),
@@ -32,8 +32,8 @@ w :- begin(true),
     foundBoss,!.
 
 /* Jika menemukan quest */
-W :- begin(true),
-    fighting(false),
+w :- begin(1),
+    fighting(0),
     map(X,Y,Place),
     Z is Y+1,
     \+map(X,Z,fence),
@@ -41,8 +41,8 @@ W :- begin(true),
     foundQuest,!.
 
 /* Jika berada di tile store */
-w :- begin(true),
-    fighting(false),
+w :- begin(1),
+    fighting(0),
     map(X,Y,Place),
     Z is Y+1,
     \+map(X,Z,fence),
@@ -50,24 +50,24 @@ w :- begin(true),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika nabrak pagar */
-w :- begin(true),
-    fighting(false),
+w :- begin(1),
+    fighting(0),
     map(X,Y,Place),
     Z is Y+1,
     map(X,Z,fence),
     write('You hit a fence. I began to lose faith in you, mortal.').
 
 /* Jika game belum mulai */
-w :- begin(false),
+w :- begin(0),
     write("You can't move before you start the game."),!.
 
 /* Jika lagi melawan musuh */
-w :- fighting(true),run.
+w :- fighting(1),run.
 
 /*----------------------------------*/
 
 /*pemain berpindah 1 tile ke kiri*/
-a :- begin(true),
+a :- begin(1),
     map(X,Y,Place),
     Z is X-1,
     \+map(Z,Y,fence),
@@ -78,7 +78,7 @@ a :- begin(true),
     write('You move west.'),!.
 
 /* Jika ketemu musuh*/
-a :- begin(true),
+a :- begin(1),
     map(X,Y,Place),
     Z is X-1,
     \+map(Z,Y,fence),
@@ -86,7 +86,7 @@ a :- begin(true),
     foundEnemy,!.
 
 /* Jika berada di tile bos */
-a :- begin(true),
+a :- begin(1),
     map(X,Y,Place),
     Z is X-1,
     \+map(Z,Y,fence),
@@ -94,7 +94,7 @@ a :- begin(true),
     foundBoss,!.
 
 /* Jika menemukan quest */
-a :- begin(true),
+a :- begin(1),
     map(X,Y,Place),
     Z is X-1,
     \+map(Z,Y,fence),
@@ -102,7 +102,7 @@ a :- begin(true),
     foundQuest,!.
 
 /* Jika berada di tile store */
-a :- begin(true),
+a :- begin(1),
     map(X,Y,Place),
     Z is X-1,
     \+map(Z,Y,fence),
@@ -110,24 +110,24 @@ a :- begin(true),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* jika menabrak pagar */
-a :- begin(true),
+a :- begin(1),
     map(X,Y,Place),
     Z is X-1,
     map(Z,Y,fence),
     write('You hit a fence. I began to lose faith in you, mortal.').
 
 /* Jika game belum dimulai */
-a :- begin(false),
+a :- begin(0),
     write("You can't move before you start the game."),!.
 
 /* Jika sedang melawan musuh */
-a :- fighting(true), run.
+a :- fighting(1), run.
 
 /*----------------------------------*/
 
 
 /*pemain berpindah 1 tile ke bawah*/
-s :- begin(true),
+s :- begin(1),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
@@ -138,7 +138,7 @@ s :- begin(true),
     write('You move south.'),!.
 
 /* Jika ketemu musuh */
-s :- begin(true),
+s :- begin(1),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
@@ -146,7 +146,7 @@ s :- begin(true),
     foundEnemy,!.
 
 /* Jika ketemu bos */
-s :- begin(true),
+s :- begin(1),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
@@ -154,7 +154,7 @@ s :- begin(true),
     foundBoss,!.
 
 /* Jika menemukan quest */
-s :- begin(true),
+s :- begin(1),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
@@ -162,7 +162,7 @@ s :- begin(true),
     foundQuest,!.
 
 /* Jika berada di tile store */
-s :- begin(true),
+s :- begin(1),
     map(X,Y,Place),
     Z is Y-1,
     \+map(X,Z,fence),
@@ -170,24 +170,24 @@ s :- begin(true),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika menabrak pagar */
-s :- begin(true),
+s :- begin(1),
     map(X,Y,Place),
     Z is Y-1,
     map(X,Z,fence),
     write('You hit a fence. I began to lose faith in you, mortal.').
 
 /* Jika game belum dimulai */
-s :- begin(false),
+s :- begin(0),
     write("You can't move before you start the game."),!.
 
 /* Jika sedang melawan musuh */
-s :- fighting(true), run.
+s :- fighting(1), run.
 
 /*----------------------------------*/
 
 
 /*pemain berpindah 1 tile ke kanan*/
-d :- begin(true),
+d :- begin(1),
     map(X,Y,Place),
     Z is X+1,
     \+map(Z,Y,fence),
@@ -198,7 +198,7 @@ d :- begin(true),
     write('You move east.'),!.
 
 /* Jika ketemu musuh */
-d :- begin(true),
+d :- begin(1),
     map(X,Y,Place),
     Z is X+1,
     \+map(Z,Y,fence),
@@ -206,7 +206,7 @@ d :- begin(true),
     foundEnemy,!.
 
 /* Jika berada di tile bos */
-d :- begin(true),
+d :- begin(1),
     map(X,Y,Place),
     Z is X+1,
     \+map(Z,Y,fence),
@@ -214,7 +214,7 @@ d :- begin(true),
     foundBoss,!.
 
 /* Jika menemukan quest */
-d :- begin(true),
+d :- begin(1),
     map(X,Y,Place),
     Z is X+1,
     \+map(Z,Y,fence),
@@ -222,7 +222,7 @@ d :- begin(true),
     foundQuest,!.
 
 /* Jika berada di tile store */
-d :- begin(true),
+d :- begin(1),
     map(X,Y,Place),
     Z is X+1,
     \+map(Z,Y,fence),
@@ -230,18 +230,18 @@ d :- begin(true),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika menabrak pagar */
-d :- begin(true),
+d :- begin(1),
     map(X,Y,Place),
     Z is X+1,
     map(Z,Y,fence),
     write('You hit a fence. I began to lose faith in you, mortal.').
 
 /* Jika game belum dimulai */
-d :- begin(false),
+d :- begin(0),
     write("You can't move before you start the game."),!.
 
 /* Jika sedang melawan musuh */
-d :- fighting(true),run.
+d :- fighting(1),run.
 
 /*pemain melihat status pemain*/
 status :- write('Your status: '),nl,

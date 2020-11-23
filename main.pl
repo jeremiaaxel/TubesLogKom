@@ -1,5 +1,5 @@
 :- dynamic(init/1).
-:- dynamic(player/1).
+:- dynamic(player/7).
 :- dynamic(sure/1).
 
 :- include('src/battle.pl').
@@ -53,6 +53,8 @@ title :-
     sleep(0.5),
     help.
 
+repeat.
+repeat :- repeat.
 
 start :-
     /* command utama untuk start new */
@@ -62,20 +64,29 @@ start :-
     repeat,
     write('Insert username :'), nl,
     read(Username),
-    write(Username), write(' is your username, are you sure? (y/n)'),
-    read(Sure),
-    sure(Sure),!,
-    retract(sure(_)),
+    write(Username), write(' is your username, are you sure? (y/n)'), nl,
+    read(Sure), nl,
+    (
+        Sure \= y -> 
+            fail;
+            !
+    ),
     /* input job dan pemeriksaan */
     repeat,
     write('Choose your job :'), nl,
     write('1. Swordsman'), nl,
     write('2. Archer'), nl,
     write('3. Sorcerer'), nl,
-    read(Job),
-    jobExist(Job),!,
-    defaultStat(Job,MaxHP,DP,AP),
-    asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP)),
+    read(Job), nl,
+    (
+        \+ jobExist(Job) ->
+        write('Job is not exist or you typed falsely.'), nl,
+            fail;
+            !
+        ),
+    /* defaultStat(Job,MaxHP,DP,AP), */
+    character(_, Job, _, MaxHP, HP, DP, AP),
+    asserta(player(Username, Job, 1, MaxHP, MaxHP, DP, AP)),
     insertDefault(Job),
     random(10,20,Len),
     random(10,20,Width),
@@ -83,16 +94,10 @@ start :-
     asserta(init(1)),
     !.
 
-/* Konfirmasi username */
-sure(Sure) :- Sure =:= 'y', !.
-
 /* Check ada ga jobnya */
 jobExist(Job) :- 
     Job=swordsman;Job=archer;Job=sorcerer,
     !.
-
-jobExist(Job) :- 
-    write('Jobless. Job is not exist.').
 
 /* start command */
 start :-
