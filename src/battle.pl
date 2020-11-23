@@ -267,9 +267,21 @@ attComment :-
     /* lanjut ke ? */
 
 expUp :-
+    character(_, _, Exp),
     enemyInFight(_, _, Level, _, _, _, _, _),
-    Exp is Level*10,
-    
+    Exp2 is Exp + Level*10,
+    retract(character(_, )),
+    asserta(character(_, Exp2)),
+    isLevelUp,
+    !.
+
+isLevelUp :-
+    character(_, _, Level, _, _, _, _, Exp),
+    Exp >= Level*100,
+    Exp2 is 0,
+    Level2 is Level + 1,
+    retract(character(_, _, Level2, _, _, _, _, Exp2)),
+    asserta(character)
 
 enemyAttComment :-
     character(CharName, _, _, CharHP, _, _),

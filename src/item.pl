@@ -132,64 +132,12 @@ inventory :-
     accessory(Item),
     printlist(Item),
     (equip(accessory(Item)),print(' (Equipped)');nl),
-updateStats :-
-    equip(weapon(_,Type,_)),
-    checkStats(Type,Stat)
-
-
-/*************************************************************************************/
-
-
-/* Inventory */
-/* Rules */
-/* Untuk print inventory player */
-inventory :- 
-    weapon(Item),
-    printlist(Item),
-    (equip(weapon(Item)),print(' (Equipped)');nl),
     fail.
 inventory :- 
-    armor(Item),
-    printlist(Item),
-    (equip(armor(Item)),print(' (Equipped)');nl),
-    fail.
-inventory :- 
-    accessory(Item),
-    printlist(Item),
-    (equip(accessory(Item)),print(' (Equipped)');nl),
-    fail.
-invewrite :- 
-    potion(Type,N),
-    printlist([N
-/*Basis*/,Type,'potion']),
+    potion(Type,N,_),
+    printlist([N,Type,'potion']),
     nl,
-write
-/*Rekurens*/    fail.
-writewrite
-/*
-choosePotion :-
-    potion(N,Type),!,
-    print('Which potion you want to use:\n'),
-    printlist([N,Type,'potion']).
-choosePotion :-
-    print('You have run out of potion!'),
-    fail.*/
-
-usePot :- 
-    /*choosePotion,
-    read(Type),
-    Type=health,*/
-    potion(N,'Health',Heal),!,
-    retract(potion(N,'Health',Heal)),
-    N1 is N-1,
-    assertz(potion(N1,'Health',Heal)).
-
-usePot :-
-    print('You have run out of healing potion!'),fail.
-
-/* Print List */
-printlist([Head|[]]) :- !,print(Head).
-printlist([Head|Tail]) :- print(Head), print(' '),printlist(Tail).
+    fail.
 
 /*
 choosePotion :-
@@ -208,38 +156,15 @@ usePot :-
     retract(potion(N,'Health',Heal)),
     N1 is N-1,
     assertz(potion(N1,'Health',Heal)).
-
 usePot :-
-    print('You have run out of healing potion!'),fail.
+    write('You have run out of healing potion!'),fail.
 
 /* Print List */
-printlist([Head|[]]) :- !,print(Head).
-printlist([Head|Tail]) :- print(Head), print(' '),printlist(Tail).
-
-/*
-choosePotion :-
-    potion(N,Type),!,
-    print('Which potion you want to use:\n'),
-    printlist([N,Type,'potion']).
-choosePotion :-
-    print('You have run out of potion!'),
-    fail.*/
-
-usePot :- 
-    /*choosePotion,
-    read(Type),
-    Type=health,*/
-    potion(N,'Health',Heal),!,
-    retract(potion(N,'Health',Heal)),
-    N1 is N-1,
-    assertz(potion(N1,'Health',Heal)).
-
-usePot :-
-    print('You have run out of healing potion!'),fail.
-
-/* Print List */
-printlist([Head|[]]) :- !,print(Head).
-printlist([Head|Tail]) :- print(Head), print(' '),printlist(Tail).
+/*Basis*/
+printlist([Head|[]]) :- !,write(Head).
+/*Rekurens*/
+printlist([Head|Tail]) :- write(Head), write(' '),printlist(Tail).
 
 /*************************************************************************************/
 /* Item - item yang dimiliki player akan disimpan dalam bentuk predikat dynamic*/
+

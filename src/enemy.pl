@@ -59,11 +59,11 @@ enemy(29, sulaimu-chyan, slime, 10, 3200, 1000, 100).
 enemy(30, gurobulinu-kyun, goblin, 10, 2150, 900, 200).
 
 /* bosses */
-enemy(101, king_meong, boss, 3, 10000, 2000, 500).
-enemy(102, sir_yon, boss, 5, 299314, 5000, 690).
-enemy(103, eternity_single, boss, 7, 1111111, 8011, 769).
-enemy(104, praprak_logkom, boss, 9, 1423599, 9500, 1000).
-enemy(105, tubes_logkom, boss, 10, 18235959, 9999, 999).
+boss(101, king_meong, boss, 3, 10000, 2000, 500).
+boss(102, sir_yon, boss, 5, 299314, 5000, 690).
+boss(103, eternity_single, boss, 7, 1111111, 8011, 769).
+boss(104, praprak_logkom, boss, 9, 1423599, 9500, 1000).
+boss(105, tubes_logkom, boss, 10, 18235959, 9999, 999).
 
 
 
