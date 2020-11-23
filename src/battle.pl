@@ -280,8 +280,8 @@ isLevelUp :-
     Exp >= Level*100,
     Exp2 is 0,
     Level2 is Level + 1,
-    retract(character(_, _, Level2, _, _, _, _, Exp2)),
-    asserta(character)
+    retract(character(_, _, _, _, _, _, _, _)),
+    asserta(character(_, _, Level2, _, _, _, _, Exp2))
 
 enemyAttComment :-
     character(CharName, _, _, CharHP, _, _),
