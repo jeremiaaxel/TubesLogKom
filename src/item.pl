@@ -167,4 +167,3 @@ printlist([Head|Tail]) :- write(Head), write(' '),printlist(Tail).
 
 /*************************************************************************************/
 /* Item - item yang dimiliki player akan disimpan dalam bentuk predikat dynamic*/
-
