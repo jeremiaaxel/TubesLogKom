@@ -120,7 +120,6 @@ quit :-
     retract(init(_)),
     retract(len(_)),
     retract(width(_)),
-    retract(wall(_)),
     retract(posPlayer(_)),
     retract(dungeon(_,_)),
     retract(quest1(_,_)),
