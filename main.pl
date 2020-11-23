@@ -1,5 +1,4 @@
 :- dynamic(init/1).
-:- dynamic(player/1).
 
 :- include('src/battle.pl').
 :- include('src/character.pl').
@@ -25,6 +24,7 @@ help :-
     write('5. help   : show all commands and legends'), nl,
     write('6. quit   : To quit the game because'), nl,
     write('            you realise you have assignments to do'), nl, nl,
+    sleep(0.5),
     write('Legends:'), nl,
     write('   - P = Player'), nl,
     write('   - # = Wall'), nl,
@@ -34,9 +34,12 @@ help :-
 
 title :-
     /* welcome msg */
+    sleep(0.5),
     write('Welcome to Indomaret. Happy shopping.'), nl,
     write('Fresh bread please, fresh fruit please.'), nl,
+    sleep(0.5),
     write('untitled'), nl, nl,
+    sleep(0.5),
     help.
 
 start :-
@@ -49,6 +52,9 @@ start :-
 start :-
     init(_),
     write('The game has started'),
+    random(10,20,Len),
+    random(10,20,Witdh),
+    initMap(Len,Width),
     !.
 
 quit :-
@@ -61,4 +67,10 @@ quit :-
     write('Do not forget you have a lot of assignments to be done any time soon!'),
     /* semua data diretract */
     retract(init(_)),
+    retract(len(_)),
+    retract(width(_)),
+    retract(wall(_)),
+    retract(posX(_)),
+    retract(posY(_)),
+    retract(dungeon(_,_)),
     !.   
