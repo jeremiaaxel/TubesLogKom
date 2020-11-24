@@ -4,16 +4,12 @@
 /* ****** dynamics ****** */
 dynamic(isEnemyAlive/1).
 dynamic(enemyInFight/8).
-dynamic(isCharAlive/1).
 dynamic(turns/1).
 dynamic(peluang/1).
 
 /* ****** Fakta ****** */
 isEnemyAlive(0).
 isEnemyAlive(1).
-
-isCharAlive(0).
-isCharAlive(1).
 
 /* ****** Rules ****** */
 /* **** found enemy **** */
@@ -27,7 +23,6 @@ foundEnemy :-
     MaxHP is HP,
     asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
-    asserta(isCharAlive(1)),
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
@@ -42,7 +37,6 @@ foundEnemy :-
     MaxHP is HP,
     asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
-    asserta(isCharAlive(1)),
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
@@ -57,7 +51,6 @@ foundEnemy :-
     MaxHP is HP,
     asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
-    asserta(isCharAlive(1)),
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
@@ -254,22 +247,23 @@ attComment :-
     sleep(1), !.
     /* lanjut ke ? */
 
-expUp :-
-    character(_, _, Level, _, _, _, _, Exp),
-    enemyInFight(_, _, Level, _, _, _, _, _),
-    Exp2 is Exp + Level*10,
-    retract(character(_, _, Level, _, _, _, _, Exp)),
-    asserta(character(_, _, Level, _, _, _, _, Exp2)),
-    isLevelUp,
-    !.
-
 isLevelUp :-
-    character(_, _, Level, _, _, _, _, Exp),
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     Exp >= Level*100,
     Exp2 is 0,
     Level2 is Level + 1,
     retract(character(_, _, _, _, _, _, _, _)),
-    asserta(character(_, _, Level2, _, _, _, _, Exp2)).
+    asserta(character(Name, Job, Level2, MaxHP, HP, DP, AP, Exp2)).
+
+expUp :-
+    character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
+    enemyInFight(_, _, EnemyLevel, _, _, _, _, _),
+    Exp2 is Exp + EnemyLevel*5,
+    retract(character(_, _, _, _, _, _, _, _)),
+    asserta(character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp2)),
+    isLevelUp,
+    !.
+
 
 enemyAttComment :-
     character(CharName, _, _, CharHP, _, _, _, _),
@@ -281,8 +275,6 @@ enemyAttComment :-
 enemyAttComment :-
     character(_, _, _, CharHP, _, _, _, _),
     CharHP =< 0,
-    retract(isCharAlive(1)),
-    asserta(isCharAlive(0)),
     write('You dead'), nl,
     sleep(1), 
     !,
@@ -346,11 +338,11 @@ specialAttack :-
 /* ** Enemy Turn ** */
 enemyTurn :-
     enemyInFight(_, EnemyName, _, _, _, _, _, EnemyAP),
-    character(_, _, _, _, CharHP, CharDP, _, _),
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     retract(character(_, _, _, _, CharHP, CharDP, _, _)),
     EnemyDmg is (EnemyAP*(100/100+CharDP)),
-    NewCharHP is (CharHP-EnemyDmg),
-    asserta(character(_, _, _, _, NewCharHP, CharDP, _, _)),
+    NewCharHP is (HP - EnemyDmg),
+    asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
     write(EnemyName), write(' attacks and deals '), write(EnemyDmg), write(' damage.'), nl,
     enemyAttackComment, !.
 
@@ -381,23 +373,23 @@ run :-
 /* **** Use Potion **** */
 /* Use potion normal */
 usePotion :-
-    character(CharName, _, _, _, CharHP, _, _, _),
-    retract(character(CharName, _, _, CharMaxHP, CharHP, _, _, _)),
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
+    retract(character(_, _, _, _, _, _, _, _)),
     usePot,
-    CharHP + Heal < CharMaxHP,
-    NewCharHP is CharHP + Heal,
-    write(CharName), write(' just used a potion, heals '), write(NewCharHP - Heal),
+    HP + Heal < CharMaxHP,
+    NewCharHP is HP + Heal,
+    write(Name), write(' just used a potion, heals '), write(NewCharHP - Heal),
     enemyTurn,
     !. 
 
 /* Use potion lebih dari MaxHP */
 usePotion :-
-    character(CharName, _, _, _, CharHP, _, _, _),
-    retract(character(CharName, _, _, CharMaxHP, CharHP, _, _, _)),
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
+    retract(character(_, _, _, _, _, _, _, _)),
     usePot,
-    CharHP + Heal >= CharMaxHP,
-    NewCharHP is CharMaxHP,
-    asserta(character(CharName, _, _, _, NewCharHP, _, _)),
-    write(CharName), write(' just used a potion, heals '), write(CharMaxHP - Heal),
+    HP + Heal >= MaxHP,
+    NewCharHP is MaxHP,
+    asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
+    write(Name), write(' just used a potion, heals '), write(MaxHP - Heal),
     enemyTurn,
     !.
