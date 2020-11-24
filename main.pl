@@ -42,34 +42,54 @@ help :-
 
 title :-
     /* welcome msg */
+    shell(clear),
     sleep(0.5),
     write('          W   E   L   C   O   M   E      T   O          '),nl,
-    /* cls :- write('\e[2J').
-    fungsi buat clear screen
-    buat animasi uwu
-    tapi nanti yeyeyeyye.
-    miaw */
     sleep(0.5),
+    write(' _      '), nl,
+    write('/ \\  /|'), nl,
+    write('| |  ||'), nl,
+    write('| |/\\||'), nl,
+    write('\\_/  \\|'), nl,nl,
+    sleep(0.2),
+    shell(clear),
+    write('          W   E   L   C   O   M   E      T   O          '),nl,
+    write(' _      _                         '), nl,
+    write('/ \\  /|/ \\                          '), nl,
+    write('| |  ||| |                     '), nl,
+    write('| |/\\||| |                              '), nl,
+    write('\\_/  \\|\\_/                               '), nl,nl,
+    sleep(0.2),
+    shell(clear),
+    write('          W   E   L   C   O   M   E      T   O          '),nl,
+    write(' _      _  _                              '), nl,
+    write('/ \\  /|/ \\/ \\                           '), nl,
+    write('| |  ||| || |                          '), nl,
+    write('| |/\\||| || |_/\\                        '), nl,
+    write('\\_/  \\|\\_/\\____/                             '), nl,nl,
+    sleep(0.2),
+    shell(clear),
+    write('          W   E   L   C   O   M   E      T   O          '),nl,
+    write(' _      _  _     _                          '), nl,
+    write('/ \\  /|/ \\/ \\   / \\                          '), nl,
+    write('| |  ||| || |   | |                             '), nl,
+    write('| |/\\||| || |_/\\| |_/\\                             '), nl,
+    write('\\_/  \\|\\_/\\____/\\____/                              '), nl,nl,
+    sleep(0.2),
+    shell(clear),
+    write('          W   E   L   C   O   M   E      T   O          '),nl,
     write(' _      _  _     _    ___  _                            '), nl,
-    sleep(0.1),
     write('/ \\  /|/ \\/ \\   / \\   \\  \\//                            '), nl,
-    sleep(0.1),
     write('| |  ||| || |   | |    \\  /                             '), nl,
-    sleep(0.1),
     write('| |/\\||| || |_/\\| |_/\\ / /                              '), nl,
-    sleep(0.1),
     write('\\_/  \\|\\_/\\____/\\____//_/                               '), nl,nl,
-    sleep(0.1),
+    sleep(0.2),
     write(' ____  ____  _     _____ _      _____  _     ____  _____'), nl,
-    sleep(0.1),
     write('/  _ \\/  _ \\/ \\ |\\/  __// \\  /|/__ __\\/ \\ /\\/  __\\/  __/'), nl,
-    sleep(0.1),
     write('| / \\|| | \\|| | //|  \\  | |\\ ||  / \\  | | |||  \\/||  \\  '), nl,
-    sleep(0.1),
     write('| |-||| |_/|| \\// |  /_ | | \\||  | |  | \\_/||    /|  /_ '), nl,
-    sleep(0.1),
     write('\\_/ \\|\\____/\\__/  \\____\\\\_/  \\|  \\_/  \\____/\\_/\\_\\\\____\\'), nl,nl,
-    sleep(0.1),
+    sleep(0.7),
     help.
 
 
@@ -117,6 +137,7 @@ start :-
     random(10,20,Width),
     initMap(Len,Width),
     asserta(init(1)),
+    initLocations,
     !.
 
 /* Check ada ga jobnya */

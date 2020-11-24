@@ -150,7 +150,6 @@ map :-
 
 map :- 
     init(_),
-    initLocations,
     width(W),
     len(L),
     W1 is W+1,
