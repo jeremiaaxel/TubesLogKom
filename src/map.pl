@@ -19,23 +19,39 @@ initLocations :-
 
 /* Wall Generating */
 wall(0,Y) :-
-    Y >= 0, Y =< width(_).
-
-wall(width(_),Y) :-
-    Y >= 0, Y =< width(_).
+    width(W),
+    W1 is W + 2,
+    Y >= 0, Y =< W1.
 
 wall(X,0) :-
-    X >= -1, X =< len(_).
+    len(L),
+    L1 is L + 2,
+    X >= 0, X =< L1.
 
-wall(X,len(_)) :-
-    X >= -1, X =< len(_).
+wall(W1,Y) :-
+    width(W),
+    W1 is W + 1,
+    len(L),
+    L1 is L + 1,
+    Y >= 0, Y =< L1.
+
+wall(X,L1) :-
+    width(W),
+    W1 is W + 1,
+    len(L),
+    L1 is L + 1,
+    X >= 0, X =< W1.
 
 /* Printing unoccupied area */
 unoccupied(X,Y) :-
     X > (0),
-    X < width(_),
+    width(W),
+    W1 is W + 1,
+    X < W1,
     Y > (0),
-    Y < len(_).
+    len(L),
+    L1 is L + 1,
+    Y < L1.
 
 /* Printing Map */
 printMap(X,Y) :- 
@@ -43,7 +59,7 @@ printMap(X,Y) :-
     write('P').
 
 printMap(X,Y) :- 
-    border(X,Y),
+    wall(X,Y),
     write('#').
 
 printMap(X,Y) :- 
@@ -82,7 +98,12 @@ map :-
 
 map :- 
     init(_),
-    forall(between(0,len(_),X),
-          (forall(between(0,width(_),Y),
-          printMap(X,Y)),nl)),
+    initLocations,
+    width(W),
+    len(L),
+    W1 is W+1,
+    L1 is L+1,
+    forall(between(0,W1,Y),
+          (forall(between(0,L1,X),
+                printMap(X,Y)),nl)),
     nl.
