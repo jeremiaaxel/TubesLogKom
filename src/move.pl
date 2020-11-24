@@ -244,10 +244,15 @@ d :- begin(0),
 d :- fighting(1),run.
 
 /*pemain melihat status pemain*/
-status :- write('Your status: '),nl,
-    write('Job: '),write(job),nl,
-    write('Level: '),write(level),nl,
-    write('Health: '),write(health),nl,
-    write('Attack: '),write(attack),nl,
-    write('Defense: '),write(defense),nl,
-    write('Gold: '),write(gold).
+status :- 
+    character(CharName, CharJob, Level, MaxHP, HP, DP, AP, Exp),
+    gold(Gold),
+    write(CharName), write(' status: '), nl,
+    write('Job: '),write(CharJob),nl,
+    write('Level: '),write(Level),nl,
+    write('Health: '),write(HP), write('/'), write(MaxHP), nl,
+    write('Attack: '),write(AP),nl,
+    write('Defense: '),write(DP),nl,
+    write('Experience Points: '),write(Exp),nl,
+    write('Gold: '),write(Gold),
+    !.

@@ -1,5 +1,5 @@
 :- dynamic(init/1).
-:- dynamic(player/7).
+:- dynamic(character/8).
 :- dynamic(sure/1).
 
 :- include('src/battle.pl').
@@ -47,14 +47,19 @@ title :-
     /* cls :- write('\e[2J').
     fungsi buat clear screen
     buat animasi uwu
-    tapi nanti yeyeyeyye*/
+    tapi nanti yeyeyeyye.
+    miaw */
     sleep(0.2),
     write('  W  I  L  L  Y    A  D  V  E  N  T  U  R  E  '), nl, nl,
     sleep(0.5),
     help.
 
-repeat.
-repeat :- repeat.
+
+/* start command */
+start :-
+    init(_),
+    write('The game has started'),
+    !.
 
 start :-
     /* command utama untuk start new */
@@ -77,6 +82,7 @@ start :-
     write('1. Swordsman'), nl,
     write('2. Archer'), nl,
     write('3. Sorcerer'), nl,
+    asserta(init(1)),
     read(Job), nl,
     (
         \+ jobExist(Job) ->
@@ -85,24 +91,16 @@ start :-
             !
         ),
     /* defaultStat(Job,MaxHP,DP,AP), */
-    character(_, Job, _, MaxHP, HP, DP, AP),
-    asserta(player(Username, Job, 1, MaxHP, MaxHP, DP, AP)),
-    insertDefault(Job),
+    character(_, Job, _, MaxHP, _, DP, AP, _),
+    asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
     random(10,20,Len),
     random(10,20,Width),
     initMap(Len,Width),
-    asserta(init(1)),
     !.
 
 /* Check ada ga jobnya */
 jobExist(Job) :- 
     Job=swordsman;Job=archer;Job=sorcerer,
-    !.
-
-/* start command */
-start :-
-    init(_),
-    write('The game has started'),
     !.
 
 quit :-
@@ -118,8 +116,7 @@ quit :-
     write('insert nim'),
     /* semua data diretract */
     retract(init(_)),
-    retract(len(_)),
-    retract(width(_)),
+    retract(initMap(_)),
     retract(posPlayer(_)),
     retract(dungeon(_,_)),
     retract(quest1(_,_)),

@@ -10,12 +10,12 @@
 /* TODO: buat wall di dalam map, bukan border */
 
 initLocations :-
-    asserta(dungeon(5,7)).
+    asserta(dungeon(5,7)),
     asserta(quest1(7,4)),
     asserta(quest2(8,8)),
-    asserta(quest3(6,2)).
-    asserta(store(1,5)).
-    asserta(posPlayer(1,1)),
+    asserta(quest3(6,2)),
+    asserta(store(1,5)),
+    asserta(posPlayer(1,1)).
 
 /* Wall Generating */
 wall(0,Y) :-
@@ -74,14 +74,15 @@ initMap(X,Y) :-
     asserta(len(_)),
     asserta(width(_)).
 
+/* command menampilkan map */
+map :-
+    \+ init(_),
+    write('Please start the game first.'), nl,
+    !.
+
 map :- 
     init(_),
     forall(between(0,len(_),A),
           (forall(between(0,width(_),B),
           printMap(X,Y)),nl)),
     nl.
-
-map :-
-    \+ init(_),
-    write('Please start the game first.'), nl,
-    !.
