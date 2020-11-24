@@ -28,14 +28,14 @@ wall(X,0) :-
     L1 is L + 2,
     X >= 0, X =< L1.
 
-wall(W1,Y) :-
+wall(L1,Y) :-
     width(W),
     W1 is W + 1,
     len(L),
     L1 is L + 1,
     Y >= 0, Y =< L1.
 
-wall(X,L1) :-
+wall(X,W1) :-
     width(W),
     W1 is W + 1,
     len(L),

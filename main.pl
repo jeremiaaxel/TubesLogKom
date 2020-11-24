@@ -105,6 +105,11 @@ start :-
     asserta(init(1)),
     read(Job), nl,
     (
+        /*
+        Job == '1', Job is swordsman;
+        Job == '2', Job is archer;
+        Job == '3', Job is sorcerer,
+        */
         \+ jobExist(Job) ->
         write('Job does not exist or you typed falsely.'), nl,
             fail;
@@ -120,7 +125,7 @@ start :-
 
 /* Check ada ga jobnya */
 jobExist(Job) :- 
-    Job=swordsman;Job=archer;Job=sorcerer,
+    Job=swordsman;Job=archer;Job=sorcerer;
     !.
 
 quit :-
@@ -129,10 +134,13 @@ quit :-
     !.
 
 quit :-
+    sleep(0.5),
     write('Now go! Realize your pitiful life!'), nl,
+    sleep(0.5),
     write('Do not forget you have a lot of assignments to be done any time soon!'),nl,
     sleep(0.5),
     write('Made by Kelompok 07 Kelas 04 - wollowongko'),nl,
+    sleep(0.5),
     write('insert nim'),
     /* semua data diretract */
     retract(init(_)),
