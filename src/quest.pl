@@ -5,16 +5,13 @@
 :- dynamic(expGain/1).
 
 /*Fact*/
-map(7,4,quest).
-map(8,8,quest).
-map(12,14,quest).
 win(2,2,2).
 win(3,3,3).
 win(4,4,4).
 
 /*Rules*/
 /*mekanisme quest*/
-foundQuest :- map(7,4,quest),
+foundQuest :- quest1(_,_),
     \+(questOnGoing(true)),
     asserta(quest(1,1,1)),
     write('.....shhhhhhhhhhhhhhhhhhhh....'),nl,
@@ -22,7 +19,7 @@ foundQuest :- map(7,4,quest),
     write('My farm has been burned by these brutal monsters! Please, help me.'), nl,nl,
     write('You should kill 1 slimes, 1 goblins, and 1 wolfs'),
     asserta(questOnGoing(true)),!.
-foundQuest :- map(8,8,quest),
+foundQuest :- quest2(_,_),
     \+(questOnGoing(true)),
     asserta(quest(2,3,2)),
     write('My dear friend! I need your help here.'),nl,
@@ -30,7 +27,7 @@ foundQuest :- map(8,8,quest),
     write('I hope my villagers make a smiley face, again.'),nl,nl,
     write('You should kill 2 slimes, 3 goblins, and 2 wolfs'),
     asserta(questOnGoing(true)),!.
-foundQuest :- map(12,14,quest),
+foundQuest :- quest3(_,_),
     \+(questOnGoing(true)),
     asserta(quest(2,3,4)),
     write('Uh..oh..HELP'),nl,nl,

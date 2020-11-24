@@ -9,12 +9,30 @@
 
 /* TODO: buat wall di dalam map, bukan border */
 
+/* Randomizing Locations */
 initLocations :-
-    asserta(dungeon(5,7)),
-    asserta(quest1(7,4)),
-    asserta(quest2(8,8)),
-    asserta(quest3(6,2)),
-    asserta(store(1,5)),
+    width(W),
+    len(L),
+    Lmid is L//2,
+    Wmid is W//2,
+    Ll is Lmid - 1,
+    Lh is Lmid + 1,
+    Wl is Wmid - 1,
+    Wh is Wmid + 1,
+    random(2,W,Y1),
+    asserta(store(1,Y1)),
+    random(2,Ll,X2),
+    random(1,Wl,Y2),
+    asserta(quest1(X2,Y2)),
+    random(Lh,L,X3),
+    random(1,Wh,Y3),
+    asserta(quest2(X3,Y3)),
+    random(2,Ll,X4),
+    random(Wh,W,Y4),
+    asserta(quest3(X4,Y4)),
+    random(Lh,L,X5),
+    random(Wh,W,Y5),
+    asserta(dungeon(X5,Y5)),
     asserta(posPlayer(1,1)).
 
 /* Wall Generating */
@@ -41,6 +59,40 @@ wall(X,W1) :-
     len(L),
     L1 is L + 1,
     X >= 0, X =< L1.
+
+wall(Lmid,Y) :-
+    width(W),
+    len(L),
+    Lmid is L//2,
+    Wmid is W//2,
+    Wl is Wmid - 2,
+    Y >= 2, Y =< Wl.
+
+wall(X,Wmid) :-
+    width(W),
+    len(L),
+    Lmid is L//2,
+    Wmid is W//2,
+    Ll is Lmid - 2,
+    X >= 2, X =< Ll.
+
+wall(Lmid,Y) :-
+    width(W),
+    len(L),
+    Lmid is L//2,
+    Wmid is W//2,
+    Wh is Wmid + 2,
+    Ww is W - 1,
+    Y >= Wh, Y =< Ww.
+
+wall(X,Wmid) :-
+    width(W),
+    len(L),
+    Lmid is L//2,
+    Wmid is W//2,
+    Lh is Lmid + 2,
+    Lll is L - 1,
+    X >= Lh, X =< Lll.
 
 /* Printing unoccupied area */
 unoccupied(X,Y) :-

@@ -146,6 +146,8 @@ quit :-
     /* semua data diretract */
     retract(init(_)),
     retract(initMap(_)),
+    retract(len(_)),
+    retract(width(_)),
     retract(posPlayer(_)),
     retract(dungeon(_,_)),
     retract(quest1(_,_)),
