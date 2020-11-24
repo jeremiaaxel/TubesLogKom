@@ -11,6 +11,12 @@ enemyRandom(0) :- \+foundEnemy.
 enemyRandom(1) :- foundEnemy.
 enemyRandom(X) :-  random(0,1,X), enemyRandom(X).
 
+/* ************** MOVE COMMANDS ************** */
+/* Jika game belum mulai */
+w :- \+ init(_),
+    write('You can\'t move before you start the game.'),
+    !.
+
 /*pemain berpindah 1 tile ke atas*/
 w :- init(_),
     fighting(0),
@@ -75,15 +81,15 @@ w :- init(_),
     wall(X,Z),
     write('You hit a wall. I began to lose faith in you, mortal.'),!.
 
-/* Jika game belum mulai */
-w :- \+init(_),
-    write('You can\'t move before you start the game.'),!.
-
 /* Jika lagi melawan musuh */
 w :- init(_),fighting(1),
     write('You can\'t move while in the middle of battleground, mortal.'),!.
 
 /*----------------------------------*/
+/* belum mulai */
+a :- \+ init(_),
+    write('You can\'t move before you start the game.'),
+    !.
 
 /*pemain berpindah 1 tile ke kiri*/
 a :- init(_),
@@ -143,16 +149,16 @@ a :- init(_),
     wall(Z,Y),
     write('You hit a wall. I began to lose faith in you, mortal.'),!.
 
-/* Jika game belum dimulai */
-a :- \+init(_),
-    write("You can't move before you start the game."),!.
 
 /* Jika sedang melawan musuh */
 a :- init(_),fighting(1),
     write("You can't move while in the middle of battleground, mortal."),!.
 
 /*----------------------------------*/
-
+/* Belum mulai */
+s :- \+ init(_),
+    write('You can\'t move before you start the game.'),
+    !.
 
 /*pemain berpindah 1 tile ke bawah*/
 s :- init(_),
@@ -212,16 +218,15 @@ s :- init(_),
     wall(X,Z),
     write('You hit a wall. I began to lose faith in you, mortal.'),!.
 
-/* Jika game belum dimulai */
-s :- \+init(_),
-    write("You can't move before you start the game."),!.
-
 /* Jika sedang melawan musuh */
 s :- init(_),fighting(1),
     write("You can't move while in the middle of battleground, mortal.").
 
 /*----------------------------------*/
-
+/* belum mulai */
+d :- \+ init(_),
+    write('You can\'t move before you start the game.'),
+    !.
 
 /*pemain berpindah 1 tile ke kanan*/
 d :- init(_),
@@ -282,10 +287,27 @@ d :- init(_),
     wall(Z,Y),
     write('You hit a wall. I began to lose faith in you, mortal.'),!.
 
-/* Jika game belum dimulai */
-d :- \+init(_),
-    write("You can't move before you start the game."),!.
-
 /* Jika sedang melawan musuh */
 d :- init(_),fighting(1),
     write("You can't move while in the middle of battleground, mortal."),!.
+
+
+/* ******* SHOW STATUS ******** */
+status :-
+    \+ init(_),
+    write('Please start the game first.'),
+    !.
+
+status :-
+    init(_),
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
+    gold(Gold),
+    write(Name), write(' status :'), nl,
+    write('Job   : '), write(Job), nl,
+    write('Level : '), write(Level), nl,
+    write('HP    : '), write(HP), write('/'), write(MaxHP), nl,
+    write('DP    : '), write(DP), nl,
+    write('AP    : '), write(AP), nl,
+    write('Exp   : '), write(Exp), nl,
+    write('Gold  : '), write(Gold), nl,
+    !.
