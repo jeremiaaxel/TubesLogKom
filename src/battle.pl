@@ -275,10 +275,9 @@ enemyAttComment :-
 enemyAttComment :-
     character(_, _, _, CharHP, _, _, _, _),
     CharHP =< 0,
-    write('You dead'), nl,
     sleep(1),
-    !,
-    lose.
+    lose,
+    !.
 
 /* **** Attack **** */
 charTurn :-

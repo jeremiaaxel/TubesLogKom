@@ -136,9 +136,9 @@ start :-
     random(10,20,Len),
     random(10,20,Width),
     initMap(Len,Width),
-    asserta(init(1)),
     initLocations,
     asserta(fighting(0)),
+    asserta(init(1)),
     !.
 
 /* Check ada ga jobnya */
@@ -170,11 +170,13 @@ quit :-
     sleep(0.5),
     write('Now go! Realize your pitiful life!'), nl,
     sleep(0.5),
-    write('Do not forget you have a lot of assignments to be done any time soon!'),nl,
+    write('Do not forget you have a lot of assignments to be done any time soon!'),nl,nl,
     sleep(0.5),
     write('Made by Kelompok 07 Kelas 04 - wollowongko'),nl,
-    sleep(0.5),
-    write('insert nim'),
+    write('13519116 - Jeane Mikha Erwansyah'),nl,
+    write('13519120 - Epata Tuah'),nl,
+    write('13519144 - Jonathan Christhoper Jahja'),nl,
+    write('13519188 - Jeremia Axel Bachtera'),nl,
     /* semua data diretract */
     retract(init(_)),
     retract(initMap(_)),
@@ -191,4 +193,9 @@ quit :-
     retract(accessory(_)),
     retract(potion(_,_,_)),
     retract(gold(_)),
+    retract(fighting(_)),
+    retract(isEnemyAlive(_)),
+    retract(enemyInFight(_,_,_,_,_,_,_,_)),
+    retract(turns(_)),
+    retract(peluang(_)),
     !.
