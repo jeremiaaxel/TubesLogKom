@@ -102,32 +102,42 @@ start :-
     write('3. Sorcerer'), nl, nl,
     sleep(0.5),
     write('Your choice: '),
-    asserta(init(1)),
-    read(Job), nl,
+    read(JobInput), nl,
     (
-        /*
-        Job == '1', Job is swordsman;
-        Job == '2', Job is archer;
-        Job == '3', Job is sorcerer,
-        */
-        \+ jobExist(Job) ->
-        write('Job does not exist or you typed falsely.'), nl,
-            fail;
-            !
-        ),
+        jobExist(JobInput, Job) ->
+            character(_, Job, _, MaxHP, _, DP, AP, _);
+            write('Job does not exist or you typed falsely.'), nl,
+            fail
+    ),
     /* defaultStat(Job,MaxHP,DP,AP), */
-    character(_, Job, _, MaxHP, _, DP, AP, _),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
+    write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,
     insertDefault(Job),
     random(10,20,Len),
     random(10,20,Width),
     initMap(Len,Width),
+    asserta(init(1)),
     !.
 
 /* Check ada ga jobnya */
-jobExist(Job) :- 
-    Job=swordsman;Job=archer;Job=sorcerer,
-    !.
+jobExist(JobInput, Job) :- 
+    \+ integer(JobInput),
+    (JobInput=swordsman;JobInput=archer; JobInput=sorcerer) -> Job = JobInput, !.
+
+jobExist(JobInput, Job) :- 
+    integer(JobInput),
+    JobInput==1,
+    Job = swordsman, !.
+
+jobExist(JobInput, Job) :-
+    integer(JobInput),
+    JobInput==2,
+    Job = archer, !.
+
+jobExist(JobInput, Job) :-
+    integer(JobInput),
+    JobInput==3,
+    Job = sorcerer, !.
 
 quit :-
     \+ init(_),
