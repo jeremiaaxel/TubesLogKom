@@ -71,8 +71,8 @@ printMap(X,Y) :-
     write('.').
 
 initMap(X,Y) :-
-    asserta(len(_)),
-    asserta(width(_)).
+    asserta(len(X)),
+    asserta(width(Y)).
 
 /* command menampilkan map */
 map :-
@@ -82,7 +82,7 @@ map :-
 
 map :- 
     init(_),
-    forall(between(0,len(_),A),
-          (forall(between(0,width(_),B),
+    forall(between(0,len(_),X),
+          (forall(between(0,width(_),Y),
           printMap(X,Y)),nl)),
     nl.

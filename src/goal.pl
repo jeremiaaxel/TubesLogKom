@@ -4,7 +4,7 @@ loseFinal(boss).
 
 /* Rules */
 /* Pemain menang melawan bos */
-winFinal(boss) :- enemy(Name,boss,Level,MaxHP,0,DP,AP).
+winFinal(boss) :- enemy(_,boss,_,_,0,_,_).
 
 goal :- winFinal(boss),
         !,
@@ -13,5 +13,5 @@ goal :- winFinal(boss),
         write('You are a hero of Wangardium.').
 
 /* Pemain kalah melawan bos */
-goal :- hp(characterX,0),!,
+goal :- character(_,_,_,_,0,_,_),!,
         lose.
