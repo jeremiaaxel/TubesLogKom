@@ -33,22 +33,22 @@ insertDefault(Job) :-
     Job=swordsman,!,
     insert([1,'Wood','Sword'],yes),
     insert([1,'Leather','Armor'],yes),
-    insert('Health',no).
+    insert('Health',5).
 insertDefault(Job) :-
     Job=archer,!,
     insert([1,'Short','Bow'],yes),
     insert([1,'Leather','Armor'],yes),
-    insert('Health',no).
+    insert('Health',5).
 insertDefault(Job) :-
     Job=sorcerer,!,
     insert([1,'Fireball','Spellscroll'],yes),
     insert([1,'Leather','Armor'],yes),
-    insert('Health',no).
+    insert('Health',5).
 
 /* Insert item pada inventory dan equip jika dibutuhkan */
-insert(Item,_) :-
+insert(Item,N) :-
     Item='Health',!,
-    assertz(potion('Health',1,10)).
+    assertz(potion('Health',N,10)).
 insert(Item,Equip) :- 
     back(Item,Type),
     (Type='Sword'; Type='Bow'; Type='Spellscroll'),!,
