@@ -1,258 +1,291 @@
 /* Exploration Mechanism */
+:- dynamic (fighting/1).
+:- dynamic (posPlayer/2).
 
-/* Rules */
+/* rules */
+notQuest(P,Q) :- \+quest1(P,Q),\+quest2(P,Q),\+quest3(P,Q).
+yesQuest(P,Q) :- quest1(P,Q);quest2(P,Q);quest3(P,Q).
+
+/* randomize enemy */
+enemyRandom(0) :- \+foundEnemy.
+enemyRandom(1) :- foundEnemy.
+enemyRandom(X) :-  random(0,1,X), enemyRandom(X).
+
 /*pemain berpindah 1 tile ke atas*/
-w :- begin(1),
+w :- init(_),
     fighting(0),
-    map(X,Y,Place),
+    posPlayer(X,Y),
     Z is Y+1,
-    \+map(X,Z,fence),
-    map(X,Z,Place),
-    \+foundEnemy,
-    \+foundBoss,
-    \+foundQuest,
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
+    enemyRandom(P), P =:= 0,
     write('You move north.'),!.
 
 /* Jika ada musuh*/
-w :- begin(1),
+w :- init(_),
     fighting(0),
-    map(X,Y,Place),
+    posPlayer(X,Y),
     Z is Y+1,
-    \+map(X,Z,fence),
-    map(X,Z,Place),
-    foundEnemy,!.
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
+    enemyRandom(1),!.
 
 /* Jika berada di tile bos*/
-w :- begin(1),
+w :- init(_),
     fighting(0),
-    map(X,Y,Place),
+    posPlayer(X,Y),
     Z is Y+1,
-    \+map(X,Z,fence),
-    map(X,Z,dungeon),
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    dungeon(X,Z),
     foundBoss,!.
 
 /* Jika menemukan quest */
-w :- begin(1),
+w :- init(_),
     fighting(0),
-    map(X,Y,Place),
+    posPlayer(X,Y),
     Z is Y+1,
-    \+map(X,Z,fence),
-    map(X,Z,quest),
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    yesQuest(X,Z),
     foundQuest,!.
 
-/* Jika berada di tile store */
-w :- begin(1),
+/* Jika berada di store */
+w :- init(_),
     fighting(0),
-    map(X,Y,Place),
+    posPlayer(X,Y),
     Z is Y+1,
-    \+map(X,Z,fence),
-    map(X,Z,store),
-    write('Hello, sir. Welcome to my store! Here, take a look.'),!.
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    store(X,Z),
+    write('Hello, sir. Welcome to my store! Here, take a look'),!.
 
 /* Jika nabrak pagar */
-w :- begin(1),
+w :- init(_),
     fighting(0),
-    map(X,Y,Place),
+    posPlayer(X,Y),
     Z is Y+1,
-    map(X,Z,fence),
-    write('You hit a fence. I began to lose faith in you, mortal.').
+    fence(X,Z),
+    write('You hit a fence. I began to lose faith in you, mortal.'),!.
 
 /* Jika game belum mulai */
-w :- begin(0),
+w :- \+init(_),
     write("You can't move before you start the game."),!.
 
 /* Jika lagi melawan musuh */
-w :- fighting(1),run.
+w :- init(_),fighting(1),
+    write("You can't move while in the middle of battleground, mortal."),!.
 
 /*----------------------------------*/
 
 /*pemain berpindah 1 tile ke kiri*/
-a :- begin(1),
-    map(X,Y,Place),
+a :- init(_),
+    posPlayer(X,Y),
     Z is X-1,
-    \+map(Z,Y,fence),
-    map(Z,Y,Place),
-    \+foundEnemy,
-    \+foundBoss,
-    \+foundQuest,
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
+    enemyRandom(P), P =:= 0,
     write('You move west.'),!.
 
 /* Jika ketemu musuh*/
-a :- begin(1),
-    map(X,Y,Place),
+a :- init(_),
+    posPlayer(X,Y),
     Z is X-1,
-    \+map(Z,Y,fence),
-    map(Z,Y,Place),
-    foundEnemy,!.
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
+    enemyRandom(1),!.
 
 /* Jika berada di tile bos */
-a :- begin(1),
-    map(X,Y,Place),
+a :- init(_),
+    posPlayer(X,Y),
     Z is X-1,
-    \+map(Z,Y,fence),
-    map(Z,Y,dungeon),
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    dungeon(Z,Y),
     foundBoss,!.
 
 /* Jika menemukan quest */
-a :- begin(1),
-    map(X,Y,Place),
+a :- init(_),
+    posPlayer(X,Y),
     Z is X-1,
-    \+map(Z,Y,fence),
-    map(Z,Y,quest),
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    yesQuest(Z,Y),
     foundQuest,!.
 
 /* Jika berada di tile store */
-a :- begin(1),
-    map(X,Y,Place),
+a :- init(_),
+    posPlayer(X,Y),
     Z is X-1,
-    \+map(Z,Y,fence),
-    map(Z,Y,store),
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    store(Z,Y),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* jika menabrak pagar */
-a :- begin(1),
-    map(X,Y,Place),
+a :- init(_),
+    posPlayer(X,Y),
     Z is X-1,
-    map(Z,Y,fence),
-    write('You hit a fence. I began to lose faith in you, mortal.').
+    fence(Z,Y),
+    write('You hit a fence. I began to lose faith in you, mortal.'),!.
 
 /* Jika game belum dimulai */
-a :- begin(0),
+a :- \+init(_),
     write("You can't move before you start the game."),!.
 
 /* Jika sedang melawan musuh */
-a :- fighting(1), run.
+a :- init(_),fighting(1),
+    write("You can't move while in the middle of battleground, mortal."),!.
 
 /*----------------------------------*/
 
 
 /*pemain berpindah 1 tile ke bawah*/
-s :- begin(1),
-    map(X,Y,Place),
+s :- init(_),
+    posPlayer(X,Y),
     Z is Y-1,
-    \+map(X,Z,fence),
-    map(X,Z,Place),
-    \+foundEnemy,
-    \+foundBoss,
-    \+foundQuest,
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
+    enemyRandom(P), P =:= 0,
     write('You move south.'),!.
 
 /* Jika ketemu musuh */
-s :- begin(1),
-    map(X,Y,Place),
+s :- init(_),
+    posPlayer(X,Y),
     Z is Y-1,
-    \+map(X,Z,fence),
-    map(X,Z,Place),
-    foundEnemy,!.
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
+    enemyRandom(1),!.
 
 /* Jika ketemu bos */
-s :- begin(1),
-    map(X,Y,Place),
+s :- init(_),
+    posPlayer(X,Y),
     Z is Y-1,
-    \+map(X,Z,fence),
-    map(X,Z,dungeon),
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    dungeon(X,Z),
     foundBoss,!.
 
 /* Jika menemukan quest */
-s :- begin(1),
-    map(X,Y,Place),
+s :- init(_),
+    posPlayer(X,Y),
     Z is Y-1,
-    \+map(X,Z,fence),
-    map(X,Z,quest),
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    yesQuest(X,Z),
     foundQuest,!.
 
 /* Jika berada di tile store */
-s :- begin(1),
-    map(X,Y,Place),
+s :- init(_),
+    posPlayer(X,Y),
     Z is Y-1,
-    \+map(X,Z,fence),
-    map(X,Z,store),
+    \+fence(X,Z),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(X,Z)),
+    store(X,Z),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika menabrak pagar */
-s :- begin(1),
-    map(X,Y,Place),
+s :- init(_),
+    posPlayer(X,Y),
     Z is Y-1,
-    map(X,Z,fence),
-    write('You hit a fence. I began to lose faith in you, mortal.').
+    fence(X,Z),
+    write('You hit a fence. I began to lose faith in you, mortal.'),!.
 
 /* Jika game belum dimulai */
-s :- begin(0),
+s :- \+init(_),
     write("You can't move before you start the game."),!.
 
 /* Jika sedang melawan musuh */
-s :- fighting(1), run.
+s :- init(_),fighting(1),
+    write("You can't move while in the middle of battleground, mortal.").
 
 /*----------------------------------*/
 
 
 /*pemain berpindah 1 tile ke kanan*/
-d :- begin(1),
-    map(X,Y,Place),
+d :- init(_),
+    posPlayer(X,Y),
     Z is X+1,
-    \+map(Z,Y,fence),
-    map(Z,Y,Place),
-    \+foundEnemy,
-    \+foundBoss,
-    \+foundQuest,
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
+    enemyRandom(P), P =:= 0,
     write('You move east.'),!.
 
 /* Jika ketemu musuh */
-d :- begin(1),
-    map(X,Y,Place),
+d :- init(_),
+    posPlayer(X,Y),
     Z is X+1,
-    \+map(Z,Y,fence),
-    map(Z,Y,Place),
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
+    enemyRandom(1),
     foundEnemy,!.
 
 /* Jika berada di tile bos */
-d :- begin(1),
-    map(X,Y,Place),
+d :- init(_),
+    posPlayer(X,Y),
     Z is X+1,
-    \+map(Z,Y,fence),
-    map(Z,Y,dungeon),
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    dungeon(Z,Y),
     foundBoss,!.
 
 /* Jika menemukan quest */
-d :- begin(1),
-    map(X,Y,Place),
+d :- init(_),
+    posPlayer(X,Y),
     Z is X+1,
-    \+map(Z,Y,fence),
-    map(Z,Y,quest),
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    yesQuest(Z,Y),
     foundQuest,!.
 
 /* Jika berada di tile store */
-d :- begin(1),
-    map(X,Y,Place),
+d :- init(_),
+    posPlayer(X,Y),
     Z is X+1,
-    \+map(Z,Y,fence),
-    map(Z,Y,store),
+    \+fence(Z,Y),
+    retract(posPlayer(X,Y)),
+    asserta(posPlayer(Z,Y)),
+    store(Z,Y),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
 /* Jika menabrak pagar */
-d :- begin(1),
-    map(X,Y,Place),
+d :- init(_),
+    posPlayer(X,Y),
     Z is X+1,
-    map(Z,Y,fence),
-    write('You hit a fence. I began to lose faith in you, mortal.').
+    fence(Z,Y),
+    write('You hit a fence. I began to lose faith in you, mortal.'),!.
 
 /* Jika game belum dimulai */
-d :- begin(0),
+d :- \+init(_),
     write("You can't move before you start the game."),!.
 
 /* Jika sedang melawan musuh */
-d :- fighting(1),run.
-
-/*pemain melihat status pemain*/
-status :- 
-    character(CharName, CharJob, Level, MaxHP, HP, DP, AP, Exp),
-    gold(Gold),
-    write(CharName), write(' status: '), nl,
-    write('Job: '),write(CharJob),nl,
-    write('Level: '),write(Level),nl,
-    write('Health: '),write(HP), write('/'), write(MaxHP), nl,
-    write('Attack: '),write(AP),nl,
-    write('Defense: '),write(DP),nl,
-    write('Experience Points: '),write(Exp),nl,
-    write('Gold: '),write(Gold),
-    !.
+d :- init(_),fighting(1),
+    write("You can't move while in the middle of battleground, mortal."),!.
