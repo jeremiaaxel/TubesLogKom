@@ -110,7 +110,7 @@ start :-
     write(Username), write(' is your username, are you sure? (y/n) '),
     read(Sure), nl,
     (
-        Sure \= y -> 
+        Sure \= y ->
             fail;
             !
     ),
@@ -138,14 +138,15 @@ start :-
     initMap(Len,Width),
     asserta(init(1)),
     initLocations,
+    asserta(fighting(0)),
     !.
 
 /* Check ada ga jobnya */
-jobExist(JobInput, Job) :- 
+jobExist(JobInput, Job) :-
     \+ integer(JobInput),
     (JobInput=swordsman;JobInput=archer; JobInput=sorcerer) -> Job = JobInput, !.
 
-jobExist(JobInput, Job) :- 
+jobExist(JobInput, Job) :-
     integer(JobInput),
     JobInput==1,
     Job = swordsman, !.
