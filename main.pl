@@ -125,7 +125,7 @@ start :-
 
 /* Check ada ga jobnya */
 jobExist(Job) :- 
-    Job=swordsman;Job=archer;Job=sorcerer;
+    Job=swordsman;Job=archer;Job=sorcerer,
     !.
 
 quit :-

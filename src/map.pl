@@ -20,12 +20,12 @@ initLocations :-
 /* Wall Generating */
 wall(0,Y) :-
     width(W),
-    W1 is W + 2,
+    W1 is W + 1,
     Y >= 0, Y =< W1.
 
 wall(X,0) :-
     len(L),
-    L1 is L + 2,
+    L1 is L + 1,
     X >= 0, X =< L1.
 
 wall(L1,Y) :-
@@ -33,25 +33,25 @@ wall(L1,Y) :-
     W1 is W + 1,
     len(L),
     L1 is L + 1,
-    Y >= 0, Y =< L1.
+    Y >= 0, Y =< W1.
 
 wall(X,W1) :-
     width(W),
     W1 is W + 1,
     len(L),
     L1 is L + 1,
-    X >= 0, X =< W1.
+    X >= 0, X =< L1.
 
 /* Printing unoccupied area */
 unoccupied(X,Y) :-
-    X > (0),
     width(W),
     W1 is W + 1,
-    X < W1,
-    Y > (0),
     len(L),
     L1 is L + 1,
-    Y < L1.
+    X > (0),
+    X < L1,
+    Y > (0),
+    Y < W1.
 
 /* Printing Map */
 printMap(X,Y) :- 
