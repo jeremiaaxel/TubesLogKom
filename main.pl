@@ -118,6 +118,7 @@ start :-
     /* defaultStat(Job,MaxHP,DP,AP), */
     character(_, Job, _, MaxHP, _, DP, AP, _),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
+    insertDefault(Job),
     random(10,20,Len),
     random(10,20,Width),
     initMap(Len,Width),

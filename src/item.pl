@@ -30,43 +30,41 @@ checkItem([N,_,_],Y) :-
 
 /* Insert awal pembuatan character */
 insertDefault(Job) :-
-    Job=swordsman,!,
-    insert([1,'Wood','Sword'],yes),
-    insert([1,'Leather','Armor'],yes),
-    insert('Health',5).
+    Job=swordsman,
+    insert([1,'Wood','Sword'],yes).
 insertDefault(Job) :-
-    Job=archer,!,
-    insert([1,'Short','Bow'],yes),
-    insert([1,'Leather','Armor'],yes),
-    insert('Health',5).
+    Job=archer,
+    insert([1,'Short','Bow'],yes).
 insertDefault(Job) :-
-    Job=sorcerer,!,
-    insert([1,'Fireball','Spellscroll'],yes),
-    insert([1,'Leather','Armor'],yes),
+    Job=sorcerer,
+    insert([1,'Fireball','Spellscroll'],yes).
+insertDefault(_) :-
+    insert([1,'Leather','Armor'],yes).
+insertDefault(_) :-
     insert('Health',5).
 
 /* Insert item pada inventory dan equip jika dibutuhkan */
-insert(Item,N) :-
-    Item='Health',!,
-    assertz(potion('Health',N,10)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    (Type='Sword'; Type='Bow'; Type='Spellscroll'),!,
+    (Type='Sword'; Type='Bow'; Type='Spellscroll'),
     assertz(weapon(Item)),
     Equip=yes,
     equipItem(weapon(Item)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    Type='Armor',!,
+    Type='Armor',
     assertz(armor(Item)),
     Equip=yes,
     equipItem(armor(Item)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    (Type='Ring'; Type='Amulet'),!,
+    (Type='Ring'; Type='Amulet'),
     assertz(accessory(Item)),
     Equip=yes,
     equipItem(amulet(Item)).
+insert(Item,N) :-
+    Item='Health',
+    assertz(potion('Health',N,10)).
 
 /* Equip item */
 /* Untuk periksa item yang di-equip player */
@@ -77,7 +75,7 @@ insert(Item,Equip) :-
 equipItem(weapon([N,Type,X])) :- 
     (retract(equip(weapon([_,Type1,X]))),
     write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]);
-    write('Equiping '),printlist([Type,X])),
+    write('Equiping '),printlist([Type,X])),nl,
     assertz(equip(weapon([N,Type,X]))),
     updateStats.
 equipItem(armor([N,Type,X])) :- 
