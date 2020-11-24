@@ -4,7 +4,7 @@ loseFinal(boss).
 
 /* Rules */
 /* Pemain menang melawan bos */
-winFinal(boss) :- enemy(Name,boss,Level,MaxHP,0,DP,AP).
+winFinal(boss) :- enemy(_,boss,_,_,0,_,_).
 
 goal :- winFinal(boss),
         !,

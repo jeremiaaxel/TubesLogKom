@@ -339,7 +339,7 @@ specialAttack :-
 enemyTurn :-
     enemyInFight(_, EnemyName, _, _, _, _, _, EnemyAP),
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
-    retract(character(_, _, _, _, CharHP, CharDP, _, _)),
+    retract(character(_, _, _, _, _, CharDP, _, _)),
     EnemyDmg is (EnemyAP*(100/100+CharDP)),
     NewCharHP is (HP - EnemyDmg),
     asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
@@ -373,23 +373,12 @@ run :-
 /* **** Use Potion **** */
 /* Use potion normal */
 usePotion :-
+    usePot(Heal),
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     retract(character(_, _, _, _, _, _, _, _)),
-    usePot,
-    HP + Heal < CharMaxHP,
-    NewCharHP is HP + Heal,
-    write(Name), write(' just used a potion, heals '), write(NewCharHP - Heal),
+    (HP + Heal < MaxHP, NewCharHP is HP + Heal;NewCharHP is MaxHP),
+    write(Name), write(' just used a potion, heals to '), write(NewCharHP),
+    asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
     enemyTurn,
     !. 
 
-/* Use potion lebih dari MaxHP */
-usePotion :-
-    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
-    retract(character(_, _, _, _, _, _, _, _)),
-    usePot,
-    HP + Heal >= MaxHP,
-    NewCharHP is MaxHP,
-    asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
-    write(Name), write(' just used a potion, heals '), write(MaxHP - Heal),
-    enemyTurn,
-    !.

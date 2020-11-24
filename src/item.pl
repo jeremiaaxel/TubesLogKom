@@ -155,15 +155,17 @@ choosePotion :-
     print('You have run out of potion!'),
     fail.*/
 
-usePot :- 
+usePot(Amount) :- 
     /*choosePotion,
     read(Type),
     Type=health,*/
     potion(N,'Health',Heal),!,
     retract(potion(N,'Health',Heal)),
     N1 is N-1,
+    Amount = Heal,
     assertz(potion(N1,'Health',Heal)).
-usePot :-
+usePot(Amount) :-
+    Amount = 0,
     write('You have run out of healing potion!'),fail.
 
 /* Print List */
