@@ -1,6 +1,6 @@
 /* Exploration Mechanism */
-:- dynamic (fighting/1).
-:- dynamic (posPlayer/2).
+:- dynamic(fighting/1).
+:- dynamic(posPlayer/2).
 
 /* rules */
 notQuest(P,Q) :- \+quest1(P,Q),\+quest2(P,Q),\+quest3(P,Q).
@@ -77,11 +77,11 @@ w :- init(_),
 
 /* Jika game belum mulai */
 w :- \+init(_),
-    write("You can't move before you start the game."),!.
+    write('You can\'t move before you start the game.'),!.
 
 /* Jika lagi melawan musuh */
 w :- init(_),fighting(1),
-    write("You can't move while in the middle of battleground, mortal."),!.
+    write('You can\'t move while in the middle of battleground, mortal.'),!.
 
 /*----------------------------------*/
 

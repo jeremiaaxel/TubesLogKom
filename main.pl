@@ -38,28 +38,37 @@ help :-
     write('   - # = Wall'), nl,
     write('   - S = Store'), nl,
     write('   - D = (Boss) Dungeon'), nl,
-    write('   - Q = Quest'), nl.
+    write('   - Q = Quest'), nl,nl.
 
 title :-
     /* welcome msg */
     sleep(0.5),
-    write('     W   E   L   C   O   M   E      T   O     '),nl,
+    write('          W   E   L   C   O   M   E      T   O          '),nl,
     /* cls :- write('\e[2J').
     fungsi buat clear screen
     buat animasi uwu
     tapi nanti yeyeyeyye.
     miaw */
-    sleep(0.2),
+    sleep(0.5),
     write(' _      _  _     _    ___  _                            '), nl,
+    sleep(0.1),
     write('/ \\  /|/ \\/ \\   / \\   \\  \\//                            '), nl,
+    sleep(0.1),
     write('| |  ||| || |   | |    \\  /                             '), nl,
+    sleep(0.1),
     write('| |/\\||| || |_/\\| |_/\\ / /                              '), nl,
+    sleep(0.1),
     write('\\_/  \\|\\_/\\____/\\____//_/                               '), nl,nl,
+    sleep(0.1),
     write(' ____  ____  _     _____ _      _____  _     ____  _____'), nl,
+    sleep(0.1),
     write('/  _ \\/  _ \\/ \\ |\\/  __// \\  /|/__ __\\/ \\ /\\/  __\\/  __/'), nl,
+    sleep(0.1),
     write('| / \\|| | \\|| | //|  \\  | |\\ ||  / \\  | | |||  \\/||  \\  '), nl,
+    sleep(0.1),
     write('| |-||| |_/|| \\// |  /_ | | \\||  | |  | \\_/||    /|  /_ '), nl,
-    write('\\_/ \\|\\____/\\__/  \\____\\\\_/  \\|  \\_/  \\____/\\_/\\_\\\\____\\'), nl,
+    sleep(0.1),
+    write('\\_/ \\|\\____/\\__/  \\____\\\\_/  \\|  \\_/  \\____/\\_/\\_\\\\____\\'), nl,nl,
     sleep(0.5),
     help.
 
@@ -76,9 +85,9 @@ start :-
     title,
     /* input username dan konfirmasi */
     repeat,
-    write('Insert username :'), nl,
-    read(Username),
-    write(Username), write(' is your username, are you sure? (y/n)'), nl,
+    write('Insert username: '),
+    read(Username), nl,
+    write(Username), write(' is your username, are you sure? (y/n) '),
     read(Sure), nl,
     (
         Sure \= y -> 
@@ -87,15 +96,17 @@ start :-
     ),
     /* input job dan pemeriksaan */
     repeat,
-    write('Choose your job :'), nl,
+    write('Available jobs:'), nl,
     write('1. Swordsman'), nl,
     write('2. Archer'), nl,
-    write('3. Sorcerer'), nl,
+    write('3. Sorcerer'), nl, nl,
+    sleep(0.5),
+    write('Your choice: '),
     asserta(init(1)),
     read(Job), nl,
     (
         \+ jobExist(Job) ->
-        write('Job is not exist or you typed falsely.'), nl,
+        write('Job does not exist or you typed falsely.'), nl,
             fail;
             !
         ),
@@ -132,4 +143,9 @@ quit :-
     retract(quest2(_,_)),
     retract(quest3(_,_)),
     retract(store(_,_)),
+    retract(weapon(_)),
+    retract(armor(_)),
+    retract(accessory(_)),
+    retract(potion(_,_,_)),
+    retract(gold(_)),
     !.
