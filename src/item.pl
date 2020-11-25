@@ -30,16 +30,18 @@ checkItem([N,_,_],Y) :-
 /* Insert awal pembuatan character */
 insertDefault(Job) :-
     Job=swordsman,
-    insert([1,'Wood','Sword'],yes).
+    insert([1,'Wood','Sword'],yes),
+    insert([1,'Leather','Armor'],yes),
+    insert('Health',5).
 insertDefault(Job) :-
     Job=archer,
-    insert([1,'Short','Bow'],yes).
+    insert([1,'Short','Bow'],yes),
+    insert([1,'Leather','Armor'],yes),
+    insert('Health',5).
 insertDefault(Job) :-
     Job=sorcerer,
-    insert([1,'Fireball','Spellscroll'],yes).
-insertDefault(_) :-
-    insert([1,'Leather','Armor'],yes).
-insertDefault(_) :-
+    insert([1,'Fireball','Spellscroll'],yes),
+    insert([1,'Leather','Armor'],yes),
     insert('Health',5).
 
 /* Insert item pada inventory dan equip jika dibutuhkan */

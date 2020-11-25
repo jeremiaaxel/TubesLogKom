@@ -36,8 +36,8 @@ shop :- /* untuk membuka menu store */
     write('1. gacha (100 Gold)\n2. Health Potion (10 Gold)\n'),
     write('\nWhat would you like to buy? '),
     read(X),
-    X=1 -> gacha;
-    X=2 -> healthPotion. 
+    (X==1 -> gacha;
+    X==2 -> healthPotion). 
 shop :-
     write('You are not in any store.').
 
