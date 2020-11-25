@@ -312,9 +312,7 @@ isLevelUp :-
 expUp :-
     character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
     enemyInFight(_, _, EnemyLevel, _, _, _, _, _),
-    write('testaw'), nl,
     Exp2 is Exp + EnemyLevel*5,
-    write('testaw'), nl,
     retract(character(_, _, _, _, _, _, _, _)),
     asserta(character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp2)),
     isLevelUp,
@@ -340,13 +338,6 @@ charTurn :-
     write('Your turn!'), nl,
     write('...'), nl,
     showBattleCommands,
-    read(input),
-    (
-        (input == attack) -> attack;
-        (input == specialAttack) -> specialAttack;
-        (input == run) -> run;
-        (input == usePotion) -> usePotion
-    ),
     !.
 
 attack :-
@@ -358,7 +349,7 @@ attack :-
     character(CharName, _, _, _, _, _, CharAttack, _), !,
     enemyInFight(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
     retract(enemyInFight(_, _, _, _, _, _, _, _)),
-    CharAtt is (CharAttack*(100/100+EnemyDP)),
+    CharAtt is (CharAttack*(100/(100+EnemyDP))),
     NewEnemyHP is (EnemyHP-CharAtt),
     asserta(enemyInFight(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, NewEnemyHP,EnemyDP,EnemyAP)),
     write(CharName), write(' attacks and deals '), write(CharAtt), write(' damage.'), nl,
@@ -394,7 +385,7 @@ specialAttack :-
     character(CharName, _, _, _, _, _, CharAttack, _), !,
     enemyInFight(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
     retract(enemyInFight(_, _, _, _, _, _, _, _)),
-    CharAtt is (2*CharAttack*(100/100+EnemyDP)),
+    CharAtt is (2*CharAttack*(100/(100+EnemyDP))),
     NewEnemyHP is (EnemyHP-CharAtt),
     asserta(enemyInFight(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, NewEnemyHP,EnemyDP,EnemyAP)),
     write(CharName), write(' uses special attacks and deals '), write(CharAtt), write(' damage.'), nl,
@@ -408,12 +399,12 @@ specialAttack :-
 enemyTurn :-
     enemyInFight(_, EnemyName, _, _, _, _, _, EnemyAP),
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
-    retract(character(_, _, _, _, _, CharDP, _, _)),
-    EnemyDmg is (EnemyAP*(100/100+CharDP)),
+    retract(character(_, _, _, _, _, _, _, _)),
+    EnemyDmg is (EnemyAP*(100/(100+DP))),
     NewCharHP is (HP - EnemyDmg),
     asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
     write(EnemyName), write(' attacks and deals '), write(EnemyDmg), write(' damage.'), nl,
-    enemyAttackComment, !.
+    enemyAttComment, !.
 
 
 /* **** Run **** */
