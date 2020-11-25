@@ -279,30 +279,39 @@ status :-
     !. 
 
 /* Teleporting */
+/*
 teleport :-
-    repeat,
-    write('Insert absicca: '),
-    read(X),
-    write('Insert ordinate: '),
-    read(Y), nl,
     (
-        notAWall(X,Y,Z), Z == 1 ->
-            (retract(posPlayer(_,_)), asserta(posPlayer(X,Y)),
-            write('You are now at ('), write(X), write(','), write(Y), write(').\n'));
-            /* Kalau tabrakan dengan tembok */
-            write('Fool, you can\'t teleport there!\n\n'),fail
+        (posPlayer(Xp,Yp),teleportA(Xa,Ya),Xx=Xa,Yx=Ya,Upper='A',Lower='a',!);
+        (posPlayer(Xp,Yp),teleportB(Xb,Yb),Xx=Xb,Yx=Yb,Upper='B',Lower='b',!);
+        (posPlayer(Xp,Yp),teleportC(Xc,Yc),Xx=Xc,Yx=Yc,Upper='C',Lower='c',!);
+        (posPlayer(Xp,Yp),teleportD(Xd,Yd),Xx=Xd,Yx=Yd,Upper='D',Lower='d',!)
+    ),
+    write('You are at Teleporting Station '), write(Upper), nl,
+    repeat,
+    write('Which teleporting station would you like to go to? (a/b/c/d): '),
+    read(P),nl,
+    point(P,Lower,Z),
+    string_upper(P, UpperCase),
+    (
+        Z == 1 -> (retract(posPlayer(_,_)), asserta(posPlayer(Xx,Yx)),
+            write('You are now at Teleporting Station '), write(UpperCase), write('\n'));
+        Z == 0 -> write('You are already there! Fool!\n'),fail;
+        write('Fool, you can\'t teleport there!\n\n'),fail
     ),!.
-    
-notAWall(X,Y,Z) :-
-    \+ wall(X,Y),
-    len(L),
-    width(W),
-    L1 is L + 1,
-    W1 is W + 1,
-    X > 0, X < L1,
-    Y > 0, Y < W1,
-    Z = 1, !.
 
-notAWall(X,Y,Z) :-
-    wall(X,Y),
-    Z = 0, !.
+teleport :-
+    write('You are not in any Teleporting Stations.\n').
+
+point(P,Lower,Z) :-
+    (   
+        P == Lower -> (Z = 0, !);
+        (Z = 1, !);
+    ).
+
+abcd(P,M) :-
+    (   
+        P == 'a' -> (M = 1, !);
+        (Z = 1, !);
+    ).
+*/
