@@ -97,6 +97,7 @@ start :-
             fail
     ),
     /* defaultStat(Job,MaxHP,DP,AP), */
+    retractall(character(_,_,_,_,_,_,_,_)),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
     write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,
     insertDefault(Job),

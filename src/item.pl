@@ -7,9 +7,9 @@
 :- dynamic(potion/3).
 :- dynamic(gold/1).
 
-itemList([['Wood','Sword'],['Stone','Sword'],['Iron','Sword'],['Short','Bow'],
-    ['Long','Bow'],['Cross','Bow'],['Fireball','Spellscroll'],['Iceray','Spellscroll'],
-    ['Thunderstrike','Spellscroll'],['Leather','Armor'],['Iron','Armor']]).
+itemList(swordsman,[['Wood','Sword'],['Stone','Sword'],['Iron','Sword'],['Leather','Armor'],['Iron','Armor']]).
+itemList(archer,[['Short','Bow'],['Long','Bow'],['Cross','Bow'],['Leather','Armor'],['Iron','Armor']]).
+itemList(sorcerer,[['Fireball','Spellscroll'],['Iceray','Spellscroll'],['Thunderstrike','Spellscroll'],['Leather','Armor'],['Iron','Armor']]).
 
 /* Rules */
 /*Basis*/
@@ -23,8 +23,8 @@ back([_|Tail],R) :- back(Tail,R1),R=R1.
 
 checkItem([N,Type,Z],Y) :- 
     (weapon([X,Type,Z]);armor([X,Type,Z]);accessory([X,Type,Z])),!,
-    retract(weapon([X,Type,Z]));retract(armor([X,Type,Z]));retract(accessory([X,Type,Z])),
-    Y is X+N.
+    (retract(weapon([X,Type,Z]));retract(armor([X,Type,Z]));retract(accessory([X,Type,Z]))),
+    Y is X+N,!.
 checkItem([N,_,_],Y) :- 
     Y is N.
 
@@ -44,27 +44,27 @@ insertDefault(_) :-
     insert('Health',5).
 
 /* Insert item pada inventory dan equip jika dibutuhkan */
+insert(Item,N) :-
+    Item='Health',!,
+    assertz(potion('Health',N,10)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    (Type='Sword'; Type='Bow'; Type='Spellscroll'),
+    (Type='Sword'; Type='Bow'; Type='Spellscroll'),!,
     assertz(weapon(Item)),
     Equip=yes,
     equipItem(weapon(Item)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    Type='Armor',
+    Type='Armor',!,
     assertz(armor(Item)),
     Equip=yes,
     equipItem(armor(Item)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    (Type='Ring'; Type='Amulet'),
+    (Type='Ring'; Type='Amulet'),!,
     assertz(accessory(Item)),
     Equip=yes,
     equipItem(amulet(Item)).
-insert(Item,N) :-
-    Item='Health',
-    assertz(potion('Health',N,10)).
 
 /* Equip item */
 /* Untuk periksa item yang di-equip player */
@@ -74,49 +74,68 @@ insert(Item,N) :-
 
 equipItem(weapon([N,Type,X])) :- 
     (retract(equip(weapon([_,Type1,X]))),
-    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]);
+    (minusStats(Type1),
+    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]));
     write('Equiping '),printlist([Type,X])),nl,
     assertz(equip(weapon([N,Type,X]))),
-    updateStats.
+    updateStats(Type).
 equipItem(armor([N,Type,X])) :- 
     (retract(equip(armor([_,Type1,X]))),
-    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]);
-    write('Equiping '),printlist([Type,X])),
+    (minusStats(Type1),
+    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]));
+    write('Equiping '),printlist([Type,X])),nl,
     assertz(equip(armor([N,Type,X]))),
-    updateStats.
+    updateStats(Type).
 equipItem(accessory([N,Type,X])) :- 
     (retract(equip(accessory([_,Type1,X]))),
-    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]);
-    write('Equiping '),printlist([Type,X])),
+    (minusStats(Type1),
+    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]));
+    write('Equiping '),printlist([Type,X])),nl,
     assertz(equip(accessory([N,Type,X]))),
-    updateStats.
+    updateStats(Type).
 
 /* Update Stats Player */
-checkStats(Type,Stat) :-
-    (Type='Wood';Type='Short';Type='Fireball'),!,
-    Stat = 10.
-checkStats(Type,Stat) :-
-    (Type='Stone';Type='Long';Type='Iceray'),!,
-    Stat = 20.
-checkStats(Type,Stat) :-
-    (Type='Iron';Type='Cross';Type='Thunderstrike'),!,
-    Stat is 40.
-checkStats(Type,Stat) :-
-    Type='Leather',!,
-    Stat is 100.
-checkStats(Type,Stat) :-
-    Type='Iron',!,
-    Stat is 500.
+checkStats(Type,N,Stat) :-
+    (Type='Wood';Type='Short';Type='Fireball'),
+    N = 10,Stat=attack,!.
+checkStats(Type,N,Stat) :-
+    (Type='Stone';Type='Long';Type='Iceray'),
+    N = 20,Stat=attack,!.
+checkStats(Type,N,Stat) :-
+    (Type='Iron';Type='Cross';Type='Thunderstrike'),
+    N is 40,Stat=attack,!.
+checkStats(Type,N,Stat) :-
+    Type='Leather',
+    N is 100,Stat=defend,!.
+checkStats(Type,N,Stat) :-
+    Type='Iron',
+    N is 500,Stat=defend,!.
 
-updateStats :-
-    retract(character(Username, Job, MaxHP, HP, DP, AP)),
-    equip(weapon(_,Weapon,_)),
-    checkStats(Weapon,AStat),
-    AP1 is AP + AStat,
-    equip(armor(_,Armor,_)),
-    checkStats(Armor,DStat),
-    DP1 is DP + DStat,
-    asserta(character(Username, Job, MaxHP, HP, DP1, AP1)).
+minusStats(Type) :-
+    checkStats(Type,N,Stat),
+    Stat=attack,
+    retract(character(Username, Job, Level, MaxHP, HP, DP, AP, XP)),
+    AP1 is AP - N,
+    asserta(character(Username, Job, Level, MaxHP, HP, DP, AP1, XP)).
+minusStats(Type) :-
+    checkStats(Type,N,Stat),
+    Stat=defend,
+    retract(character(Username, Job, Level, MaxHP, HP, DP, AP, XP)),
+    DP1 is DP - N,
+    asserta(character(Username, Job, Level, MaxHP, HP, DP1, AP, XP)).
+
+updateStats(Type) :-
+    checkStats(Type,N,Stat),
+    Stat=attack,
+    retract(character(Username, Job, Level, MaxHP, HP, DP, AP, XP)),
+    AP1 is AP + N,
+    asserta(character(Username, Job, Level, MaxHP, HP, DP, AP1, XP)).
+updateStats(Type) :-
+    checkStats(Type,N,Stat),
+    Stat=defend,
+    retract(character(Username, Job, Level, MaxHP, HP, DP, AP, XP)),
+    DP1 is DP + N,
+    asserta(character(Username, Job, Level, MaxHP, HP, DP1, AP, XP)).
 
 /*************************************************************************************/
  
