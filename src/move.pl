@@ -295,6 +295,12 @@ teleport :-
     
 notAWall(X,Y,Z) :-
     \+ wall(X,Y),
+    len(L),
+    width(W),
+    L1 is L + 1,
+    W1 is W + 1,
+    X > 0, X < L1,
+    Y > 0, Y < W1,
     Z = 1, !.
 
 notAWall(X,Y,Z) :-
