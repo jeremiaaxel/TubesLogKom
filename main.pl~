@@ -139,7 +139,6 @@ start :-
     initLocations,
     asserta(fighting(0)),
     asserta(init(1)),
-    asserta(newMove(0)),
     !.
 
 /* Check ada ga jobnya */
