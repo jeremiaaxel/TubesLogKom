@@ -417,10 +417,10 @@ status :-
 /* Teleporting */
 teleport :-
     fighting(0),
-    LetterA = 'w',
-    LetterB = 'x',
-    LetterC = 'y',
-    LetterD = 'z',
+    LetterW = 'w',
+    LetterX = 'x',
+    LetterY = 'y',
+    LetterZ = 'z',
     posPlayer(Xp,Yp),
     (
         (teleportW(Xp,Yp),Letter=LetterW,!);
@@ -429,7 +429,7 @@ teleport :-
         (teleportZ(Xp,Yp),Letter=LetterZ,!)
     ),
     repeat,
-    write('Which teleporting station would you like to go to? (a/b/c/d): '),
+    write('Which teleporting station would you like to go to? (w/x/y/z): '),
     read(P),nl,
     (
         P == Letter -> write('You are already there! Fool!\n\n'), fail;
