@@ -12,6 +12,7 @@
 :- include('src/move.pl').
 :- include('src/quest.pl').
 :- include('src/store.pl').
+:- include('src/story.pl').
 
 help :-
     write('Commands:'), nl,
@@ -101,7 +102,8 @@ start :-
     /* defaultStat(Job,MaxHP,DP,AP), */
     retractall(character(_,_,_,_,_,_,_,_,_)),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
-    write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,
+    write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,nl,
+    prologue,sleep(2),nl,nl,
     insertDefault(Job),
     random(10,20,Len),
     random(10,20,Width),
@@ -109,7 +111,7 @@ start :-
     initLocations,
     asserta(fighting(0)),
     asserta(init(1)),
-    asserta(newMove(0)),
+    asserta(newMove(0)).
     !.
 
 /* Check ada ga jobnya */
