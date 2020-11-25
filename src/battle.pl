@@ -6,12 +6,36 @@
 :-dynamic(enemyInFight/8).
 :-dynamic(turns/1).
 :-dynamic(peluang/1).
+:-dynamic(isRun/1).
 :-dynamic(fighting/1).
 /* ****** Fakta ****** */
 isEnemyAlive(0).
 isEnemyAlive(1).
 
 /* ****** Rules ****** */
+showEnemy :-
+    nl,
+    fighting(1),
+    enemyInFight(_, Name, Level, Type, MaxHP, HP, DP, AP),
+    write(Name), nl,
+    write('Level : '), write(Level), nl,
+    write('Type : '), write(Type), nl,
+    write('HP : '), write(HP), write('/'), write(MaxHP), nl,
+    write('DP : '), write(DP), nl,
+    write('AP : '), write(AP), nl,
+    showBattleCommands,
+    !.
+
+showBattleCommands :-
+    nl,
+    write('Battle commands :'), nl,
+    write('     attack        : deal basic attack'), nl,
+    write('     specialAttack : deal stronger attack'), nl,
+    write('     usePotion     : consume 1 healing potion'), nl,
+    write('     run           : try to run away'), nl,
+    !.
+
+
 /* **** found enemy **** */
 /* Bertemu dengan musuh yang levelnya sama dengan character */
 /* 1 */
@@ -26,7 +50,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 2 */
 foundEnemy :-
@@ -40,7 +65,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 3 */
 foundEnemy :-
@@ -54,7 +80,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 4 */
 foundEnemy :-
@@ -68,7 +95,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 5 */
 foundEnemy :-
@@ -82,7 +110,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 6 */
 foundEnemy :-
@@ -96,7 +125,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 7 */
 foundEnemy :-
@@ -110,7 +140,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 8 */
 foundEnemy :-
@@ -124,7 +155,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 9 */
 foundEnemy :-
@@ -138,7 +170,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 10 */
 foundEnemy :-
@@ -152,7 +185,8 @@ foundEnemy :-
     random(1, 10, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('You just found an enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('You just found an enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* *** Bosses *** */
 /* Bertemu boss yang sesuai level character */
@@ -168,7 +202,8 @@ foundBoss :-
     random(1, 6, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 5 */
 foundBoss :-
@@ -182,7 +217,8 @@ foundBoss :-
     random(1, 6, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 7 */
 foundBoss :-
@@ -196,7 +232,8 @@ foundBoss :-
     random(1, 6, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 9 */
 foundBoss :-
@@ -210,7 +247,8 @@ foundBoss :-
     random(1, 6, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
 
 /* 10 */
 foundBoss :-
@@ -224,28 +262,44 @@ foundBoss :-
     random(1, 6, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(0)),asserta(fighting(1)).
+    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    showEnemy, !.
+
+finishFight :-
+    retract(enemyInFight(_,_,_,_,_,_,_,_)),
+    retract(fighting(_)),
+    asserta(fighting(0)),
+    retract(peluang(_)),
+    retract(turns(_)),
+    retract(isEnemyAlive(_)),
+    !.
 
 /* **** Commentary **** */
-attComment :-
-    enemyInFight(_, EnemyName, _, _, _, EnemyHP, _, _),
+attackComment :-
+    enemyInFight(_, EnemyName, _, _, EnemyMaxHP, EnemyHP, _, _),
     EnemyHP > 0,
-    write('Enemy health '), write(EnemyName), write(' : '), write(EnemyHP), nl,
+    write('Enemy health '), write(EnemyName), write(' : '), write(EnemyHP), write('/'), write(EnemyMaxHP), nl,
     write('Enemy turn!'), nl,
     write('...'), nl,
     sleep(1),
     enemyTurn, !.
 
-attComment :-
-    enemyInFight(_, _, _, _, EnemyHP, _, _),
+attackComment :-
+    enemyInFight(_, EnemyName, _, _, EnemyMaxHP, EnemyHP, _, _),
     EnemyHP =< 0,
-    retract(isEnemyAlive(1)),
-    asserta(isEnemyAlive(0)),
+    write(EnemyName), write(' health '), write(' : '), write('0/'), write(EnemyMaxHP), nl,
     write('You win '), nl,
     write('...'), nl,
     expUp,
+    finishFight,
     sleep(1), !.
     /* lanjut ke ? */
+
+isLevelUp :-
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
+    Exp < Level*100,
+    retract(character(_, _, _, _, _, _, _, _)),
+    asserta(character(Name, Job, Level, MaxHP, HP, DP, AP, Exp)), !.
 
 isLevelUp :-
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
@@ -258,7 +312,9 @@ isLevelUp :-
 expUp :-
     character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
     enemyInFight(_, _, EnemyLevel, _, _, _, _, _),
+    write('testaw'), nl,
     Exp2 is Exp + EnemyLevel*5,
+    write('testaw'), nl,
     retract(character(_, _, _, _, _, _, _, _)),
     asserta(character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp2)),
     isLevelUp,
@@ -283,12 +339,25 @@ enemyAttComment :-
 charTurn :-
     write('Your turn!'), nl,
     write('...'), nl,
-    attack.
+    showBattleCommands,
+    read(input),
+    (
+        (input == attack) -> attack;
+        (input == specialAttack) -> specialAttack;
+        (input == run) -> run;
+        (input == usePotion) -> usePotion
+    ),
+    !.
 
 attack :-
-    character(_, CharName, _, _, _, _, CharAttack, _),
-    enemy(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
-    retract(enemy(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP)),
+    \+ fighting(_),
+    write('You are not in a battle'), !.
+
+attack :-
+    fighting(_),
+    character(CharName, _, _, _, _, _, CharAttack, _), !,
+    enemyInFight(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
+    retract(enemyInFight(_, _, _, _, _, _, _, _)),
     CharAtt is (CharAttack*(100/100+EnemyDP)),
     NewEnemyHP is (EnemyHP-CharAtt),
     asserta(enemyInFight(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, NewEnemyHP,EnemyDP,EnemyAP)),
@@ -309,26 +378,27 @@ attack :-
 specialAttack :-
     turns(X),
     X < 3,
-    write('Special Attack is unavailable, '), write(3 - X), write(' turns more.'), nl,
+    NeedTurns is 3 - X,
+    write('Special Attack is unavailable, '), write(NeedTurns), write(' turns more.'), nl,
     /* gagal special attack, player turn lagi */
     !.
 
 /* ** Special Attack available ** */
 /* banyak turns >= 3, turns diset ke 0 */
 specialAttack :-
+    fighting(1),
     turns(X),
     X >= 3,
     retract(turns(_)),
     asserta(turns(0)),
-    character(_, CharName, _, _, _, _, CharAttack, _),
-    enemy(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
-    retract(enemy(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP)),
-    CharAtt is (CharAttack * 2 * (100/100+EnemyDP)),
+    character(CharName, _, _, _, _, _, CharAttack, _), !,
+    enemyInFight(ID, EnemyName, EnemyLevel, EnemyType, EnemyMaxHP, EnemyHP, EnemyDP, EnemyAP),
+    retract(enemyInFight(_, _, _, _, _, _, _, _)),
+    CharAtt is (2*CharAttack*(100/100+EnemyDP)),
     NewEnemyHP is (EnemyHP-CharAtt),
     asserta(enemyInFight(ID, EnemyName, EnemyType, EnemyLevel, EnemyMaxHP, NewEnemyHP,EnemyDP,EnemyAP)),
-    write(CharName), write(' uses special attack and deals '), write(CharAtt), write(' damage.'), nl,
+    write(CharName), write(' uses special attacks and deals '), write(CharAtt), write(' damage.'), nl,
     peluang(Prob),
-    retract(peluang(_)),
     Prob2 is Prob+1,
     retract(peluang(_)),
     asserta(peluang(Prob2)),
@@ -349,15 +419,17 @@ enemyTurn :-
 /* **** Run **** */
 /* Bisa run kalau peluang >= 5 */
 /* Berhasil Run */
+run :- 
+    \+ init(_),
+    write('Please start the game'), !.
+
 run :-
     \+ isRun(_),
     isEnemyAlive(_),
     peluang(P),
     P >= 5,
+    finishFight,
     write('You just successfully ran away!'),
-    retract(peluang(P)),
-    retract(isEnemyAlive(_)),
-    retract(enemyInFight(_, _, _, _, _, _, _)),
     !.
 
 /* Gagal Run */
