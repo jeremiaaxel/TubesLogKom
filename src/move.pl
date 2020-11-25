@@ -277,3 +277,26 @@ status :-
     write('Exp   : '), write(Exp), nl,
     write('Gold  : '), write(Gold), nl,
     !. 
+
+/* Teleporting */
+teleport :-
+    repeat,
+    write('Insert absicca: '),
+    read(X),
+    write('Insert ordinate: '),
+    read(Y), nl,
+    (
+        notAWall(X,Y,Z), Z == 1 ->
+            (retract(posPlayer(_,_)), asserta(posPlayer(X,Y)),
+            write('You are now at ('), write(X), write(','), write(Y), write(').\n'));
+            /* Kalau tabrakan dengan tembok */
+            write('Fool, you can\'t teleport there!\n\n'),fail
+    ),!.
+    
+notAWall(X,Y,Z) :-
+    \+ wall(X,Y),
+    Z = 1, !.
+
+notAWall(X,Y,Z) :-
+    wall(X,Y),
+    Z = 0, !.
