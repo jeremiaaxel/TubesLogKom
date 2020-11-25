@@ -18,5 +18,5 @@ goal :- winFinal(boss),
         write('          You are a hero of Willy Wangky Theme Park').
 
 /* Pemain kalah melawan bos */
-goal :- character(_,_,_,_,0,_,_),!,
+goal :- character(_,_,_,_,_,0,_,_),!,
         lose.

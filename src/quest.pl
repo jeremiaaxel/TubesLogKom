@@ -38,7 +38,7 @@ foundQuest :- posPlayer(X,Y),quest1(X,Y),\+(questOnGoing(1)),asserta(quest1(1,1,
     ((PP=1,nl,write('Veelfdir: Thank you, sir.'));
     (PP=2,nl,write('Veelfdir: Thank you, dear sir. I hope you could came back with no dirty rags.'));
     (PP=3,nl,write('Veelfdir: *silent*'))),nl,sleep(0.5),
-    write('##############QUEST 1##############'),nl,
+    write('############# QUEST 1 #############'),nl,
     write('Kill 1 slime, 1 goblin, and 1 wolf.'),
     asserta(questOnGoing(1)).
 
@@ -71,7 +71,7 @@ foundQuest :- posPlayer(X,Y),quest2(X,Y),\+(questOnGoing(1)),asserta(quest2(2,3,
     ),
     ((RR=1,nl,write('Laborers  : Let\'s go with us then, sir.'));
     (RR=2,nl,write('Laborers  : Sounds lazy... Anyway, let\'s go.'))),nl,sleep(0.5),
-    write('##############QUEST 2##############'),nl,
+    write('############# QUEST 2 #############'),nl,
     write('Kill 2 slimes, 3 goblins, 2 wolves'),
     asserta(questOnGoing(1)).
 
@@ -128,7 +128,7 @@ foundQuest :- posPlayer(X,Y),quest3(X,Y),\+(questOnGoing(1)),asserta(quest3(5,6,
     (TT=1,nl,write('Dovahngard : ...In the mean time... this old earthling just requests you to clean my Histeria from those impurities...'),nl,sleep(0.5),
     write('             ...but those things will never end until you.....end the biggest impurities laid beneath this land....'),nl,
     write('             ...God give me a hope to this land as the sunrise could be seen again...')),nl,nl,sleep(0.5),
-    write('##############QUEST 3##############'),nl,
+    write('############# QUEST 3 #############'),nl,
     write('Kill 5 slimes, 6 goblins, and 4 wolves.'),
     asserta(questOnGoing(1)).
 
