@@ -1,5 +1,5 @@
 :- dynamic(init/1).
-:- dynamic(character/9).
+:- dynamic(character/8).
 :- dynamic(sure/1).
 
 :- include('src/battle.pl').
@@ -97,7 +97,7 @@ start :-
             fail
     ),
     /* defaultStat(Job,MaxHP,DP,AP), */
-    retractall(character(_,_,_,_,_,_,_,_)),
+    retractall(character(_,_,_,_,_,_,_,_,_)),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
     write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,
     insertDefault(Job),

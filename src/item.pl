@@ -19,7 +19,6 @@ back([Head|[]],R) :- !,R=Head.
 back([_|Tail],R) :- back(Tail,R1),R=R1.
 
 /* Insert Item ke inventory*/
-/* armor([1,'Leather','Armor']). */
 
 checkItem([N,Type,Z],Y) :- 
     (weapon([X,Type,Z]);armor([X,Type,Z]);accessory([X,Type,Z])),!,

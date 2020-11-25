@@ -37,7 +37,7 @@ shop :- /* untuk membuka menu store */
     X=1 -> gacha;
     X=2 -> healthPotion. 
 shop :-
-    write('You are not in any store').
+    write('You are not in any store.').
 
 gacha :- /* Untuk random item yang didapatkan player */
     checkGold(100),!,
