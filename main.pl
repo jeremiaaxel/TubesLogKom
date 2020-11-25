@@ -12,25 +12,26 @@
 :- include('src/move.pl').
 :- include('src/quest.pl').
 :- include('src/store.pl').
+:- include('src/story.pl').
 
 help :-
     write('Commands:'), nl,
-    write('1. start  : To start to waste your useless life'), nl,
-    write('2. map    : To show map'), nl,
-    write('3. status : To show your status of course'), nl,
-    write('4. moving commands:'), nl,
+    write('1. start  : To start to waste your useless life'), nl, sleep(0.25),
+    write('2. map    : To show map'), nl, sleep(0.25),
+    write('3. status : To show your status of course'), nl, sleep(0.25),
+    write('4. moving commands:'), nl, sleep(0.25),
     write('           w : move toward north one step'), nl,
     write('           a : move toward west one step'), nl,
     write('           s : move toward south one step'), nl,
     write('           d : move toward east one step'), nl,
-    write('5. shop   : To open shop menu'), nl,
-    write('6. battle commands:'), nl,
+    write('5. shop   : To open shop menu'), nl, sleep(0.25),
+    write('6. battle commands:'), nl, sleep(0.25),
     write('           attack        : attack enemy'), nl,
     write('           specialAttack : attack enemy using special power'), nl,
     write('           usePotion     : use a health potion to regain HP'), nl,
     write('           run           : run from a battle'), nl,
-    write('7. help   : show all commands and legends'), nl,
-    write('8. quit   : To quit the game because'), nl,
+    write('7. help   : show all commands and legends'), nl, sleep(0.25),
+    write('8. quit   : To quit the game because'), nl, sleep(0.25),
     write('            you realise you have assignments to do'), nl, nl,
     sleep(0.5),
     write('Legends:'), nl,
@@ -99,7 +100,8 @@ start :-
     /* defaultStat(Job,MaxHP,DP,AP), */
     retractall(character(_,_,_,_,_,_,_,_,_)),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
-    write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,
+    write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,nl,
+    prologue,sleep(2),nl,nl,
     insertDefault(Job),
     random(10,20,Len),
     random(10,20,Width),
@@ -107,7 +109,7 @@ start :-
     initLocations,
     asserta(fighting(0)),
     asserta(init(1)),
-    asserta(newMove(0)),
+    asserta(newMove(0)).
     !.
 
 /* Check ada ga jobnya */
