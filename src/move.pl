@@ -5,21 +5,21 @@ notQuest(P,Q) :- \+quest1(P,Q),\+quest2(P,Q),\+quest3(P,Q).
 yesQuest(P,Q) :- (quest1(P,Q);quest2(P,Q);quest3(P,Q)).
 
 /* randomize enemy */
-enemyRandomW(0) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomW(X) :- X=\=3, retract(newMove(1)),asserta(newMove(0)),
     write('You move north.').
-enemyRandomW(1) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomW(X) :- X=:=3,retract(newMove(1)),asserta(newMove(0)),
     foundEnemy.
-enemyRandomA(0) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomA(X) :- X=\=3,retract(newMove(1)),asserta(newMove(0)),
     write('You move west.').
-enemyRandomA(1) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomA(X) :- X=:=3,retract(newMove(1)),asserta(newMove(0)),
     foundEnemy.
-enemyRandomS(0) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomS(X) :- X=\=3,retract(newMove(1)),asserta(newMove(0)),
     write('You move south.').
-enemyRandomS(1) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomS(X) :- X=:=3,retract(newMove(1)),asserta(newMove(0)),
     foundEnemy.
-enemyRandomD(0) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomD(X) :- X=\=3,retract(newMove(1)),asserta(newMove(0)),
     write('You move east.').
-enemyRandomD(1) :- retract(newMove(1)),asserta(newMove(0)),
+enemyRandomD(X) :- X=:=3,retract(newMove(1)),asserta(newMove(0)),
     foundEnemy.
 
 /*pemain berpindah 1 tile ke atas dengan mekanisme kemunculan musuh yang random*/
@@ -33,7 +33,7 @@ w :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
-    random(0,2,E),enemyRandomW(E),!.
+    random(1,5,E),enemyRandomW(E),!.
 
 /* Jika nabrak pagar */
 w :- newMove(0),
@@ -92,7 +92,7 @@ a :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
-    random(0,2,E),enemyRandomW(E),!.
+    random(1,5,E),enemyRandomW(E),!.
 
 /* jika menabrak pagar */
 a :-newMove(0),
@@ -152,7 +152,7 @@ s :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
-    random(0,2,E),enemyRandomW(E),!.
+    random(1,5,E),enemyRandomW(E),!.
 
 /* Jika menabrak pagar */
 s :-newMove(0),
@@ -212,7 +212,7 @@ d :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
-    random(0,2,E),enemyRandomW(E),!.
+    random(1,5,E),enemyRandomW(E),!.
 
 /* Jika menabrak pagar */
 d :-newMove(0),
@@ -295,6 +295,12 @@ teleport :-
     
 notAWall(X,Y,Z) :-
     \+ wall(X,Y),
+    len(L),
+    width(W),
+    L1 is L + 1,
+    W1 is W + 1,
+    X > 0, X < L1,
+    Y > 0, Y < W1,
     Z = 1, !.
 
 notAWall(X,Y,Z) :-
