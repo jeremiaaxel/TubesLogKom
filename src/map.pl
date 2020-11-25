@@ -6,6 +6,10 @@
 :- dynamic(quest2/2).
 :- dynamic(quest3/2).
 :- dynamic(dungeon/2).
+:- dynamic(teleportA/2).
+:- dynamic(teleportB/2).
+:- dynamic(teleportC/2).
+:- dynamic(teleportD/2).
 
 /* TODO: buat wall di dalam map, bukan border */
 
@@ -21,6 +25,8 @@ initLocations :-
     Wh is Wmid + 1,
     random(2,W,Y1),
     asserta(store(1,Y1)),
+    asserta(posPlayer(1,1)),
+    /* Quest Locations */
     random(2,Ll,X2),
     random(1,Wl,Y2),
     asserta(quest1(X2,Y2)),
@@ -33,7 +39,54 @@ initLocations :-
     random(Lh,L,X5),
     random(Wh,W,Y5),
     asserta(dungeon(X5,Y5)),
-    asserta(posPlayer(1,1)).
+    /* Teleporting Points Locations */
+    asserta(teleportA(21,21)),
+    asserta(teleportB(21,21)),
+    asserta(teleportC(21,21)),
+    asserta(teleportD(21,21)),
+    Un = 1, Deux = 2, Trois = 3, Quatre = 4,
+    repeat,
+    random(2,Ll,Xa),
+    random(1,Wl,Ya),
+    (
+        notOccupied(Un,Xa,Ya,A), A == 1 ->
+            (retract(teleportA(_,_)),asserta(teleportA(Xa,Ya)));
+            fail
+    ),
+    repeat,
+    random(Lh,L,Xb),
+    random(1,Wh,Yb),
+    (
+        notOccupied(Deux,Xb,Yb,B), B == 1 ->
+            (retract(teleportB(_,_)),asserta(teleportB(Xb,Yb)));
+            fail
+    ),
+    repeat,
+    random(2,Ll,Xc),
+    random(Wh,W,Yc),
+    (
+        notOccupied(Trois,Xc,Yc,C), C == 1 ->
+            (retract(teleportC(_,_)),asserta(teleportC(Xc,Yc)));
+            fail
+    ),
+    repeat,
+    random(Lh,L,Xd),
+    random(Wh,W,Yd),
+    (
+        notOccupied(Quatre,Xd,Yd,D), D == 1 ->
+            (retract(teleportD(_,_)),asserta(teleportD(Xd,Yd)));
+            fail
+    ).
+
+/* Untuk mengecek apakah lokasi tersebut kosong atau tidak */
+/* W: 'kuadran', X: absis, Y: ordinat, Z: hasil */
+notOccupied(W,X,Y,Z) :-
+    (   
+        W == 1 -> (\+quest1(X,Y), Z = 1, !);
+        W == 2 -> (\+quest2(X,Y), Z = 1, !);
+        W == 3 -> (\+quest3(X,Y), Z = 1, !);
+        W == 4 -> (\+dungeon(X,Y), Z = 1, !)
+    ).
 
 /* Wall Generating */
 wall(0,Y) :-
@@ -133,6 +186,22 @@ printMap(X,Y) :-
 printMap(X,Y) :- 
     quest3(X,Y),
     write('Q').
+
+printMap(X,Y) :- 
+    teleportA(X,Y),
+    write('A').
+
+printMap(X,Y) :- 
+    teleportB(X,Y),
+    write('B').
+
+printMap(X,Y) :- 
+    teleportC(X,Y),
+    write('C').
+
+printMap(X,Y) :- 
+    teleportD(X,Y),
+    write('D').
 
 printMap(X,Y) :- 
     unoccupied(X,Y),
