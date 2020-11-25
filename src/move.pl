@@ -69,7 +69,7 @@ w :- init(_),
     store(X,Y),
     retract(newMove(1)),
     asserta(newMove(0)),
-    write('Hello, sir. Welcome to my store! Here, take a look'),!.
+    write('Hello, sir. Welcome to my store! Here, take a look!'),!.
 
 /* Jika game belum mulai */
 w :- \+init(_),

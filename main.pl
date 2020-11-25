@@ -92,7 +92,7 @@ start :-
     read(JobInput), nl,
     (
         jobExist(JobInput, Job) ->
-            character(_, Job, _, _, MaxHP, _, DP, AP, _);
+            character(_, Job, _, MaxHP, _, DP, AP, _);
             write('Job does not exist or you typed falsely.'), nl,
             fail
     ),
