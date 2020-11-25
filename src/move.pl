@@ -33,7 +33,7 @@ w :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
-    enemyRandomW(0),!.
+    random(0,2,E),enemyRandomW(E),!.
 
 /* Jika nabrak pagar */
 w :- newMove(0),
@@ -92,7 +92,7 @@ a :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
-    enemyRandomA(0),!.
+    random(0,2,E),enemyRandomW(E),!.
 
 /* jika menabrak pagar */
 a :-newMove(0),
@@ -152,7 +152,7 @@ s :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
-    enemyRandomS(0),!.
+    random(0,2,E),enemyRandomW(E),!.
 
 /* Jika menabrak pagar */
 s :-newMove(0),
@@ -212,7 +212,7 @@ d :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
-    enemyRandomD(0),!.
+    random(0,2,E),enemyRandomW(E),!.
 
 /* Jika menabrak pagar */
 d :-newMove(0),
