@@ -28,7 +28,7 @@ accessItem([_|Tail],I1,X) :- I is I1-1, accessItem(Tail,I,X).
 
 shop :- /* untuk membuka menu store */
     posPlayer(Xp,Yp),
-    posStore(Xs,Ys),
+    store(Xs,Ys),
     Xp=Xs,Yp=Ys,!,
     write('1. gacha (100 Gold)\n2. Health Potion (10 Gold)\n'),
     read(X),
