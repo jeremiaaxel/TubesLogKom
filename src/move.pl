@@ -257,3 +257,23 @@ d :- \+init(_),
 /* Jika sedang melawan musuh */
 d :- init(_),fighting(1),
     write('You can\'t move while in the middle of battleground, mortal.'),!.
+
+/* ******* SHOW STATUS ******** */
+status :-
+    \+ init(_),
+    write('Please start the game first.'),
+    !.
+
+status :-
+    init(_),
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
+    gold(Gold),
+    write(Name), write(' status :'), nl,
+    write('Job   : '), write(Job), nl,
+    write('Level : '), write(Level), nl,
+    write('HP    : '), write(HP), write('/'), write(MaxHP), nl,
+    write('DP    : '), write(DP), nl,
+    write('AP    : '), write(AP), nl,
+    write('Exp   : '), write(Exp), nl,
+    write('Gold  : '), write(Gold), nl,
+    !. 
