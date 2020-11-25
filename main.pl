@@ -15,7 +15,7 @@
 :- include('src/story.pl').
 
 help :-
-    write('Commands:'), nl,
+    write('------------------------ Commands: ------------------------'), nl,
     write('1. start    : To start to waste your useless life'), nl,
     write('2. map      : To show map'), nl,
     write('3. status   : To show your status of course'), nl,
@@ -30,18 +30,19 @@ help :-
     write('          specialAttack : attack enemy using special power'), nl,
     write('          usePotion     : use a health potion to regain HP'), nl,
     write('          run           : run from a battle'), nl,
-    write('7. teleport : To teleport to other teleporting points'), nl,
+    write('7. teleport : To teleport to other teleporting stations'), nl,
     write('8. help     : To show all commands and legends'), nl,
     write('9. quit     : To quit the game because'), nl,
     write('              you realise you have assignments to do'), nl, nl,
     sleep(0.5),
-    write('Legends:'), nl,
+    write('------------------------ Legends: ------------------------'), nl,
     write('   - P       = Player'), nl,
     write('   - #       = Wall'), nl,
     write('   - S       = Store'), nl,
     write('   - D       = (Boss) Dungeon'), nl,
     write('   - Q       = Quest'), nl,
-    write('   - A,B,C,D = Teleporting Stations'), nl,nl.
+    write('   - W,X,Y,Z = Teleporting Stations'), nl,
+    write('----------------------------------------------------------'), nl,nl.
 
 title :-
     /* welcome msg */
@@ -60,6 +61,7 @@ title :-
     write('| |-||| |_/|| \\// |  /_ | | \\||  | |  | \\_/||    /|  /_ '), nl,
     write('\\_/ \\|\\____/\\__/  \\____\\\\_/  \\|  \\_/  \\____/\\_/\\_\\\\____\\'), nl,nl,
     sleep(0.7),
+    prologue,sleep(2),nl,nl,
     help.
 
 
@@ -81,10 +83,10 @@ start :-
     read(Sure), nl,
     (
         Sure \= y ->
-            fail;
-            !
-    ),
-    /* input job dan pemeriksaan */
+        fail;
+        !
+        ),
+        /* input job dan pemeriksaan */
     repeat,
     write('Available jobs:'), nl,
     write('1. Swordsman'), nl,
@@ -95,15 +97,14 @@ start :-
     read(JobInput), nl,
     (
         jobExist(JobInput, Job) ->
-            character(_, Job, _, MaxHP, _, DP, AP, _);
-            write('Job does not exist or you typed falsely.'), nl,
-            fail
+        character(_, Job, _, MaxHP, _, DP, AP, _);
+        write('Job does not exist or you typed falsely.'), nl,
+        fail
     ),
     /* defaultStat(Job,MaxHP,DP,AP), */
     retractall(character(_,_,_,_,_,_,_,_)),
     asserta(character(Username, Job, 1, MaxHP, MaxHP, DP, AP, 0)),
     write('Welcome '), write(Username), write(' the '), write(Job), write('.'), nl,nl,
-    prologue,sleep(2),nl,nl,
     insertDefault(Job),
     random(10,20,Len),
     random(10,20,Width),
@@ -180,10 +181,10 @@ quit :-
     retract(quest2(_,_)),
     retract(quest3(_,_)),
     retract(dungeon(_,_)),
-    retract(teleportA(_,_)),
-    retract(teleportB(_,_)),
-    retract(teleportC(_,_)),
-    retract(teleportD(_,_)),
+    retract(teleportW(_,_)),
+    retract(teleportX(_,_)),
+    retract(teleportY(_,_)),
+    retract(teleportZ(_,_)),
     /* move.pl */
     retract(newMove(_)),
     /* quest.pl */

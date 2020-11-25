@@ -33,6 +33,7 @@ w :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
+    \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
     random(1,5,E),enemyRandomW(E),!.
 
 /* Jika nabrak pagar */
@@ -71,6 +72,39 @@ w :- init(_),
     asserta(newMove(0)),
     write('Hello, sir. Welcome to my store! Here, take a look!'),!.
 
+/* Jika berada di tile teleport */
+w :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportW(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station W'),!.
+
+w :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportX(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station X'),!.
+
+w :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportY(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Y'),!.
+
+w :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportZ(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Z'),!.
+
 /* Jika game belum mulai */
 w :- \+init(_),
     write('You can\'t move before you start the game.'),!.
@@ -92,6 +126,7 @@ a :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
+    \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
     random(1,5,E),enemyRandomA(E),!.
 
 /* jika menabrak pagar */
@@ -130,6 +165,39 @@ a :- init(_),
     asserta(newMove(0)),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
+/* Jika berada di tile teleport */
+a :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportW(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station W'),!.
+
+a :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportX(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station X'),!.
+
+a :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportY(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Y'),!.
+
+a :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportZ(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Z'),!.
+
 /* Jika game belum dimulai */
 a :- \+init(_),
     write('You can\'t move before you start the game.'),!.
@@ -152,6 +220,7 @@ s :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
+    \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
     random(1,5,E),enemyRandomS(E),!.
 
 /* Jika menabrak pagar */
@@ -190,6 +259,39 @@ s :-init(_),
     asserta(newMove(0)),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
+/* Jika berada di tile teleport */
+s :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportW(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station W'),!.
+
+s :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportX(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station X'),!.
+
+s :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportY(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Y'),!.
+
+s :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportZ(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Z'),!.
+
 /* Jika game belum dimulai */
 s :- \+init(_),
     write('You can\'t move before you start the game.'),!.
@@ -212,6 +314,7 @@ d :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
+    \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
     random(1,5,E),enemyRandomD(E),!.
 
 /* Jika menabrak pagar */
@@ -250,6 +353,39 @@ d :- init(_),
     asserta(newMove(0)),
     write('Hello, sir. Welcome to my store! Here, take a look.'),!.
 
+/* Jika berada di tile teleport */
+d :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportW(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station W'),!.
+
+d :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportX(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station X'),!.
+
+d :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportY(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Y'),!.
+
+d :-init(_),
+    fighting(0),
+    posPlayer(X,Y),
+    teleportZ(X,Y),
+    retract(newMove(1)),
+    asserta(newMove(0)),
+    write('You are at Teleporting Station Z'),!.
+
 /* Jika game belum dimulai */
 d :- \+init(_),
     write('You can\'t move before you start the game.'),!.
@@ -279,39 +415,51 @@ status :-
     !. 
 
 /* Teleporting */
-/*
 teleport :-
+    fighting(0),
+    LetterA = 'w',
+    LetterB = 'x',
+    LetterC = 'y',
+    LetterD = 'z',
+    posPlayer(Xp,Yp),
     (
-        (posPlayer(Xp,Yp),teleportA(Xa,Ya),Xx=Xa,Yx=Ya,Upper='A',Lower='a',!);
-        (posPlayer(Xp,Yp),teleportB(Xb,Yb),Xx=Xb,Yx=Yb,Upper='B',Lower='b',!);
-        (posPlayer(Xp,Yp),teleportC(Xc,Yc),Xx=Xc,Yx=Yc,Upper='C',Lower='c',!);
-        (posPlayer(Xp,Yp),teleportD(Xd,Yd),Xx=Xd,Yx=Yd,Upper='D',Lower='d',!)
+        (teleportW(Xp,Yp),Letter=LetterW,!);
+        (teleportX(Xp,Yp),Letter=LetterX,!);
+        (teleportY(Xp,Yp),Letter=LetterY,!);
+        (teleportZ(Xp,Yp),Letter=LetterZ,!)
     ),
-    write('You are at Teleporting Station '), write(Upper), nl,
     repeat,
     write('Which teleporting station would you like to go to? (a/b/c/d): '),
     read(P),nl,
-    point(P,Lower,Z),
-    string_upper(P, UpperCase),
     (
-        Z == 1 -> (retract(posPlayer(_,_)), asserta(posPlayer(Xx,Yx)),
-            write('You are now at Teleporting Station '), write(UpperCase), write('\n'));
-        Z == 0 -> write('You are already there! Fool!\n'),fail;
-        write('Fool, you can\'t teleport there!\n\n'),fail
+        P == Letter -> write('You are already there! Fool!\n\n'), fail;
+        (   
+            P \= LetterW -> (
+                P \= LetterX -> (
+                    P \= LetterY -> (
+                        P \= LetterZ -> ( write('Fool, you can\'t teleport there!\n\n'),fail);
+                        teleportZ(X,Y),
+                        retract(posPlayer(_,_)), asserta(posPlayer(X,Y)),
+                        write('You are now at Teleporting Station Z.\n')
+                    );
+                    teleportY(X,Y),
+                    retract(posPlayer(_,_)), asserta(posPlayer(X,Y)),
+                    write('You are now at Teleporting Station Y.\n')
+                );
+                teleportX(X,Y),
+                retract(posPlayer(_,_)), asserta(posPlayer(X,Y)),
+                 write('You are now at Teleporting Station X.\n')
+            );
+            teleportW(X,Y),
+            retract(posPlayer(_,_)), asserta(posPlayer(X,Y)),
+            write('You are now at Teleporting Station W.\n')
+        )
     ),!.
 
 teleport :-
+    fighting(0),
     write('You are not in any Teleporting Stations.\n').
 
-point(P,Lower,Z) :-
-    (   
-        P == Lower -> (Z = 0, !);
-        (Z = 1, !);
-    ).
-
-abcd(P,M) :-
-    (   
-        P == 'a' -> (M = 1, !);
-        (Z = 1, !);
-    ).
-*/
+teleport :-
+    fighting(1),
+    write('Face your enemy first!\n').
