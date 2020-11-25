@@ -1,5 +1,5 @@
 :- dynamic(init/1).
-:- dynamic(character/8).
+:- dynamic(character/9).
 :- dynamic(sure/1).
 
 :- include('src/battle.pl').
@@ -92,7 +92,7 @@ start :-
     read(JobInput), nl,
     (
         jobExist(JobInput, Job) ->
-            character(_, Job, _, MaxHP, _, DP, AP, _);
+            character(_, Job, _, _, MaxHP, _, DP, AP, _);
             write('Job does not exist or you typed falsely.'), nl,
             fail
     ),
