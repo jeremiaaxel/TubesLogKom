@@ -15,7 +15,7 @@ minusGold(X) :- /* Untuk mengurangkan gold player */
     gold(Y),
     Y1 is Y-X,
     retract(gold(Y)),
-    assertz(gold(Y1)). 
+    assertz(gold(Y1)).
 
 randomItem(Item) :-
     itemList(I),
@@ -28,11 +28,11 @@ accessItem([_|Tail],I1,X) :- I is I1-1, accessItem(Tail,I,X).
 
 shop :- /* untuk membuka menu store */
     posPlayer(Xp,Yp),
-    posStore(Xs,Ys),
+    store(Xs,Ys),
     Xp=Xs,Yp=Ys,!,
     write('1. gacha (100 Gold)\n2. Health Potion (10 Gold)\n'),
     read(X),
-    (X=1, gacha);(X=2, healthPotion). 
+    (X=1, gacha);(X=2, healthPotion).
 shop :-
     write('You are not in any store').
 
@@ -45,7 +45,7 @@ gacha :- /* Untuk random item yang didapatkan player */
     checkItem([1|[Type,X]],N),
     write('Do you want to equip the item ? (yes/no)'),
     read(Op),
-    insert([N|[Type,X]],Op). 
+    insert([N|[Type,X]],Op).
 gacha :- print('Insufficient amount of gold!').
 
 healthPotion :- /* Untuk menambahkan health potion di inventory player */
@@ -53,10 +53,10 @@ healthPotion :- /* Untuk menambahkan health potion di inventory player */
     potion('Health',X,Heal),!,
     minusGold(10),
     retract(potion('Health',X,Heal)),
-    X1 is X+1, 
+    X1 is X+1,
     assertz(potion('Health',X1,Heal)).
-healthPotion :- 
+healthPotion :-
     checkGold(10),!,
     minusGold(10),
-    assertz(potion('Health',1,10)). 
+    assertz(potion('Health',1,10)).
 healthPotion :- print('Insufficient amount of gold!').
