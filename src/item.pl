@@ -9,7 +9,7 @@
 
 itemList(swordsman,[['Short','Sword'],['Falchion','Sword'],['Cutlass','Sword'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
 itemList(archer,[['Regular','Bow'],['Long','Bow'],['Cross','Bow'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
-itemList(sorcerer,[['Fireball','Spellscroll'],['Iceray','Spellscroll'],['Thunderstrike','Spellscroll'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
+itemList(sorcerer,[['Fireball','Spell'],['Iceray','Spell'],['Thunderstrike','Spell'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
 
 checkStats('Short',10,attack).
 checkStats('Falchion',20,attack).
@@ -61,7 +61,7 @@ insertDefault(Job) :-
     insert('Health',5).
 insertDefault(Job) :-
     Job=sorcerer,!,
-    insert([1,'Fireball','Spellscroll'],yes),
+    insert([1,'Fireball','Spell'],yes),
     insert([1,'Leather','Armor'],yes),
     insert([1,'Wangky','Bracelet'],yes),
     insert('Health',5).
@@ -72,7 +72,7 @@ insert(Item,N) :-
     assertz(potion('Health',N,10)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    (Type='Sword'; Type='Bow'; Type='Spellscroll'),!,
+    (Type='Sword'; Type='Bow'; Type='Spell'),!,
     assertz(weapon(Item)),
     Equip=yes,!,
     equipItem(weapon(Item)).
@@ -194,7 +194,7 @@ usePot(Amount) :-
     !.
 usePot(Amount) :-
     Amount = 0,
-    write('You have run out of healing potion!\n'),fail.
+    write('You have run out of healing potion!'),fail.
 
 /* Print List */
 /*Basis*/
