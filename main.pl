@@ -165,41 +165,34 @@ quit :-
     /* fail.pl */
     /* goal.pl */
     /* item.pl */
-    retract(posPlayer(_, _)),
+    retract(posPlayer(_,_)),
     retract(weapon(_)),
     retract(armor(_)),
     retract(potion(_,_,_)),
     retract(gold(_)),
-    retract(equip(_)),
+    retract(accessory(_)),
     /* map.pl */
     retract(len(_)),
     retract(width(_)),
     retract(store(_,_)),
-    retract(quest1(_,_)),
-    retract(quest2(_,_)),
-    retract(quest3(_,_)),
     retract(dungeon(_,_)),
     retract(teleportW(_,_)),
     retract(teleportX(_,_)),
     retract(teleportY(_,_)),
     retract(teleportZ(_,_)),
+    retract(quest1(_,_)),
+    retract(quest2(_,_)),
+    retract(quest3(_,_)),
+    /* quest.pl */
+    retract(win1(_)),
+    retract(win2(_)),
+    retract(win3(_)),
+    retract(quest1(_,_,_)),
+    retract(quest2(_,_,_)),
+    retract(quest3(_,_,_)),
     /* move.pl */
     retract(newMove(_)),
-    /* quest.pl */
     /* store.pl */
     retract(questOnGoing(_)),
-/* INI KAYANYA GA PERLU */
-    retract(expGain(_)),
-
-/* INI MASIH ERROR */
-/*    retract(quest1(_,_,_)),
-    write('Tes - quest1'),nl,
-    retract(quest2(_,_,_)),
-    write('Tes - quest2'),nl,
-    retract(quest3(_,_,_)),
-    write('Tes - quest3'),nl,
-    retract(accessory(_)),
-    write('Tes - Accesory'),nl, 
-*/
     !.
 quit.
