@@ -404,7 +404,8 @@ status :-
     init(_),
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     gold(Gold),
-    write(Name), write(' status :'), nl,
+    write('------------------------ STATUS --------------------------'), nl,
+    write(Name), write(' stat\'s'), nl,
     write('Job   : '), write(Job), nl,
     write('Level : '), write(Level), nl,
     write('HP    : '), write(HP), write('/'), write(MaxHP), nl,
@@ -412,6 +413,7 @@ status :-
     write('AP    : '), write(AP), nl,
     write('Exp   : '), write(Exp), nl,
     write('Gold  : '), write(Gold), nl,
+    write('----------------------------------------------------------'),nl,
     !. 
 
 /* Teleporting */
