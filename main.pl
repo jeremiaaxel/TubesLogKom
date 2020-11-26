@@ -1,6 +1,5 @@
 :- dynamic(init/1).
 :- dynamic(character/8).
-:- dynamic(sure/1).
 
 :- include('src/battle.pl').
 :- include('src/character.pl').
@@ -97,7 +96,7 @@ start :-
     read(JobInput), nl,
     (
         jobExist(JobInput, Job) ->
-        character(_, Job, _, MaxHP, _, DP, AP, _);
+        characterDB(_, Job, _, MaxHP, _, DP, AP, _);
         write('Job does not exist or you typed falsely.'), nl,
         fail
     ),
@@ -113,6 +112,7 @@ start :-
     asserta(fighting(0)),
     asserta(init(1)),
     asserta(newMove(0)),
+    asserta(questOnGoing(0)),
     map,
     !.
 
@@ -148,36 +148,29 @@ quit :-
     write('Do not forget you have a lot of assignments to be done any time soon!'),nl,nl,
     sleep(0.5),
     write('Made by Kelompok 07 Kelas 04 - wollowongko'),nl,
-    write('13519116 - Jeane Mikha Erwansyah'),nl,
-    write('13519120 - Epata Tuah'),nl,
-    write('13519144 - Jonathan Christhoper Jahja'),nl,
-    write('13519188 - Jeremia Axel Bachtera'),nl,
     /* semua data diretract */
     /* main.pl */
     retract(init(_)),
+    write('13519116 - Jeane Mikha Erwansyah'),nl,
     retract(character(_,_,_,_,_,_,_,_)),
-    retract(sure(_)),
+    write('13519120 - Epata Tuah'),nl,
     /* battle.pl */
-    retract(isEnemyAlive(_)),
-    retract(enemyInFight(_,_,_,_,_,_,_,_)),
-    retract(turns(_)),
-    retract(peluang(_)),
     retract(fighting(_)),
+    write('13519144 - Jonathan Christhoper Jahja'),nl,
     /* character.pl */
     /* enemy.pl */
     /* fail.pl */
     /* goal.pl */
     /* item.pl */
+    retract(posPlayer(_, _)),
     retract(weapon(_)),
     retract(armor(_)),
-    retract(accessory(_)),
     retract(potion(_,_,_)),
     retract(gold(_)),
     retract(equip(_)),
     /* map.pl */
     retract(len(_)),
     retract(width(_)),
-    retract(posPlayer(_)),
     retract(store(_,_)),
     retract(quest1(_,_)),
     retract(quest2(_,_)),
@@ -190,10 +183,20 @@ quit :-
     /* move.pl */
     retract(newMove(_)),
     /* quest.pl */
-    retract(questOnGoing(_)),
-    retract(quest1(_,_,_)),
-    retract(quest2(_,_,_)),
-    retract(quest3(_,_,_)),
-    retract(expGain(_)),
     /* store.pl */
+    retract(questOnGoing(_)),
+/* INI KAYANYA GA PERLU */
+    retract(expGain(_)),
+    write('13519188 - Jeremia Axel Bachtera'),nl,
+
+/* INI MASIH ERROR */
+/*    retract(quest1(_,_,_)),
+    write('Tes - quest1'),nl,
+    retract(quest2(_,_,_)),
+    write('Tes - quest2'),nl,
+    retract(quest3(_,_,_)),
+    write('Tes - quest3'),nl,
+    retract(accessory(_)),
+    write('Tes - Accesory'),nl, 
+*/
     !.
