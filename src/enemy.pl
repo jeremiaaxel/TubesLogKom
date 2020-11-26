@@ -63,7 +63,8 @@ boss(101, king_meong, boss, 3, 10000, 2000, 500).
 boss(102, sir_yon, boss, 5, 299314, 5000, 690).
 boss(103, eternity_single, boss, 7, 1111111, 8011, 769).
 boss(104, praprak_logkom, boss, 9, 1423599, 9500, 1000).
-boss(105, tubes_logkom, boss, 10, 2711, 1020, 500).
+boss(105, tubes_logkom, boss, 10, 2711, 1020, 450).
+boss(27112020, willy_wangky, your_frickin_grandpa, 9999999, 9999, 1000, 400).
 
 
 
