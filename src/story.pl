@@ -16,4 +16,7 @@ prologue :-
     write('\n'),sleep(0.7),
     write('Bearing the burden of being Willy Wangky\'s grandchild,\n'),sleep(0.7),
     write('you try to clean up after your grandfather\'s mistakes\n'),sleep(0.7),
-    write('and thats where you starts your journey...'),sleep(0.7).
+    write('and thats where your journey begins'),sleep(0.7),
+    write('.'),sleep(0.2),
+    write('.'),sleep(0.2),
+    write('.'),sleep(0.2).

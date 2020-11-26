@@ -35,7 +35,6 @@ showBattleCommands :-
     write('     run           : try to run away'), nl,
     !.
 
-
 /* **** found enemy **** */
 /* Bertemu dengan musuh yang levelnya sama dengan character */
 /* 1 */
@@ -407,7 +406,6 @@ enemyTurn :-
     write(EnemyName), write(' attacks and deals '), write(EnemyDmg), write(' damage.'), nl,
     enemyAttComment, !.
 
-
 /* **** Run **** */
 /* Bisa run kalau peluang >= 5 */
 /* Berhasil Run */
@@ -439,11 +437,14 @@ usePotion :-
     usePot(Heal),
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     retract(character(_, _, _, _, _, _, _, _)),
-    (HP + Heal < MaxHP, NewCharHP is HP + Heal;NewCharHP is MaxHP),
-    write(Name), write(' just used a potion, heals to '), write(NewCharHP),
+    Temp is HP + Heal;
+    (
+        Temp < MaxHP -> NewCharHP is Temp;
+        NewCharHP is MaxHP
+    )
+    write(Name), write(' just used a potion, heals to '), write(NewCharHP),nl,
     asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
     enemyTurn,
     !.
 
 usePotion.
-

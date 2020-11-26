@@ -404,7 +404,8 @@ status :-
     init(_),
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     gold(Gold),
-    write(Name), write(' status :'), nl,
+    write('------------------------ STATUS --------------------------'), nl,
+    write(Name), write(' stat\'s'), nl,
     write('Job   : '), write(Job), nl,
     write('Level : '), write(Level), nl,
     write('HP    : '), write(HP), write('/'), write(MaxHP), nl,
@@ -412,11 +413,13 @@ status :-
     write('AP    : '), write(AP), nl,
     write('Exp   : '), write(Exp), nl,
     write('Gold  : '), write(Gold), nl,
+    write('----------------------------------------------------------'),nl,
     !. 
 
 /* Teleporting */
 teleport :-
     fighting(0),
+    write('------------------------ TELEPORT ------------------------'), nl,
     LetterW = 'w',
     LetterX = 'x',
     LetterY = 'y',
@@ -429,7 +432,7 @@ teleport :-
         (teleportZ(Xp,Yp),Letter=LetterZ,!)
     ),
     repeat,
-    write('Which teleporting station would you like to go to? (w/x/y/z): '),
+    write('Which teleporting station would you like to go to?\n(w/x/y/z): '),
     read(P),nl,
     (
         P == Letter -> write('You are already there! Fool!\n\n'), fail;
@@ -454,7 +457,8 @@ teleport :-
             retract(posPlayer(_,_)), asserta(posPlayer(X,Y)),
             write('You are now at Teleporting Station W.\n')
         )
-    ),!.
+    ),write('----------------------------------------------------------'),nl,
+    !.
 
 teleport :-
     fighting(0),
