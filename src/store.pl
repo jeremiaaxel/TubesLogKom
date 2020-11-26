@@ -56,6 +56,7 @@ gacha :- /* Untuk random item yang didapatkan player */
     write('You already own this, i\'m taking this for 75 gold. That\'s why you don\'t gamble kid\n'),
     insert([1|[Type,X]],no)),!. 
 gacha :- \+checkGold(100),write('Insufficient amount of gold!').
+gacha.
 
 healthPotion :- /* Untuk menambahkan health potion di inventory player */
     checkGold(10),
@@ -71,3 +72,4 @@ healthPotion :-
     assertz(potion('Health',1,10)),
     write('Acquired 1 Health Potion'), !.
 healthPotion :- write('Insufficient amount of gold!').
+healthPotion.

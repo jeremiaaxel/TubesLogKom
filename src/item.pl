@@ -194,7 +194,7 @@ usePot(Amount) :-
     !.
 usePot(Amount) :-
     Amount = 0,
-    write('You have run out of healing potion!'),fail.
+    write('You have run out of healing potion!\n'),fail.
 
 /* Print List */
 /*Basis*/

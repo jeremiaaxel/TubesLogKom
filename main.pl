@@ -15,23 +15,24 @@
 
 help :-
     write('------------------------ Commands: ------------------------'), nl,
-    write('1. start    : To start to waste your useless life'), nl,
-    write('2. map      : To show map'), nl,
-    write('3. status   : To show your status of course'), nl,
-    write('4. moving commands:'), nl,
+    write('1.  start    : To start to waste your useless life'), nl,
+    write('2.  map      : To show map'), nl,
+    write('3.  status   : To show your status of course'), nl,
+    write('4.  moving commands:'), nl,
     write('          w : move toward north one step'), nl,
     write('          a : move toward west one step'), nl,
     write('          s : move toward south one step'), nl,
     write('          d : move toward east one step'), nl,
-    write('5. shop     : To open shop menu'), nl,
-    write('6. battle commands:'), nl,
+    write('5.  shop     : To open shop menu'), nl,
+    write('6.  inventory: To open player\'s inventory'), nl,
+    write('7.  battle commands:'), nl,
     write('          attack        : attack enemy'), nl,
     write('          specialAttack : attack enemy using special power'), nl,
     write('          usePotion     : use a health potion to regain HP'), nl,
     write('          run           : run from a battle'), nl,
-    write('7. teleport : To teleport to other teleporting stations'), nl,
-    write('8. help     : To show all commands and legends'), nl,
-    write('9. quit     : To quit the game because'), nl,
+    write('8.  teleport : To teleport to other teleporting stations'), nl,
+    write('9.  help     : To show all commands and legends'), nl,
+    write('10. quit     : To quit the game because'), nl,
     write('              you realise you have assignments to do'), nl, nl,
     sleep(0.5),
     write('------------------------ Legends: ------------------------'), nl,
@@ -60,8 +61,8 @@ title :-
     write('| |-||| |_/|| \\// |  /_ | | \\||  | |  | \\_/||    /|  /_ '), nl,
     write('\\_/ \\|\\____/\\__/  \\____\\\\_/  \\|  \\_/  \\____/\\_/\\_\\\\____\\'), nl,nl,
     sleep(0.7),
-    prologue,sleep(2),nl,nl,
-    help.
+    prologue,nl,nl,
+    help,sleep(1).
 
 
 /* start command */

@@ -441,7 +441,7 @@ usePotion :-
     (
         Temp < MaxHP -> NewCharHP is Temp;
         NewCharHP is MaxHP
-    )
+    ),
     write(Name), write(' just used a potion, heals to '), write(NewCharHP),nl,
     asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
     enemyTurn,
