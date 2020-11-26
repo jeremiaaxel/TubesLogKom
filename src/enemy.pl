@@ -1,12 +1,4 @@
-/* Axel */
-/* Enemy */
-
-/* Fakta */
-/* dynamic(current_hp/1) */
-
-/* 
-enemy(ID, Name, Type, Level, HP, DP, AP) 
-*/
+/* enemy(ID, Name, Type, Level, HP, DP, AP) */
 
 /* 1 */
 enemy(1, wolfie, wolf, 1, 800, 700, 500).
@@ -65,10 +57,3 @@ boss(103, eternity_single, boss, 7, 1111111, 8011, 769).
 boss(104, praprak_logkom, boss, 9, 1423599, 9500, 1000).
 boss(105, tubes_logkom, boss, 10, 2711, 1020, 450).
 boss(27112020, willy_wangky, your_frickin_grandpa, 9999999, 9999, 1000, 400).
-
-
-
-/* Current HP */
-/* current_hp([10]). */
-
-/* Rules */

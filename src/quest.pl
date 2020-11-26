@@ -5,6 +5,7 @@
 :- dynamic(win1/1).
 :- dynamic(win2/1).
 :- dynamic(win3/1).
+:- dynamic(questOnGoing/1).
 
 /*Rules*/
 /*mekanisme quest*/
