@@ -133,19 +133,19 @@ updateStats(Type) :-
     checkStats(Type,N,Stat),
     Stat=attack,
     retract(character(Username, Job, Level, MaxHP, HP, DP, AP, XP)),
-    AP1 is AP + N, write('(Your attack increases by '), write(N),write(')\n\n'),
+    AP1 is AP + N, write(' (Your attack increases by '), write(N),write(')\n\n'),
     asserta(character(Username, Job, Level, MaxHP, HP, DP, AP1, XP)).
 updateStats(Type) :-
     checkStats(Type,N,Stat),
     Stat=defend,
     retract(character(Username, Job, Level, MaxHP, HP, DP, AP, XP)),
-    DP1 is DP + N, write('(Your defense increases by '), write(N),write(')\n\n'),
+    DP1 is DP + N, write(' (Your defense increases by '), write(N),write(')\n\n'),
     asserta(character(Username, Job, Level, MaxHP, HP, DP1, AP, XP)).
 updateStats(Type) :-
     checkStats(Type,N,Stat),
     Stat=maxhp,
     retract(character(Username, Job, Level, MaxHP, HP, DP, AP, XP)),
-    MaxHP1 is MaxHP + N, write('(Your Max HP increases by '), write(N),write(')\n\n'),
+    MaxHP1 is MaxHP + N, write(' (Your Max HP increases by '), write(N),write(')\n\n'),
     asserta(character(Username, Job, Level, MaxHP1, HP, DP, AP, XP)).
 
 /*************************************************************************************/

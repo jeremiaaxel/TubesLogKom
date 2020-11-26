@@ -33,7 +33,7 @@ shop :- /* untuk membuka menu store */
     store(Xs,Ys),
     Xp=Xs,Yp=Ys,!,
     write('       ~~ STORE ~~       '), nl,
-    write('1. gacha (100 Gold)\n2. Health Potion (10 Gold)\n'),
+    write('1. gacha (400 Gold)\n2. Health Potion (10 Gold)\n'),
     write('\nWhat would you like to buy? '),
     read(X),
     (X==1 -> gacha;
@@ -42,20 +42,22 @@ shop :-
     write('You are not in any store.').
 
 gacha :- /* Untuk random item yang didapatkan player */
-    checkGold(100),!,
-    minusGold(100),
+    checkGold(400),!,
+    minusGold(400),
     randomItem([Type,X]),
     write('You got...\n'),sleep(0.5),
     printlist([1|[Type,X]]),nl,
     checkItem([1|[Type,X]],N),
     (N=1,write('Do you want to equip the item? (yes/no) \n'),
     read(Op),
-    insert([N|[Type,X]],Op)
+    (Op=yes -> 
+        insert([N|[Type,X]],Op);
+        write('Okay I will take that for 250 gold if you dont want it.'),plusGold(250))
     ;
-    \+N=1,plusGold(75),
-    write('You already own this, i\'m taking this for 75 gold. That\'s why you don\'t gamble kid\n'),
+    \+N=1,plusGold(200),
+    write('You already own this, i\'m taking this for 200 gold. That\'s why you don\'t gamble kid\n'),
     insert([1|[Type,X]],no)),!. 
-gacha :- \+checkGold(100),write('Insufficient amount of gold!').
+gacha :- \+checkGold(400),write('Insufficient amount of gold!').
 gacha.
 
 healthPotion :- /* Untuk menambahkan health potion di inventory player */

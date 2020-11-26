@@ -1,4 +1,5 @@
 lose :-
+    nl,
     write('▓██   ██▓ ▒█████   █    ██     ██▓     ▒█████    ██████ ▄▄▄█████▓'), nl,
     write(' ▒██  ██▒▒██▒  ██▒ ██  ▓██▒   ▓██▒    ▒██▒  ██▒▒██    ▒ ▓  ██▒ ▓▒'), nl,
     write('  ▒██ ██░▒██░  ██▒▓██  ▒██░   ▒██░    ▒██░  ██▒░ ▓██▄   ▒ ▓██░ ▒░'), nl,
@@ -9,5 +10,5 @@ lose :-
     write(' ▒ ▒ ░░  ░ ░ ░ ▒   ░░░ ░ ░      ░ ░   ░ ░ ░ ▒  ░  ░  ░    ░      '), nl,
     write(' ░ ░         ░ ░     ░            ░  ░    ░ ░        ░           '), nl,
     write(' ░ ░                                                             '), nl,
-    write('                      Thou hath been slain.                      '), nl,
+    write('                      Thou hath been slain.                      '), nl,nl,
     quit.
