@@ -45,7 +45,7 @@ foundQuest :- posPlayer(X,Y),quest1(X,Y),\+win1(1),\+(questOnGoing(1)),asserta(q
     asserta(questOnGoing(1)).
 
 /* kalau sudah menyelesaikan quest 1 */
-foundQuest :- posPlayer(X,Y),quest1(X,Y),\+win1(1),
+foundQuest :- posPlayer(X,Y),quest1(X,Y),win1(1),
     write('You\'ve done this quest.').
 
 /* QUEST 2*/
