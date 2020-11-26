@@ -214,11 +214,9 @@ quit :-
         quest3(_,_,_) -> retract(quest3(_,_,_));
         \+quest3(_,_,_)
     ),
+    retract(questOnGoing(_)),
     /* move.pl */
-    (
-        newMove(_) -> retract(newMove(_));
-        \+newMove(_)
-    ),
+    retract(newMove(_)),
     /* store.pl */
     !.
 
