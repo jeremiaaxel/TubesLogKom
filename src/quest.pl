@@ -78,11 +78,11 @@ foundQuest :- posPlayer(X,Y),quest2(X,Y),\+win2(1),\+(questOnGoing(1)),asserta(q
     ((RR=1,nl,write('Laborers  : Let\'s go with us then, sir.'));
     (RR=2,nl,write('Laborers  : Sounds lazy... Anyway, let\'s go.'))),nl,sleep(0.5),
     write('############# QUEST 2 #############'),nl,
-    write('Kill 2 slimes, 3 goblins, 2 wolves'),
+    write('Kill 2 slimes, 3 goblins, and 2 wolves'),
     retract(questOnGoing(0)),
     asserta(questOnGoing(1)).
 
-/* kalau sudah menyelesaikan quest 1 */
+/* kalau sudah menyelesaikan quest 2 */
 foundQuest :- posPlayer(X,Y),quest2(X,Y),win2(1),
     write('You\'ve done this quest.').
 
@@ -144,8 +144,8 @@ foundQuest :- posPlayer(X,Y),quest3(X,Y),\+(questOnGoing(1)),asserta(quest3(5,6,
     retract(questOnGoing(0)),
     asserta(questOnGoing(1)).
 
-/* kalau sudah menyelesaikan quest 1 */
-foundQuest :- posPlayer(X,Y),quest2(X,Y),win3(1),
+/* kalau sudah menyelesaikan quest 3 */
+foundQuest :- posPlayer(X,Y),quest3(X,Y),win3(1),
     write('You\'ve done this quest.').
 
 /* Jika masih ada quest yang berjalan */
@@ -180,4 +180,50 @@ quest1Finish :- write('Quest 1 Finished. You gain 100 exp!'),retract(quest1(0,0,
 quest2Finish :- write('Quest 2 Finished. You gain 300 exp!'),retract(quest2(0,0,0)),asserta(win2(1)).
 quest3Finish :- write('Quest 3 Finished. You gain 500 exp!'),retract(quest3(0,0,0)),asserta(win3(1)).
 
+quest :-
+    init(_),
+    write('------------------------- QUEST --------------------------'), nl,
+    write('Quest 1 (100 exp) '),
+    (
+        win1(X), X = 1 -> write('<=<   completed   >=>'),nl;
+        questOnGoing(1), quest1(A,B,C), A >= 0,!,B >= 0,!,C >= 0,!,A =< 1,!,B =< 1,!,C =< 1,! ->
+            (
+                write('<=<  in progress  >=>'),nl,
+                write('   '),
+                write(A), write(' slime(s), '),
+                write(B), write(' goblins(s), '),
+                write(C), write(' wolf(s) left'),nl
+            );
+        write('<=< yet 2 be done >=>'),nl
+    ),nl,
+    write('Quest 2 (200 exp) '),
+    (
+        win2(X), X = 1 -> write('<=<   completed   >=>'),nl;
+        questOnGoing(1), quest2(A,B,C), A >= 0,!,B >= 0,!,C >= 0,!,A =< 2,!,B =< 2,!,C =< 2,! ->
+            (
+                write('<=<  in progress  >=>'),nl,
+                write('   '),
+                write(A), write(' slime(s), '),
+                write(B), write(' goblins(s), '),
+                write(C), write(' wolf(s) left'),nl
+            );
+        write('<=< yet 2 be done >=>'),nl
+    ),nl,
+    write('Quest 3 (500 exp) '),
+    (
+        win3(X), X = 1 -> write('<=<   completed   >=>'),nl;
+        questOnGoing(1), quest3(A,B,C), A >= 0,!,B >= 0,!,C >= 0,!,A =< 5,!,B =< 6,!,C =< 4,! ->
+            (
+                write('<=<  in progress  >=>'),nl,
+                write('   '),
+                write(A), write(' slime(s), '),
+                write(B), write(' goblins(s), '),
+                write(C), write(' wolf(s) left'),nl
+            );
+        write('<=< yet 2 be done >=>'),nl
+    ),
+    write('----------------------------------------------------------'), nl,!.
 
+quest :-
+    \+init(_),
+    write('Please start the game first!').
