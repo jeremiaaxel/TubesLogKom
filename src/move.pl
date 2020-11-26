@@ -34,7 +34,7 @@ w :- init(_),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
     \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
-    random(1,5,E),enemyRandomW(E),!.
+    random(1,4,E),enemyRandomW(E),!.
 
 /* Jika nabrak pagar */
 w :- newMove(0),
@@ -126,8 +126,8 @@ a :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
-    \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
-    random(1,5,E),enemyRandomA(E),!.
+    \+teleportW(Z,Y),\+teleportX(Z,Y),\+teleportY(Z,Y),\+teleportZ(Z,Y),
+    random(1,4,E),enemyRandomA(E),!.
 
 /* jika menabrak pagar */
 a :-newMove(0),
@@ -221,7 +221,7 @@ s :- init(_),
     asserta(newMove(1)),
     \+dungeon(X,Z),notQuest(X,Z),\+store(X,Z),
     \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
-    random(1,5,E),enemyRandomS(E),!.
+    random(1,4,E),enemyRandomS(E),!.
 
 /* Jika menabrak pagar */
 s :-newMove(0),
@@ -314,8 +314,8 @@ d :- init(_),
     retract(newMove(0)),
     asserta(newMove(1)),
     \+dungeon(Z,Y),notQuest(Z,Y),\+store(Z,Y),
-    \+teleportW(X,Z),\+teleportX(X,Z),\+teleportY(X,Z),\+teleportZ(X,Z),
-    random(1,5,E),enemyRandomD(E),!.
+    \+teleportW(Z,Y),\+teleportX(Z,Y),\+teleportY(Z,Y),\+teleportZ(Z,Y),
+    random(1,4,E),enemyRandomD(E),!.
 
 /* Jika menabrak pagar */
 d :-newMove(0),
