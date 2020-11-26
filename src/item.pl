@@ -106,10 +106,7 @@ equipItem(armor([N,Type,X])) :-
     assertz(equip(armor([N,Type,X]))),
     updateStats(Type).
 equipItem(accessory([N,Type,X])) :- 
-    (retract(equip(accessory([_,Type1,X]))),
-    (minusStats(Type1),
-    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]));
-    write('Equiping '),printlist([Type,X])),
+    write('Equiping '),printlist([Type,X]),
     assertz(equip(accessory([N,Type,X]))),
     updateStats(Type).
 
@@ -154,23 +151,20 @@ updateStats(Type) :-
 inventory :- 
     weapon(Item),
     printlist(Item),
-    (equip(weapon(Item)),print(' (Equipped)');nl),
-    !.
+    (equip(weapon(Item)),print(' (Equipped)');nl),fail.
 inventory :- 
     armor(Item),
     printlist(Item),
-    (equip(armor(Item)),print(' (Equipped)');nl),
-    !.
+    (equip(armor(Item)),print(' (Equipped)');nl),fail.
 inventory :- 
     accessory(Item),
     printlist(Item),
-    (equip(accessory(Item)),print(' (Equipped)');nl),
-    !.
+    (equip(accessory(Item)),print(' (Equipped)');nl),fail.
 inventory :- 
     potion(Type,N,_),
     printlist([N,Type,'potion']),
-    nl,
-    !.
+    nl,fail.
+inventory.
 
 /*
 choosePotion :-
@@ -181,20 +175,21 @@ choosePotion :-
     print('You have run out of potion!'),
     fail.*/
 
-usePot(Amount) :-
-    Amount == 0,
-    write('You have ran out of healing potion!'),!.
-
 usePot(Amount) :- 
     /*choosePotion,
     read(Type),
     Type=health,*/
-    Amount > 0,
-    potion(N,'Health',Heal),!,
-    retract(potion(N,'Health',Heal)),
+    potion('Health',N,Heal),!,
+    retract(potion('Health',N,Heal)),
     N1 is N-1,
     Amount = Heal,
-    assertz(potion(N1,'Health',Heal)).
+    (N1>0, assertz(potion('Health',N1,Heal))
+    ;
+    N1==0),
+    !.
+usePot(Amount) :-
+    Amount = 0,
+    write('You have run out of healing potion!'),fail.
 
 /* Print List */
 /*Basis*/

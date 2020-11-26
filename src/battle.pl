@@ -445,3 +445,5 @@ usePotion :-
     enemyTurn,
     !.
 
+usePotion.
+
