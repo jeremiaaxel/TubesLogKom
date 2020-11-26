@@ -50,10 +50,12 @@ gacha :- /* Untuk random item yang didapatkan player */
     checkItem([1|[Type,X]],N),
     (N=1,write('Do you want to equip the item? (yes/no) \n'),
     read(Op),
-    insert([N|[Type,X]],Op);
-    plusGold(75),
-    write('You already own this, i\'m taking this for 75 gold. That\'s why you don\'t gamble kid\n')). 
-gacha :- write('Insufficient amount of gold!').
+    insert([N|[Type,X]],Op)
+    ;
+    \+N=1,plusGold(75),
+    write('You already own this, i\'m taking this for 75 gold. That\'s why you don\'t gamble kid\n'),
+    insert([1|[Type,X]],no)),!. 
+gacha :- \+checkGold(100),write('Insufficient amount of gold!').
 
 healthPotion :- /* Untuk menambahkan health potion di inventory player */
     checkGold(10),

@@ -7,9 +7,9 @@
 :- dynamic(potion/3).
 :- dynamic(gold/1).
 
-itemList(swordsman,[['Short','Sword'],['Falchion','Sword'],['Cutlass','Sword'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet']]).
-itemList(archer,[['Regular','Bow'],['Long','Bow'],['Cross','Bow'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet']]).
-itemList(sorcerer,[['Fireball','Spellscroll'],['Iceray','Spellscroll'],['Thunderstrike','Spellscroll'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet']]).
+itemList(swordsman,[['Short','Sword'],['Falchion','Sword'],['Cutlass','Sword'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
+itemList(archer,[['Regular','Bow'],['Long','Bow'],['Cross','Bow'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
+itemList(sorcerer,[['Fireball','Spellscroll'],['Iceray','Spellscroll'],['Thunderstrike','Spellscroll'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
 
 checkStats('Short',10,attack).
 checkStats('Falchion',20,attack).
@@ -28,6 +28,7 @@ checkStats('Iron',500,defend).
 
 checkStats('Sacred',250,maxhp).
 checkStats('Dragonscale',250,maxhp).
+checkStats('Wangky',100,maxhp).
 
 /* Rules */
 /*Basis*/
@@ -50,16 +51,19 @@ insertDefault(Job) :-
     Job=swordsman,!,
     insert([1,'Short','Sword'],yes),
     insert([1,'Leather','Armor'],yes),
+    insert([1,'Wangky','Bracelet'],yes),
     insert('Health',5).
 insertDefault(Job) :-
     Job=archer,!,
     insert([1,'Regular','Bow'],yes),
     insert([1,'Leather','Armor'],yes),
+    insert([1,'Wangky','Bracelet'],yes),
     insert('Health',5).
 insertDefault(Job) :-
     Job=sorcerer,!,
     insert([1,'Fireball','Spellscroll'],yes),
     insert([1,'Leather','Armor'],yes),
+    insert([1,'Wangky','Bracelet'],yes),
     insert('Health',5).
 
 /* Insert item pada inventory dan equip jika dibutuhkan */
@@ -70,20 +74,20 @@ insert(Item,Equip) :-
     back(Item,Type),
     (Type='Sword'; Type='Bow'; Type='Spellscroll'),!,
     assertz(weapon(Item)),
-    Equip=yes,
+    Equip=yes,!,
     equipItem(weapon(Item)).
 insert(Item,Equip) :- 
     back(Item,Type),
     Type='Armor',!,
     assertz(armor(Item)),
-    Equip=yes,
+    Equip=yes,!,
     equipItem(armor(Item)).
 insert(Item,Equip) :- 
     back(Item,Type),
-    (Type='Ring'; Type='Amulet'),!,
+    (Type='Ring'; Type='Amulet';Type='Bracelet'),!,
     assertz(accessory(Item)),
-    Equip=yes,
-    equipItem(amulet(Item)).
+    Equip=yes,!,
+    equipItem(accessory(Item)).
 
 /* Equip item */
 /* Untuk periksa item yang di-equip player */
@@ -92,23 +96,24 @@ insert(Item,Equip) :-
 /* equip(armor([1,'Leather','Armor'])). */
 
 equipItem(weapon([N,Type,X])) :- 
-    (retract(equip(weapon([_,Type1,X]))),
-    (minusStats(Type1),
-    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]));
-    write('Equiping '),printlist([Type,X])),
+    ((retract(equip(weapon([_,Type1,X]))),(minusStats(Type1),
+    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]))
+    ;
+    write('Equiping '),printlist([Type,X]))),
     assertz(equip(weapon([N,Type,X]))),
-    updateStats(Type).
+    updateStats(Type),!.
 equipItem(armor([N,Type,X])) :- 
     (retract(equip(armor([_,Type1,X]))),
     (minusStats(Type1),
-    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]));
+    write('Removing '),printlist([Type1,X]),write(' to equip '),printlist([Type,X]))
+    ;
     write('Equiping '),printlist([Type,X])),
     assertz(equip(armor([N,Type,X]))),
-    updateStats(Type).
+    updateStats(Type),!.
 equipItem(accessory([N,Type,X])) :- 
     write('Equiping '),printlist([Type,X]),
     assertz(equip(accessory([N,Type,X]))),
-    updateStats(Type).
+    updateStats(Type),!.
 
 /* Update Stats Player */
 minusStats(Type) :-
