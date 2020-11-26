@@ -13,6 +13,34 @@ isEnemyAlive(0).
 isEnemyAlive(1).
 
 /* ****** Rules ****** */
+winX :- (enemyInFight(_,_,_,slime,_,_,_,_)).
+winY :- (enemyInFight(_,_,_,goblin,_,_,_,_)).
+winZ :- (enemyInFight(_,_,_,wolf,_,_,_,_)).
+
+winQuest1 :- ((winX, quest1(X,Y,Z),X =\= 0, XNew is X-1, retract(quest1(X,Y,Z)),asserta(quest1(XNew,Y,Z)));
+(winY, quest1(X,Y,Z),Y =\=0, YNew is Y-1, retract(quest1(X,Y,Z)),asserta(quest1(X,YNew,Z)));
+(winZ, quest1(X,Y,Z),Z =\=0, ZNew is Z-1, retract(quest1(X,Y,Z)),asserta(quest1(X,Y,ZNew)))).
+winQuest1 :- ((winX, quest1(X,Y,Z),X =:= 0);
+(winY, quest1(X,Y,Z),Y =:=0);
+(winZ, quest1(X,Y,Z),Z =:=0)).
+winQuest2 :- ((winX, quest2(X,Y,Z),X =\= 0, XNew is X-1, retract(quest2(X,Y,Z)),asserta(quest2(XNew,Y,Z)));
+(winY, quest2(X,Y,Z),Y =\= 0, YNew is Y-1, retract(quest2(X,Y,Z)),asserta(quest2(X,YNew,Z)));
+(winZ, quest2(X,Y,Z),Z =\=0, ZNew is Z-1, retract(quest2(X,Y,Z)),asserta(quest2(X,Y,ZNew)))).
+winQuest2 :- ((winX, quest2(X,Y,Z),X =:= 0);
+(winY, quest2(X,Y,Z),Y =:=0);
+(winZ, quest2(X,Y,Z),Z =:=0)).
+winQuest3 :- ((winX, quest3(X,Y,Z),X =\= 0, XNew is X-1, retract(quest3(X,Y,Z)),asserta(quest3(XNew,Y,Z)));
+(winY, quest3(X,Y,Z),Y =\= 0, YNew is Y-1, retract(quest3(X,Y,Z)),asserta(quest3(X,YNew,Z)));
+(winZ, quest3(X,Y,Z),Z =\= 0, ZNew is Z-1, retract(quest3(X,Y,Z)),asserta(quest3(X,Y,ZNew)))).
+winQuest3 :- ((winX, quest3(X,Y,Z),X =:= 0);
+(winY, quest3(X,Y,Z),Y =:=0);
+(winZ, quest3(X,Y,Z),Z =:=0)).
+
+isInQuest(1) :- quest1(X,Y,Z);quest2(X,Y,Z);quest3(X,Y,Z).
+isInQuest(0) :- \+quest1(X,Y,Z),\+quest2(X,Y,Z),\+quest3(X,Y,Z).
+
+isQuestFinish :- expGoldQuest1 ; expGoldQuest2 ; expGoldQuest3.
+
 showEnemy :-
     nl,
     fighting(1),
@@ -284,16 +312,19 @@ attackComment :-
     enemyTurn, !.
 
 attackComment :-
-    enemyInFight(_, EnemyName, _, _, EnemyMaxHP, EnemyHP, _, _),
+    (enemyInFight(_, EnemyName, _, slime, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, goblin, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, wolf, EnemyMaxHP, EnemyHP, _, _)),
     EnemyHP =< 0,
     write(EnemyName), write(' health '), write(' : '), write('0/'), write(EnemyMaxHP), nl,
     write('You win '), nl,
     write('...'), nl,
+    ((isInQuest(1),((quest1(X,Y,Z),winQuest1);
+    (quest2(X,Y,Z),winQuest2);
+    (quest3(X,Y,Z),winQuest3)),isQuestFinish);(isInQuest(0))),
     expUp,
-    write('tes'),
     finishFight,
     sleep(1), !.
-    /* lanjut ke ? */
 
 isLevelUp :-
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),

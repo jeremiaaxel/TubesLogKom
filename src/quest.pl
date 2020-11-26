@@ -2,12 +2,15 @@
 :- dynamic(quest1/3).
 :- dynamic(quest2/3).
 :- dynamic(quest3/3).
+:- dynamic(win1/1).
+:- dynamic(win2/1).
+:- dynamic(win3/1).
 
 /*Rules*/
 /*mekanisme quest*/
 
 /* QUEST 1 */
-foundQuest :- posPlayer(X,Y),quest1(X,Y),\+(questOnGoing(1)),asserta(quest1(1,1,1)),
+foundQuest :- posPlayer(X,Y),quest1(X,Y),\+win1(1),\+(questOnGoing(1)),asserta(quest1(1,1,1)),
     write('Veelfdir: Ohh dear Willy Wangky\'s grandson, can you help me for something?'),nl,sleep(0.5),
     write('[1] Alright. What can I do?'),nl,
     write('[2] I\'m in a hurry. Just do it fast.'),nl,
@@ -41,8 +44,12 @@ foundQuest :- posPlayer(X,Y),quest1(X,Y),\+(questOnGoing(1)),asserta(quest1(1,1,
     retract(questOnGoing(0)),
     asserta(questOnGoing(1)).
 
+/* kalau sudah menyelesaikan quest 1 */
+foundQuest :- posPlayer(X,Y),quest1(X,Y),\+win1(1),
+    write('You\'ve done this quest.').
+
 /* QUEST 2*/
-foundQuest :- posPlayer(X,Y),quest2(X,Y),\+(questOnGoing(1)),asserta(quest2(2,3,2)),
+foundQuest :- posPlayer(X,Y),quest2(X,Y),\+win2(1),\+(questOnGoing(1)),asserta(quest2(2,3,2)),
     write('Laborers  : This is the time! This theme park should came back to our hands!'),nl,
     write('          Hours by hours, carried by the courage and sacrifice of our fellows!'),nl,
     write('          The sun are watching. The spirits of our customers are stirring.'),nl,sleep(0.5),
@@ -74,6 +81,10 @@ foundQuest :- posPlayer(X,Y),quest2(X,Y),\+(questOnGoing(1)),asserta(quest2(2,3,
     write('Kill 2 slimes, 3 goblins, 2 wolves'),
     retract(questOnGoing(0)),
     asserta(questOnGoing(1)).
+
+/* kalau sudah menyelesaikan quest 1 */
+foundQuest :- posPlayer(X,Y),quest2(X,Y),win2(1),
+    write('You\'ve done this quest.').
 
 /* QUEST 3 */
 foundQuest :- posPlayer(X,Y),quest3(X,Y),\+(questOnGoing(1)),asserta(quest3(5,6,4)),
@@ -133,6 +144,10 @@ foundQuest :- posPlayer(X,Y),quest3(X,Y),\+(questOnGoing(1)),asserta(quest3(5,6,
     retract(questOnGoing(0)),
     asserta(questOnGoing(1)).
 
+/* kalau sudah menyelesaikan quest 1 */
+foundQuest :- posPlayer(X,Y),quest2(X,Y),win3(1),
+    write('You\'ve done this quest.').
+
 /* Jika masih ada quest yang berjalan */
 foundQuest :- posPlayer(X,Y),(quest1(X,Y);quest2(X,Y);quest3(X,Y)),questOnGoing(1),
     write('You are still in a quest, mortal. Finish it up first.'),!.
@@ -144,52 +159,25 @@ expGoldQuest1 :- character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
     asserta(character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp2)),
     isLevelUp,
     !.
+expGoldQuest1 :- \+quest1(0,0,0),!.
 expGoldQuest2 :- character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
     quest2(0,0,0), quest2Finish, Exp2 is Exp+300, plusGold(500),
     retract(character(_, _, _, _, _, _, _, _)),
     asserta(character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp2)),
     isLevelUp,
     !.
+expGoldQuest2 :- \+quest2(0,0,0),!.
 expGoldQuest3 :- character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
     quest3(0,0,0), quest3Finish, Exp2 is Exp+500, plusGold(800),
     retract(character(_, _, _, _, _, _, _, _)),
     asserta(character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp2)),
     isLevelUp,
     !. 
+expGoldQuest3 :- \+quest3(0,0,0),!.
 
 /* Jika quest selesai */
-quest1Finish :- write('You gain 100 exp!'),retract(quest1(0,0,0)).
-quest2Finish :- write('You gain 300 exp!'),retract(quest2(0,0,0)).
-quest3Finish :- write('You gain 500 exp!'),retract(quest3(0,0,0)).
+quest1Finish :- write('Quest 1 Finished. You gain 100 exp!'),retract(quest1(0,0,0)),asserta(win1(1)).
+quest2Finish :- write('Quest 2 Finished. You gain 300 exp!'),retract(quest2(0,0,0)),asserta(win2(1)).
+quest3Finish :- write('Quest 3 Finished. You gain 500 exp!'),retract(quest3(0,0,0)),asserta(win3(1)).
 
-/* kerangka reward quest yg bakal ditambahin di battle.py sambil menunggu yang fix */
-/* 
-winX :- (enemyInFight(_,_,_,slime,_,_,_,_)).
-winY :- (enemyInFight(_,_,_,goblin,_,_,_,_)).
-winZ :- (enemyInFight(_,_,_,wolf,_,_,_,_)).
-
-winQuest1 :- ((winX, XNew is X-1, retract(quest1(X,Y,Z)),asserta(quest1(XNew,Y,Z)));
-(winY, YNew is Y-1, retract(quest1(X,Y,Z)),asserta(quest1(X,YNew,Z)));
-(winZ, ZNew is Z-1, retract(quest1(X,Y,Z)),asserta(quest1(X,Y,ZNew)))).  
-
-winQuest2 :- ((winX, XNew is X-1, retract(quest2(X,Y,Z)),asserta(quest2(XNew,Y,Z)));
-(winY, YNew is Y-1, retract(quest2(X,Y,Z)),asserta(quest2(X,YNew,Z)));
-(winZ, ZNew is Z-1, retract(quest2(X,Y,Z)),asserta(quest2(X,Y,ZNew)))). 
-
-winQuest3 :- ((winX, XNew is X-1, retract(quest3(X,Y,Z)),asserta(quest3(XNew,Y,Z)));
-(winY, YNew is Y-1, retract(quest3(X,Y,Z)),asserta(quest3(X,YNew,Z)));
-(winZ, ZNew is Z-1, retract(quest3(X,Y,Z)),asserta(quest3(X,Y,ZNew)))). 
-
-isInQuest(1) :- quest1(X,Y,Z);quest2(X,Y,Z);quest3(X,Y,Z). 
-isInQuest(0) :- \+quest1(X,Y,Z),\+quest2(X,Y,Z),\+quest3(X,Y,Z).
-
-isQuestFinish :- expGoldQuest1 ; expGoldQuest2 ; expGoldQuest3.
-
-Di fungsi attComment yang kondisi menang,
-if IsInQuest(1) then
-    (quest1(X,Y,Z),winQuest1);
-    (quest2(X,Y,Z),winQuest2);
-    (quest3(X,Y,Z),winQuest3),
-    isQuestFinish.
-*/
 
