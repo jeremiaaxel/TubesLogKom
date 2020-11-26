@@ -159,6 +159,7 @@ quit :-
     /* battle.pl */
     retract(fighting(_)),
     write('13519144 - Jonathan Christhoper Jahja'),nl,
+    write('13519188 - Jeremia Axel Bachtera'),nl,
     /* character.pl */
     /* enemy.pl */
     /* fail.pl */
@@ -189,7 +190,6 @@ quit :-
     retract(questOnGoing(_)),
 /* INI KAYANYA GA PERLU */
     retract(expGain(_)),
-    write('13519188 - Jeremia Axel Bachtera'),nl,
 
 /* INI MASIH ERROR */
 /*    retract(quest1(_,_,_)),
@@ -202,3 +202,4 @@ quit :-
     write('Tes - Accesory'),nl, 
 */
     !.
+quit.
