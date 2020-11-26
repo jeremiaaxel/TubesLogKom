@@ -10,3 +10,6 @@
 | 13519188 | Jeremia Axel Bachtera |
 
 ## Cara Menjalankan
+
+retract(character(_,_,_,_,_,_,_,_)).
+asserta(character(kami,kami,10,9999,9999,999999,9999,0)).

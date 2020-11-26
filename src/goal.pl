@@ -4,7 +4,7 @@ loseFinal(boss).
 
 /* Rules */
 /* Pemain menang melawan bos */
-winFinal(boss) :- enemy(_,boss,_,_,0,_,_).
+winFinal(boss) :- enemyInFight(_,_,_,EnemyType,_,_,_,_), EnemyType = your_frickin_grandpa, !.
 
 goal :- winFinal(boss),
         !,
