@@ -173,6 +173,7 @@ quit :-
     retract(accessory(_)),
     retract(potion(_,_,_)),
     retract(gold(_)),
+    retract(equip(_)),
     /* map.pl */
     retract(len(_)),
     retract(width(_)),
