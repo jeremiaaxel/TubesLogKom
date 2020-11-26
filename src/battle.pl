@@ -217,79 +217,38 @@ foundEnemy :-
 
 /* *** Bosses *** */
 /* Bertemu boss yang sesuai level character */
-/* 3 */
-foundBoss :-
-    character(_, _, CharLevel, _, _, _, _, _),
-    CharLevel == 3,
-    ID is 101,
-    enemy(ID, Name, Type, Level, HP, DP, AP),
-    MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
-    asserta(isEnemyAlive(1)),
-    random(1, 6, P),
-    asserta(peluang(P)),
-    asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
-    showEnemy, !.
-
-/* 5 */
-foundBoss :-
-    character(_, _, CharLevel, _, _, _, _, _),
-    CharLevel == 5,
-    ID is 102,
-    enemy(ID, Name, Type, Level, HP, DP, AP),
-    MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
-    asserta(isEnemyAlive(1)),
-    random(1, 6, P),
-    asserta(peluang(P)),
-    asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
-    showEnemy, !.
-
-/* 7 */
-foundBoss :-
-    character(_, _, CharLevel, _, _, _, _, _),
-    CharLevel == 7,
-    ID is 103,
-    enemy(ID, Name, Type, Level, HP, DP, AP),
-    MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
-    asserta(isEnemyAlive(1)),
-    random(1, 6, P),
-    asserta(peluang(P)),
-    asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
-    showEnemy, !.
-
-/* 9 */
-foundBoss :-
-    character(_, _, CharLevel, _, _, _, _, _),
-    CharLevel == 9,
-    ID is 104,
-    enemy(ID, Name, Type, Level, HP, DP, AP),
-    MaxHP is HP,
-    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
-    asserta(isEnemyAlive(1)),
-    random(1, 6, P),
-    asserta(peluang(P)),
-    asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
-    showEnemy, !.
 
 /* 10 */
 foundBoss :-
     character(_, _, CharLevel, _, _, _, _, _),
     CharLevel == 10,
     ID is 105,
-    enemy(ID, Name, Type, Level, HP, DP, AP),
+    boss(ID, Name, Type, Level, HP, DP, AP),
     MaxHP is HP,
     asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
     asserta(isEnemyAlive(1)),
     random(1, 6, P),
     asserta(peluang(P)),
     asserta(turns(0)),
-    write('Congratulations, you just found a BOSS enemy!'),retract(fighting(_)),asserta(fighting(1)),
+    write('So...'),retract(fighting(_)),asserta(fighting(1)),
+    write('...'), nl,
+    sleep(0.5),
+    write('You\'ve been looking for me'), nl,
+    sleep(0.5),
+    write('Well... here I am...'), nl,
+    showEnemy, enemyTurn, !.
+
+foundBossFinale :-
+    sleep(0.5),
+    write('ID : 27112020'), nl,
+    ID is 27112020,
+    boss(ID, Name, Type, Level, HP, DP, AP),
+    MaxHP is HP,
+    asserta(enemyInFight(ID, Name, Level, Type, MaxHP, HP, DP, AP)),
+    asserta(isEnemyAlive(1)),
+    asserta(peluang(0)),
+    asserta(turns(0)),
+    write('HELLO MY GRANDCHILD!'),retract(fighting(_)),asserta(fighting(1)), sleep(2),
     showEnemy, !.
 
 finishFight :-
@@ -326,6 +285,42 @@ attackComment :-
     finishFight,
     sleep(1), !.
 
+attackComment :-
+    enemyInFight(ID, EnemyName, _, _, EnemyMaxHP, EnemyHP, _, _),
+    ID == 27112020,
+    EnemyHP =< 0,
+    write(EnemyName), write(' health '), write(' : '), write('0/'), write(EnemyMaxHP), nl,
+    write('You win '), nl,
+    write('...'), nl,
+    sleep(0.5),
+    write('naruhodo...'), nl,
+    sleep(0.5),
+    write('I\'m '), sleep(0.3), write('really '), sleep(0.3), write('proud of you.'),
+    expUp,
+    goal,
+    write('tes'), nl,
+    finishFight,
+    sleep(1), !.
+
+attackComment :-
+    enemyInFight(ID, EnemyName, _, _, EnemyMaxHP, EnemyHP, _, _),
+    ID == 105,
+    EnemyHP =< 0,
+    write(EnemyName), write(' health '), write(' : '), write('0/'), write(EnemyMaxHP), nl,
+    write('You win '), nl,
+    write('...'), nl,
+    write('I see..'), nl,
+    sleep(0.5),
+    write('you\'ve grown strong'), nl,
+    sleep(0.5),
+    write('But...'), nl,
+    sleep(0.5),
+    write('. . .'), nl,
+    sleep(0.5),
+    write('I\'m proud of you...'), sleep(1), write(' my grandchild.'), nl, !, sleep(1),
+    finishFight,
+    foundBossFinale.
+
 isLevelUp :-
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     Exp < Level*100,
@@ -343,7 +338,7 @@ isLevelUp :-
 expUp :-
     character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
     enemyInFight(_, _, EnemyLevel, _, _, _, _, _),
-    Exp2 is Exp + EnemyLevel*5,
+    Exp2 is Exp + EnemyLevel*10,
     retract(character(_, _, _, _, _, _, _, _)),
     asserta(character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp2)),
     isLevelUp,
@@ -432,6 +427,18 @@ enemyTurn :-
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     retract(character(_, _, _, _, _, _, _, _)),
     EnemyDmg is round(EnemyAP*(100/(100+DP))),
+    NewCharHP is (HP - EnemyDmg),
+    asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
+    write(EnemyName), write(' attacks and deals '), write(EnemyDmg), write(' damage.'), nl,
+    enemyAttComment, !.
+
+enemyTurn :-
+    enemyInFight(ID, EnemyName, _, _, _, _, _, EnemyAP),
+    ID == 105,
+    random(1, 6, X),
+    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
+    retract(character(_, _, _, _, _, _, _, _)),
+    EnemyDmg is round(X*EnemyAP*(100/(100+DP))),
     NewCharHP is (HP - EnemyDmg),
     asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
     write(EnemyName), write(' attacks and deals '), write(EnemyDmg), write(' damage.'), nl,
