@@ -468,10 +468,10 @@ usePotion :-
     usePot(Heal),
     character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
     retract(character(_, _, _, _, _, _, _, _)),
-    Temp is HP + Heal;
     (
-        Temp < MaxHP -> NewCharHP is Temp;
-        NewCharHP is MaxHP
+        HP+Heal>MaxHP -> NewCharHP is MaxHP;
+        NewCharHP is HP+Heal
+        
     ),
     write(Name), write(' just used a potion, heals to '), write(NewCharHP),nl,
     asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
