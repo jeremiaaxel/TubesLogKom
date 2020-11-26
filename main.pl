@@ -15,7 +15,7 @@
 
 help :-
     write('------------------------ Commands: ------------------------'), nl,
-    write('1.  start    : To start to waste your useless life'), nl,
+    write('1.  start    : To start the game'), nl,
     write('2.  map      : To show map'), nl,
     write('3.  status   : To show your status of course'), nl,
     write('4.  moving commands:'), nl,
@@ -145,7 +145,7 @@ quit :-
 
 quit :-
     sleep(0.5),
-    write('Now go! Realize your pitiful life!'), nl,
+    write('Thanks for playing...'), nl,
     sleep(0.5),
     write('Do not forget you have a lot of assignments to be done any time soon!'),nl,nl,
     sleep(0.5),
