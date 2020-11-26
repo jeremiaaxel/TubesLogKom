@@ -11,8 +11,8 @@
 
 /* QUEST 1 */
 foundQuest :- posPlayer(X,Y),quest1(X,Y),\+win1(1),\+(questOnGoing(1)),asserta(quest1(1,1,1)),
-    write('Veelfdir: Ohh dear Willy Wangky\'s grandson, can you help me for something?'),nl,sleep(0.5),
-    write('[1] Alright. What can I do?'),nl,
+    write('Veelfdir: Ohh dear Willy Wangky\'s grandson, could you help me for something?'),nl,sleep(0.5),
+    write('[1] Alright. What could I do?'),nl,
     write('[2] I\'m in a hurry. Just do it fast.'),nl,
     write('[3] Give me some \'wares\' first before that \'helping\' thing.'),nl,
     repeat,
@@ -22,10 +22,10 @@ foundQuest :- posPlayer(X,Y),quest1(X,Y),\+win1(1),\+(questOnGoing(1)),asserta(q
             fail;
             !
     ),
-    ((OO=1,nl,write('Veelfdir: My bianglala has been burned by those filthy monsters! Please, get rid of them all'));
-    (OO=2,nl,write('Veelfdir: My farm has been burned by those filthy monsters! Please, get rid of them all'));
+    ((OO=1,nl,write('Veelfdir: Veelfdir: I can\'t access my bianglala as those filthy monsters has been walking around it! Please, get rid of them all'));
+    (OO=2,nl,write('Veelfdir: I can\'t access my bianglala as those filthy monsters has been walking around it! Please, get rid of them all'));
     (OO=3,nl,write('Veelfdir: And I oop...What happened that you make the darkness led behind your cruel words, sir?'),nl,
-    write('          I have no wares left. My farm has been burned by those filthy monsters!'))),nl,sleep(0.5),
+    write('          I have no wares left as the Willy Wangky theme park being ambushed by these monsters. I can\'t access my bianglala as those filthy monsters has been walking around it! Could you please get rid of them all?'))),nl,sleep(0.5),
     write('[1] Alright. I\'ll show them this great Wangky Grandson wkwk.'),nl,
     write('[2] My condolences. I will show them no mercy.'),nl,
     write('[3] Ahh they are just a bunch of dog yet you can\'t get rid of them. Alright alright.'),nl,
