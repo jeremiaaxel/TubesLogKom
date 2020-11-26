@@ -113,6 +113,7 @@ start :-
     asserta(fighting(0)),
     asserta(init(1)),
     asserta(newMove(0)),
+    map,
     !.
 
 /* Check ada ga jobnya */

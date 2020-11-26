@@ -155,22 +155,22 @@ inventory :-
     weapon(Item),
     printlist(Item),
     (equip(weapon(Item)),print(' (Equipped)');nl),
-    fail.
+    !.
 inventory :- 
     armor(Item),
     printlist(Item),
     (equip(armor(Item)),print(' (Equipped)');nl),
-    fail.
+    !.
 inventory :- 
     accessory(Item),
     printlist(Item),
     (equip(accessory(Item)),print(' (Equipped)');nl),
-    fail.
+    !.
 inventory :- 
     potion(Type,N,_),
     printlist([N,Type,'potion']),
     nl,
-    fail.
+    !.
 
 /*
 choosePotion :-
@@ -181,18 +181,20 @@ choosePotion :-
     print('You have run out of potion!'),
     fail.*/
 
+usePot(Amount) :-
+    Amount == 0,
+    write('You have ran out of healing potion!'),!.
+
 usePot(Amount) :- 
     /*choosePotion,
     read(Type),
     Type=health,*/
+    Amount > 0,
     potion(N,'Health',Heal),!,
     retract(potion(N,'Health',Heal)),
     N1 is N-1,
     Amount = Heal,
     assertz(potion(N1,'Health',Heal)).
-usePot(Amount) :-
-    Amount = 0,
-    write('You have run out of healing potion!'),fail.
 
 /* Print List */
 /*Basis*/
