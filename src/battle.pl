@@ -359,8 +359,12 @@ isLevelUp :-
     Exp >= Level*100,
     Exp2 is 0,
     Level2 is Level + 1,
+    MaxHP2 is MaxHP + 21,
+    HP2 is MaxHP2,
+    AP2 is AP + 20,
+    DP2 is DP + 15,
     retract(character(_, _, _, _, _, _, _, _)),
-    asserta(character(Name, Job, Level2, MaxHP, HP, DP, AP, Exp2)),sleep(1),
+    asserta(character(Name, Job, Level2, MaxHP2, HP2, DP2, AP2, Exp2)),sleep(1),
     write('-----------------------------------------------------------'),nl,
     write('           _                   _   _   _       _ '),nl,
     write('          | |    _____   _____| | | | | |_ __ | |'),nl,
@@ -368,7 +372,7 @@ isLevelUp :-
     write('          | |__|  __/\\ V /  __/ | | |_| | |_) |_|'),nl,
     write('          |_____\\___| \\_/ \\___|_|  \\___/| .__/(_)'),nl,
     write('                                        |_|      '),nl,
-    write('                    Now you\'re level'),write(Level2),write('.'),
+    write('                    Now you\'re level '),write(Level2),write('.'), nl,
     write('-----------------------------------------------------------').
 
 expUp :-
