@@ -33,11 +33,12 @@ shop :- /* untuk membuka menu store */
     store(Xs,Ys),
     Xp=Xs,Yp=Ys,!,
     write('       ~~ STORE ~~       '), nl,
-    write('1. gacha (400 Gold)\n2. Health Potion (10 Gold)\n'),
+    write('1. gacha (400 Gold)\n2. Health Potion (10 Gold)\n3. Exit\n'),
     write('\nWhat would you like to buy? '),
     read(X),
     (X==1 -> gacha;
-    X==2 -> healthPotion). 
+    X==2 -> healthPotion;
+    X==3). 
 shop :-
     write('You are not in any store.').
 

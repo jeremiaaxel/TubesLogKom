@@ -355,7 +355,7 @@ isLevelUp :-
     asserta(character(Name, Job, Level, MaxHP, HP, DP, AP, Exp)), !.
 
 isLevelUp :-
-    character(Name, Job, Level, MaxHP, HP, DP, AP, Exp),
+    character(Name, Job, Level, MaxHP, _, DP, AP, Exp),
     Exp >= Level*100,
     Exp2 is 0,
     Level2 is Level + 1,
