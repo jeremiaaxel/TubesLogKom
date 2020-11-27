@@ -177,9 +177,9 @@ expGoldQuest3 :- character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
 expGoldQuest3 :- \+quest3(0,0,0),!.
 
 /* Jika quest selesai */
-quest1Finish :- write('Quest 1 Finished. You gain 100 exp!'),retract(quest1(0,0,0)),asserta(win1(1)).
-quest2Finish :- write('Quest 2 Finished. You gain 300 exp!'),retract(quest2(0,0,0)),asserta(win2(1)).
-quest3Finish :- write('Quest 3 Finished. You gain 500 exp!'),retract(quest3(0,0,0)),asserta(win3(1)).
+quest1Finish :- write('Quest 1 Finished. You gain 100 exp!'),retract(quest1(0,0,0)),asserta(win1(1)),retract(questOnGoing(1)),asserta(questOnGoing(0)).
+quest2Finish :- write('Quest 2 Finished. You gain 300 exp!'),retract(quest2(0,0,0)),asserta(win2(1)),retract(questOnGoing(1)),asserta(questOnGoing(0)).
+quest3Finish :- write('Quest 3 Finished. You gain 500 exp!'),retract(quest3(0,0,0)),asserta(win3(1)),retract(questOnGoing(1)),asserta(questOnGoing(0)).
 
 quest :-
     init(_),
