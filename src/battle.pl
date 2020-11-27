@@ -20,26 +20,26 @@ winZ :- (enemyInFight(_,_,_,wolf,_,_,_,_)).
 winQuest1 :- ((winX, quest1(X,Y,Z),X =\= 0, XNew is X-1, retract(quest1(X,Y,Z)),asserta(quest1(XNew,Y,Z)));
 (winY, quest1(X,Y,Z),Y =\=0, YNew is Y-1, retract(quest1(X,Y,Z)),asserta(quest1(X,YNew,Z)));
 (winZ, quest1(X,Y,Z),Z =\=0, ZNew is Z-1, retract(quest1(X,Y,Z)),asserta(quest1(X,Y,ZNew)))).
-winQuest1 :- ((winX, quest1(X,Y,Z),X =:= 0);
-(winY, quest1(X,Y,Z),Y =:=0);
-(winZ, quest1(X,Y,Z),Z =:=0)).
+winQuest1 :- ((winX, quest1(X,_,_),X =:= 0);
+(winY, quest1(_,Y,_),Y =:=0);
+(winZ, quest1(_,_,Z),Z =:=0)).
 
 winQuest2 :- ((winX, quest2(X,Y,Z),X =\= 0, XNew is X-1, retract(quest2(X,Y,Z)),asserta(quest2(XNew,Y,Z)));
 (winY, quest2(X,Y,Z),Y =\= 0, YNew is Y-1, retract(quest2(X,Y,Z)),asserta(quest2(X,YNew,Z)));
 (winZ, quest2(X,Y,Z),Z =\=0, ZNew is Z-1, retract(quest2(X,Y,Z)),asserta(quest2(X,Y,ZNew)))).
-winQuest2 :- ((winX, quest2(X,Y,Z),X =:= 0);
-(winY, quest2(X,Y,Z),Y =:=0);
-(winZ, quest2(X,Y,Z),Z =:=0)).
+winQuest2 :- ((winX, quest2(X,_,_),X =:= 0);
+(winY, quest2(_,Y,_),Y =:=0);
+(winZ, quest2(_,_,Z),Z =:=0)).
 
 winQuest3 :- ((winX, quest3(X,Y,Z),X =\= 0, XNew is X-1, retract(quest3(X,Y,Z)),asserta(quest3(XNew,Y,Z)));
 (winY, quest3(X,Y,Z),Y =\= 0, YNew is Y-1, retract(quest3(X,Y,Z)),asserta(quest3(X,YNew,Z)));
 (winZ, quest3(X,Y,Z),Z =\= 0, ZNew is Z-1, retract(quest3(X,Y,Z)),asserta(quest3(X,Y,ZNew)))).
-winQuest3 :- ((winX, quest3(X,Y,Z),X =:= 0);
-(winY, quest3(X,Y,Z),Y =:=0);
-(winZ, quest3(X,Y,Z),Z =:=0)).
+winQuest3 :- ((winX, quest3(X,_,_),X =:= 0);
+(winY, quest3(_,Y,_),Y =:=0);
+(winZ, quest3(_,_,Z),Z =:=0)).
 
-isInQuest(1) :- quest1(X,Y,Z);quest2(X,Y,Z);quest3(X,Y,Z).
-isInQuest(0) :- \+quest1(X,Y,Z),\+quest2(X,Y,Z),\+quest3(X,Y,Z).
+isInQuest(1) :- quest1(_,_,_);quest2(_,_,_);quest3(_,_,_).
+isInQuest(0) :- \+quest1(_,_,_),\+quest2(_,_,_),\+quest3(_,_,_).
 
 isQuestFinish :- expGoldQuest1;expGoldQuest2;expGoldQuest3.
 
@@ -240,6 +240,10 @@ foundBoss :-
     write('Well... here I am...'), nl,
     showEnemy, enemyTurn, !.
 
+foundBoss :- character(_, _, CharLevel, _, _, _, _, _),
+    CharLevel =\= 10,
+    write('You\'re not worthy yet, mortal.').
+
 foundBossFinale :-
     sleep(0.5),
     write('ID : 27112020'), nl,
@@ -285,27 +289,27 @@ attackComment :-
     sleep(1), !.
 
 attackComment :-
-    (enemyInFight(_, EnemyName, _, slime, EnemyMaxHP, EnemyHP, _, _);
-    enemyInFight(_, EnemyName, _, goblin, EnemyMaxHP, EnemyHP, _, _);
-    enemyInFight(_, EnemyName, _, wolf, EnemyMaxHP, EnemyHP, _, _)),
+    (enemyInFight(_, _, _, slime, _, EnemyHP, _, _);
+    enemyInFight(_, _, _, goblin, _, EnemyHP, _, _);
+    enemyInFight(_, _, _, wolf, _, EnemyHP, _, _)),
     EnemyHP =< 0,
     isInQuest(1),winQuest2,isQuestFinish,
     finishFight,
     sleep(1), !.
 
 attackComment :-
-    (enemyInFight(_, EnemyName, _, slime, EnemyMaxHP, EnemyHP, _, _);
-    enemyInFight(_, EnemyName, _, goblin, EnemyMaxHP, EnemyHP, _, _);
-    enemyInFight(_, EnemyName, _, wolf, EnemyMaxHP, EnemyHP, _, _)),
+    (enemyInFight(_, _, _, slime, _, EnemyHP, _, _);
+    enemyInFight(_, _, _, goblin, _, EnemyHP, _, _);
+    enemyInFight(_, _, _, wolf, _, EnemyHP, _, _)),
     EnemyHP =< 0,
     isInQuest(1),winQuest3,isQuestFinish,
     finishFight,
     sleep(1), !.
 
 attackComment :-
-    (enemyInFight(_, EnemyName, _, slime, EnemyMaxHP, EnemyHP, _, _);
-    enemyInFight(_, EnemyName, _, goblin, EnemyMaxHP, EnemyHP, _, _);
-    enemyInFight(_, EnemyName, _, wolf, EnemyMaxHP, EnemyHP, _, _)),
+    (enemyInFight(_, _, _, slime, _, EnemyHP, _, _);
+    enemyInFight(_, _, _, goblin, _, EnemyHP, _, _);
+    enemyInFight(_, _, _, wolf, _, EnemyHP, _, _)),
     EnemyHP =< 0,
     isInQuest(0),
     expUp,
@@ -322,10 +326,9 @@ attackComment :-
     sleep(0.5),
     write('naruhodo...'), nl,
     sleep(0.5),
-    write('I\'m '), sleep(0.3), write('really '), sleep(0.3), write('proud of you.'),
+    write('I\'m '), sleep(0.3), write('really '), sleep(0.3), write('proud of you.'),nl,
     expUp,
     goal,
-    write('tes'), nl,
     finishFight,
     sleep(1), !.
 

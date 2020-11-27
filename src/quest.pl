@@ -152,7 +152,7 @@ foundQuest :- posPlayer(X,Y),quest3(X,Y),\+(questOnGoing(1)),asserta(quest3(5,6,
     (TT=1,nl,write('Dovahngard : ...In the mean time... this old earthling just requests you to clean my Histeria from those impurities...'),nl,sleep(0.5),
     write('             ...but those living creatures will never end until you.....end the biggest impurities laid beneath this land....'),nl,
     write('             ...God give me a hope to this land as the sunrise could be seen again...')),nl,nl,sleep(0.5),
-    write('-----------------------------------------------------------'), nl,nl,
+    write('-----------------------------------------------------------'), nl,
     write('                ___                  _     _____ '),nl,
     write('               / _ \\ _   _  ___  ___| |_  |___ / '),nl,
     write('              | | | | | | |/ _ \\/ __| __|   |_ \\ '),nl,
@@ -238,7 +238,7 @@ quest3Finish :-
 quest :-
     init(_),
     write('------------------------- QUEST --------------------------'), nl,
-    write('Quest 1 (100 exp) '),
+    write('Quest 1 (50 exp) '),
     (
         win1(X), X = 1 -> write('<=<   completed   >=>'),nl;
         questOnGoing(1), quest1(A,B,C), A >= 0,!,B >= 0,!,C >= 0,!,A =< 1,!,B =< 1,!,C =< 1,! ->
@@ -251,7 +251,7 @@ quest :-
             );
         write('<=< yet 2 be done >=>'),nl
     ),nl,
-    write('Quest 2 (200 exp) '),
+    write('Quest 2 (150 exp) '),
     (
         win2(X), X = 1 -> write('<=<   completed   >=>'),nl;
         questOnGoing(1), quest2(A,B,C), A >= 0,!,B >= 0,!,C >= 0,!,A =< 2,!,B =< 3,!,C =< 2,! ->
@@ -264,7 +264,7 @@ quest :-
             );
         write('<=< yet 2 be done >=>'),nl
     ),nl,
-    write('Quest 3 (500 exp) '),
+    write('Quest 3 (350 exp) '),
     (
         win3(X), X = 1 -> write('<=<   completed   >=>'),nl;
         questOnGoing(1), quest3(A,B,C), A >= 0,!,B >= 0,!,C >= 0,!,A =< 5,!,B =< 6,!,C =< 4,! ->
