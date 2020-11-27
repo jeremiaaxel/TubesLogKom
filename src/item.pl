@@ -11,17 +11,17 @@ itemList(swordsman,[['Short','Sword'],['Falchion','Sword'],['Cutlass','Sword'],[
 itemList(archer,[['Regular','Bow'],['Long','Bow'],['Cross','Bow'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
 itemList(sorcerer,[['Fireball','Spell'],['Iceray','Spell'],['Thunderstrike','Spell'],['Leather','Armor'],['Iron','Armor'],['Sacred','Ring'],['Dragonscale','Amulet'],['Wangky','Bracelet']]).
 
-checkStats('Short',10,attack).
-checkStats('Falchion',20,attack).
-checkStats('Cutlass',40,attack).
+checkStats('Short',20,attack).
+checkStats('Falchion',40,attack).
+checkStats('Cutlass',80,attack).
 
-checkStats('Regular',5,attack).
-checkStats('Long',15,attack).
-checkStats('Cross',40,attack).
+checkStats('Regular',15,attack).
+checkStats('Long',50,attack).
+checkStats('Cross',100,attack).
 
-checkStats('Fireball',15,attack).
-checkStats('Iceray',30,attack).
-checkStats('Thunderstrike',50,attack).
+checkStats('Fireball',30,attack).
+checkStats('Iceray',50,attack).
+checkStats('Thunderstrike',110,attack).
 
 checkStats('Leather',100,defend).
 checkStats('Iron',500,defend).
