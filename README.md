@@ -15,7 +15,7 @@
 3. Pilih menu File
 4. Pilih consult
 5. Cari direktori file main.pl
-6. Open main.pl tersebut dengan `['main.pl'].`
+6. Open main.pl tersebut
 7. Jika sudah selesai compiling, ketik `start.` untuk memulai permainan
 8. Selamat bermain!
 
