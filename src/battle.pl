@@ -23,12 +23,14 @@ winQuest1 :- ((winX, quest1(X,Y,Z),X =\= 0, XNew is X-1, retract(quest1(X,Y,Z)),
 winQuest1 :- ((winX, quest1(X,Y,Z),X =:= 0);
 (winY, quest1(X,Y,Z),Y =:=0);
 (winZ, quest1(X,Y,Z),Z =:=0)).
+
 winQuest2 :- ((winX, quest2(X,Y,Z),X =\= 0, XNew is X-1, retract(quest2(X,Y,Z)),asserta(quest2(XNew,Y,Z)));
 (winY, quest2(X,Y,Z),Y =\= 0, YNew is Y-1, retract(quest2(X,Y,Z)),asserta(quest2(X,YNew,Z)));
 (winZ, quest2(X,Y,Z),Z =\=0, ZNew is Z-1, retract(quest2(X,Y,Z)),asserta(quest2(X,Y,ZNew)))).
 winQuest2 :- ((winX, quest2(X,Y,Z),X =:= 0);
 (winY, quest2(X,Y,Z),Y =:=0);
 (winZ, quest2(X,Y,Z),Z =:=0)).
+
 winQuest3 :- ((winX, quest3(X,Y,Z),X =\= 0, XNew is X-1, retract(quest3(X,Y,Z)),asserta(quest3(XNew,Y,Z)));
 (winY, quest3(X,Y,Z),Y =\= 0, YNew is Y-1, retract(quest3(X,Y,Z)),asserta(quest3(X,YNew,Z)));
 (winZ, quest3(X,Y,Z),Z =\= 0, ZNew is Z-1, retract(quest3(X,Y,Z)),asserta(quest3(X,Y,ZNew)))).
@@ -39,7 +41,7 @@ winQuest3 :- ((winX, quest3(X,Y,Z),X =:= 0);
 isInQuest(1) :- quest1(X,Y,Z);quest2(X,Y,Z);quest3(X,Y,Z).
 isInQuest(0) :- \+quest1(X,Y,Z),\+quest2(X,Y,Z),\+quest3(X,Y,Z).
 
-isQuestFinish :- expGoldQuest1 ; expGoldQuest2 ; expGoldQuest3.
+isQuestFinish :- expGoldQuest1;expGoldQuest2;expGoldQuest3.
 
 showEnemy :-
     nl,
@@ -278,9 +280,34 @@ attackComment :-
     write(EnemyName), write(' health '), write(' : '), write('0/'), write(EnemyMaxHP), nl,
     write('You win '), nl,
     write('...'), nl,
-    ((isInQuest(1),((quest1(X,Y,Z),winQuest1);
-    (quest2(X,Y,Z),winQuest2);
-    (quest3(X,Y,Z),winQuest3)),isQuestFinish);(isInQuest(0))),
+    isInQuest(1),winQuest1,isQuestFinish,
+    finishFight,
+    sleep(1), !.
+
+attackComment :-
+    (enemyInFight(_, EnemyName, _, slime, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, goblin, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, wolf, EnemyMaxHP, EnemyHP, _, _)),
+    EnemyHP =< 0,
+    isInQuest(1),winQuest2,isQuestFinish,
+    finishFight,
+    sleep(1), !.
+
+attackComment :-
+    (enemyInFight(_, EnemyName, _, slime, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, goblin, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, wolf, EnemyMaxHP, EnemyHP, _, _)),
+    EnemyHP =< 0,
+    isInQuest(1),winQuest3,isQuestFinish,
+    finishFight,
+    sleep(1), !.
+
+attackComment :-
+    (enemyInFight(_, EnemyName, _, slime, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, goblin, EnemyMaxHP, EnemyHP, _, _);
+    enemyInFight(_, EnemyName, _, wolf, EnemyMaxHP, EnemyHP, _, _)),
+    EnemyHP =< 0,
+    isInQuest(0),
     expUp,
     finishFight,
     sleep(1), !.
@@ -333,7 +360,16 @@ isLevelUp :-
     Exp2 is 0,
     Level2 is Level + 1,
     retract(character(_, _, _, _, _, _, _, _)),
-    asserta(character(Name, Job, Level2, MaxHP, HP, DP, AP, Exp2)).
+    asserta(character(Name, Job, Level2, MaxHP, HP, DP, AP, Exp2)),sleep(1),
+    write('-----------------------------------------------------------'),nl,
+    write('           _                   _   _   _       _ '),nl,
+    write('          | |    _____   _____| | | | | |_ __ | |'),nl,
+    write('          | |   / _ \\ \\ / / _ \\ | | | | | \'_ \\| |'),nl,
+    write('          | |__|  __/\\ V /  __/ | | |_| | |_) |_|'),nl,
+    write('          |_____\\___| \\_/ \\___|_|  \\___/| .__/(_)'),nl,
+    write('                                        |_|      '),nl,
+    write('                    Now you\'re level'),write(Level2),write('.'),
+    write('-----------------------------------------------------------').
 
 expUp :-
     character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),
@@ -447,7 +483,7 @@ enemyTurn :-
 /* **** Run **** */
 /* Bisa run kalau peluang >= 5 */
 /* Berhasil Run */
-run :- 
+run :-
     \+ init(_),
     write('Please start the game'), !.
 
@@ -478,7 +514,7 @@ usePotion :-
     (
         HP+Heal>MaxHP -> NewCharHP is MaxHP;
         NewCharHP is HP+Heal
-        
+
     ),
     write(Name), write(' just used a potion, heals to '), write(NewCharHP),nl,
     asserta(character(Name, Job, Level, MaxHP, NewCharHP, DP, AP, Exp)),
