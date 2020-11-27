@@ -10,7 +10,7 @@
 | 13519188 | Jeremia Axel Bachtera |
 
 ## Cara Menjalankan
-1. Download GNU Prolog dari situs [gprolog] (http://www.gprolog.org/) dan install
+1. Download GNU Prolog dari situs [gprolog](http://www.gprolog.org/) dan install
 2. Buka program GNU Prolog
 3. Pilih menu File
 4. Pilih consult
