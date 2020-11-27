@@ -15,7 +15,7 @@
 
 help :-
     write('------------------------ Commands: ------------------------'), nl,
-    write('1.  start    : To start to waste your useless life'), nl,
+    write('1.  start    : To start the game'), nl,
     write('2.  map      : To show map'), nl,
     write('3.  status   : To show your status of course'), nl,
     write('4.  moving commands:'), nl,
@@ -145,7 +145,7 @@ quit :-
 
 quit :-
     sleep(0.5),
-    write('Now go! Realize your pitiful life!'), nl,
+    write('Thanks for playing...'), nl,
     sleep(0.5),
     write('Do not forget you have a lot of assignments to be done any time soon!'),nl,nl,
     sleep(0.5),
@@ -159,46 +159,65 @@ quit :-
     /* battle.pl */
     retract(fighting(_)),
     write('13519144 - Jonathan Christhoper Jahja'),nl,
+    write('13519188 - Jeremia Axel Bachtera'),nl,
     /* character.pl */
     /* enemy.pl */
     /* fail.pl */
     /* goal.pl */
     /* item.pl */
-    retract(posPlayer(_, _)),
     retract(weapon(_)),
     retract(armor(_)),
-    retract(potion(_,_,_)),
+    (
+        potion(_,_,_) -> retract(potion(_,_,_));
+        \+potion(_,_,_)
+    ),
     retract(gold(_)),
-    retract(equip(_)),
+    (
+        accessory(_) -> retract(accessory(_));
+        \+accessory(_)
+    ),
     /* map.pl */
+    retract(posPlayer(_,_)),
     retract(len(_)),
     retract(width(_)),
     retract(store(_,_)),
-    retract(quest1(_,_)),
-    retract(quest2(_,_)),
-    retract(quest3(_,_)),
     retract(dungeon(_,_)),
     retract(teleportW(_,_)),
     retract(teleportX(_,_)),
     retract(teleportY(_,_)),
     retract(teleportZ(_,_)),
+    retract(quest1(_,_)),
+    retract(quest2(_,_)),
+    retract(quest3(_,_)),
+    /* quest.pl */
+    (
+        win1(_) -> retract(win1(_));
+        \+win1(_)
+    ),
+    (
+        win2(_) -> retract(win2(_));
+        \+win2(_)
+    ),
+    (
+        win3(_) -> retract(win3(_));
+        \+win3(_)
+    ),
+    (
+        quest1(_,_,_) -> retract(quest1(_,_,_));
+        \+quest1(_,_,_)
+    ),
+    (
+        quest2(_,_,_) -> retract(quest2(_,_,_));
+        \+quest2(_,_,_)
+    ),
+    (
+        quest3(_,_,_) -> retract(quest3(_,_,_));
+        \+quest3(_,_,_)
+    ),
+    retract(questOnGoing(_)),
     /* move.pl */
     retract(newMove(_)),
-    /* quest.pl */
     /* store.pl */
-    retract(questOnGoing(_)),
-/* INI KAYANYA GA PERLU */
-    retract(expGain(_)),
-    write('13519188 - Jeremia Axel Bachtera'),nl,
-
-/* INI MASIH ERROR */
-/*    retract(quest1(_,_,_)),
-    write('Tes - quest1'),nl,
-    retract(quest2(_,_,_)),
-    write('Tes - quest2'),nl,
-    retract(quest3(_,_,_)),
-    write('Tes - quest3'),nl,
-    retract(accessory(_)),
-    write('Tes - Accesory'),nl, 
-*/
     !.
+
+quit.
