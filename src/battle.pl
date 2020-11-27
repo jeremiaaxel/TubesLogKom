@@ -373,7 +373,7 @@ isLevelUp :-
     write('          |_____\\___| \\_/ \\___|_|  \\___/| .__/(_)'),nl,
     write('                                        |_|      '),nl,
     write('                    Now you\'re level '),write(Level2),write('.'), nl,
-    write('-----------------------------------------------------------').
+    write('-----------------------------------------------------------'),nl.
 
 expUp :-
     character(Name, Job, CharLevel, MaxHP, HP, DP, AP, Exp),

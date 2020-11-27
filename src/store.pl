@@ -38,7 +38,7 @@ shop :- /* untuk membuka menu store */
     read(X),
     (X==1 -> gacha;
     X==2 -> healthPotion;
-    X==3). 
+    X==3 -> write('Well, come back here if you have decided to buy anything.')). 
 shop :-
     write('You are not in any store.').
 
