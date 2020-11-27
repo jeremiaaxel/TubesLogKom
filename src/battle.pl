@@ -492,7 +492,7 @@ enemyTurn :-
 /* Berhasil Run */
 run :-
     \+ init(_),
-    write('Please start the game'), !.
+    write('Please start the game.'), !.
 
 run :-
     \+ isRun(_),
@@ -511,6 +511,10 @@ run :-
     P < 5,
     write('You failed to run !'),
     !.
+
+run :-
+    \+fighting(1),
+    write('You don\'t have any enemy to run away from!'),!.
 
 /* **** Use Potion **** */
 /* Use potion normal */

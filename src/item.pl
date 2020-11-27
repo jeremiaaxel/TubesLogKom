@@ -169,6 +169,9 @@ inventory :-
     potion(Type,N,_),
     printlist([N,Type,'potion']),
     nl,fail.
+inventory :-
+    \+init(_),
+    write('Please start the game first.'),!.
 inventory.
 
 /*
